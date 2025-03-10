@@ -30,3 +30,45 @@ body,
   font-size: 1rem;
   cursor: pointer;
 }
+
+.notes-search-bar {
+  display: flex;
+  min-width: 30%;
+}
+
+.search-input-wrapper {
+  width: max-content;
+  display: flex;
+  align-items: center;
+  border: 1px solid #ddd;
+  background-color: #fdfdfd;
+  border-radius: 30px;
+}
+
+.notes-search-bar-input:focus {
+  outline: none;
+  border: none;
+}
+
+.notes-search-bar-input {
+  color: #333;
+  height: 2rem;
+  border: none;
+  background-color: transparent;
+}
+
+.search-bar-submit {
+  background-color: transparent;
+  border: none;
+}
+
+.notes-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.search-bar-input-settings {
+  border: none;
+  background: transparent;
+}
