@@ -3,7 +3,37 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Notes app</title>
+    <link href="./main.css" rel="stylesheet" />
   </head>
-  <body></body>
+  <body>
+    <div class="container">
+      <div class="folders-navbar">
+        <button class="folders-navbar-button" data-button-new-note>
+          + New Note
+        </button>
+        <div class="folders-container">Here goes folders</div>
+      </div>
+      <div class="notes-container">
+        <form>
+          <div class="notes-search-bar">
+            <div class="search-input-wrapper">
+              <input
+                class="notes-search-bar-input"
+                data-notes-search-bar
+                type="search"
+                placeholder="Search"
+              /><button class="search-bar-submit">
+                <img src="icons/search.svg" />
+              </button>
+            </div>
+            <button class="search-bar-input-settings">
+              <img src="icons/settings.svg" />
+            </button>
+          </div>
+        </form>
+        <div class="notes-wrapper">Here goes notes</div>
+      </div>
+    </div>
+  </body>
 </html>
