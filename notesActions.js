@@ -22,7 +22,7 @@
 
 // }
 
-export default function setNotes(title, content, color) {
+export function setNotes(title, content, color) {
 
 
     if (localStorage.getItem("notes")) {
