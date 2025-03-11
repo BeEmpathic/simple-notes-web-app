@@ -31,18 +31,25 @@ body,
   cursor: pointer;
 }
 
+.notes-search-form {
+  min-width: 40%;
+  align-items: center;
+  justify-content: center;
+}
+
 .notes-search-bar {
   display: flex;
-  min-width: 30%;
+  margin-top: 0.5rem;
 }
 
 .search-input-wrapper {
   width: max-content;
   display: flex;
-  align-items: center;
+
   border: 1px solid #ddd;
   background-color: #fdfdfd;
   border-radius: 30px;
+  width: 100%;
 }
 
 .notes-search-bar-input:focus {
@@ -55,6 +62,7 @@ body,
   height: 2rem;
   border: none;
   background-color: transparent;
+  width: 100%;
 }
 
 .search-bar-submit {
@@ -66,6 +74,7 @@ body,
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 }
 
 .search-bar-input-settings {
