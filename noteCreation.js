@@ -26,17 +26,19 @@ export default function setNotes(title, content, color) {
 
 
     if (localStorage.getItem("notes")) {
+        const formattedDate = getFormattedDate()
         const notes = JSON.parse(localStorage.getItem("notes"))
         const note = {
-            id: notes.length ? notes[notes[notes.length - 1].id] - 1 : 1,
+            id: notes.length ? notes[notes.length - 1].id + 1 : 1,
             title: title,
             content: content,
-            color: color
+            color: color,
+            date: formattedDate
         }
 
-        console.log(notes)
+
         notes.push(note)
-        console.log(notes)
+
 
         localStorage.setItem("notes", JSON.stringify(notes))
 
@@ -44,4 +46,16 @@ export default function setNotes(title, content, color) {
         localStorage.setItem('notes', "[]")
         setNotes(title, content, color)
     }
+}
+
+function getFormattedDate() {
+    const date = new Date()
+    return {
+        year: date.getFullYear(),
+        month: date.toLocaleString('en-US', { month: 'short' }),
+        day: String(date.getDate()).padStart(2, '0'),
+        hour: String(date.getHours()).padStart(2, '0'),
+        minutes: String(date.getMinutes()).padStart(2, '0')
+    }
+
 }
