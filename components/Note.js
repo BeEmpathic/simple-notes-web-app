@@ -1,4 +1,4 @@
-import { getFormattedDate } from "./modules/dateFormatter.js"
+import { getFormattedDate } from "../modules/dateFormatter.js"
 export function Note(title, content, bgColor) {
 
 
@@ -35,7 +35,7 @@ export function setNote(title, content, bgColor) {
 
     } else {
         localStorage.setItem('notes', "[]")
-        setNote(title, content, color)
+        setNote(title, content, bgColor)
     }
 }
 
