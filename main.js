@@ -1,3 +1,3 @@
-import { setNotes } from "./notesActions.js"
+import { setNote } from "./components/Note.js"
 
-setNotes("My first note", "I have no idea what I doing", "blue")
+setNote("My first note", "I have no idea what I doing", "blue")
