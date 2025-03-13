@@ -1,16 +1,16 @@
 import { getFormattedDate } from "../modules/dateFormatter.js"
-export function Note(title, content, bgColor) {
+export default function renderNotes() {
+    const notesWrapper = document.querySelector("[data-notes-wrapper]")
+    console.log(notesWrapper)
+    const notes = JSON.parse(localStorage.getItem("notes"))
+    notes.forEach(note => {
+        console.log(note)
+        notesWrapper.append(note)
+    })
 
-
-    return (`
-    <div class="note" styte="background-color: ${bgColor}">
-        <div class="note-title">${title}</div>
-        <div class="note-content">${content}</div>
-        <button>Color</button>
-        <button>Delete</button>
-    </div>
-    `)
 }
+
+
 
 
 export function setNote(title, content, bgColor) {
@@ -31,11 +31,15 @@ export function setNote(title, content, bgColor) {
         notes.push(note)
 
 
-        localStorage.setItem("notes", JSON.stringify(notes))
+        localStorage.getItem("notes", JSON.stringify(notes))
 
     } else {
         localStorage.setItem('notes', "[]")
         setNote(title, content, bgColor)
     }
+}
+
+export function getNotes() {
+    const notes = JSON.stringify(localStorage.getItem("notes"))
 }
 
