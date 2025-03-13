@@ -1,4 +1,6 @@
 import { getFormattedDate } from "../modules/dateFormatter.js"
+
+
 export default function renderNotes() {
     const notesWrapper = document.querySelector("[data-notes-wrapper]")
     console.log(notesWrapper)

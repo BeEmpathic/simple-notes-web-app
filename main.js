@@ -1,10 +1,10 @@
-import { setNote } from "./components/Notes.js"
-import Notes from "./components/Notes.js"
+import renderNotes, { setNote } from "./components/notes.js"
 
-const notesWrapper = document.querySelector("[data-notes-wrapper]")
+
+
 
 setNote("My first note", "I have no idea what I doing", "blue")
 
+renderNotes()
 
 
-notesWrapper.innerHTML = Notes(JSON.stringify(localStorage.getItem("notes")))

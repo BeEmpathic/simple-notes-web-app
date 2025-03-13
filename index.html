@@ -34,9 +34,25 @@
           </div>
         </form>
         <div class="notes-wrapper" data-notes-wrapper data-notes>
-          Here goes notes
+          <div class="note">
+            <header class="note-header">
+              <h1>Note title</h1>
+              <button class="note-pin">Pin</button>
+            </header>
+            <div class="note-body">Here comes the note content</div>
+            <div class="note-controles">
+              <button class="color-btn">Color Palete</button>
+              <div class="note-date">Mar 13 2025</div>
+              <button class="delete-btn">Delete</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
+    <template id="note-template">
+      <header>
+        <h1 class="note-title">Note title</h1>
+      </header>
+    </template>
   </body>
 </html>
