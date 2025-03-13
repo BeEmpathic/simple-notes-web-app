@@ -81,3 +81,17 @@ body,
   border: none;
   background: transparent;
 }
+
+.notes-wrapper {
+  display: grid;
+}
+
+.note-btn {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.note-header {
+  display: flex;
+}
