@@ -10,7 +10,7 @@
   <body>
     <div class="container">
       <div class="folders-navbar">
-        <button class="folders-navbar-button" data-button-new-note>
+        <button class="create-note-button" data-create-note-btn>
           + New Note
         </button>
         <div class="folders-container">Here goes folders</div>
@@ -46,6 +46,15 @@
               perspiciatis ipsam minima quia minus rerum, incidunt accusamus
               commodi, nihil at earum illo quo facilis neque veniam. Magni
               voluptates nam doloribus!
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa
+              perspiciatis ipsam minima quia minus rerum, incidunt accusamus
+              commodi, nihil at earum illo quo facilis neque veniam. Magni
+              voluptates nam doloribus!
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa
+              perspiciatis ipsam minima quia minus rerum, incidunt accusamus
+              commodi, nihil at earum illo quo facilis neque veniam. Magni
+              voluptates nam doloribus!
+
             </div>
             <div class="note-footer">
               <button class="note-btn colors-btn">
@@ -69,25 +78,24 @@
         </div>
       </div>
     </div>
+    <dialog class="note-editor" data-note-editor>
+      It's empty note editor don't be fooled
+    </dialog>
     <template id="note-template">
       <div class="note" data-note>
         <header class="note-header">
-          <h1 data-note-title>Note title</h1>
+          <h1 data-note-title></h1>
           <button class="note-btn note-pin-btn">
             <img src="./icons/pin-off.svg" alt="pin-off" />
           </button>
         </header>
         <div class="note-content" data-note-content>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa
-          perspiciatis ipsam minima quia minus rerum, incidunt accusamus
-          commodi, nihil at earum illo quo facilis neque veniam. Magni
-          voluptates nam doloribus!
         </div>
         <div class="note-footer">
           <button class="note-btn colors-btn">
             <img src="./icons/palette.svg" alt="palette" />
           </button>
-          <div class="note-date" data-note-date>Mar 13 2025</div>
+          <div class="note-date" data-note-date></div>
           <button class="note-btn delete-btn">
             <img src="./icons/delete.svg" alt="trash" />
           </button>

@@ -1,4 +1,4 @@
-import renderNotes, { setNote } from "./components/notes.js"
+import { setNote, renderNotes } from "./components/notes.js"
 
 
 

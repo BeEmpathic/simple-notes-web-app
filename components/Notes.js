@@ -1,7 +1,9 @@
 import { getFormattedDate } from "../modules/dateFormatter.js"
 
 
-export default function renderNotes() {
+
+
+export function renderNotes() {
     const notesWrapper = document.querySelector("[data-notes-wrapper]")
     console.log(notesWrapper)
     const notes = JSON.parse(localStorage.getItem("notes"))
@@ -17,7 +19,6 @@ export default function renderNotes() {
 
 export function setNote(title, content, bgColor) {
 
-
     if (localStorage.getItem("notes")) {
         const formattedDate = getFormattedDate()
         const notes = JSON.parse(localStorage.getItem("notes"))
@@ -29,9 +30,7 @@ export function setNote(title, content, bgColor) {
             date: formattedDate
         }
 
-
         notes.push(note)
-
 
         localStorage.getItem("notes", JSON.stringify(notes))
 
@@ -41,7 +40,13 @@ export function setNote(title, content, bgColor) {
     }
 }
 
-export function getNotes() {
-    const notes = JSON.stringify(localStorage.getItem("notes"))
-}
 
+const noteModal = document.querySelector("[data-note-editor]")
+const createNoteBtn = document.querySelector("[data-create-note-btn]")
+createNoteBtn.addEventListener('click', () => {
+    noteModal.showModal()
+})
+
+export function noteEditor() {
+
+}

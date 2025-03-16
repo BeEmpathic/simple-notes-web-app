@@ -20,7 +20,7 @@ body,
   padding: 1rem;
 }
 
-.folders-navbar-button {
+.create-note-button {
   background-color: #003cff;
   color: white;
   border: none;
@@ -87,7 +87,7 @@ body,
 
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  grid-template-rows: repeat(auto-fit);
+
   gap: 1rem;
 
   background-color: #003cff;
@@ -100,8 +100,9 @@ body,
   display: grid;
   grid-template-rows:
     20%
-    auto
+    70%
     10%;
+  height: 250px;
 }
 
 .note-btn {
@@ -123,10 +124,17 @@ body,
 
 .note-content {
   width: 100%;
+  overflow: hidden;
+  margin-bottom: 5px;
 }
 
 .note-footer {
   width: 100%;
   display: flex;
   justify-content: center;
+  align-items: center;
+}
+
+.note-editor::backdrop {
+  background: rgba(0, 0, 0, 0.4);
 }
