@@ -70,9 +70,30 @@
       </div>
     </div>
     <template id="note-template">
-      <header>
-        <h1 class="note-title">Note title</h1>
-      </header>
+      <div class="note" data-note>
+        <header class="note-header">
+          <h1 data-note-title>Note title</h1>
+          <button class="note-btn note-pin-btn">
+            <img src="./icons/pin-off.svg" alt="pin-off" />
+          </button>
+        </header>
+        <div class="note-content" data-note-content>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa
+          perspiciatis ipsam minima quia minus rerum, incidunt accusamus
+          commodi, nihil at earum illo quo facilis neque veniam. Magni
+          voluptates nam doloribus!
+        </div>
+        <div class="note-footer">
+          <button class="note-btn colors-btn">
+            <img src="./icons/palette.svg" alt="palette" />
+          </button>
+          <div class="note-date" data-note-date>Mar 13 2025</div>
+          <button class="note-btn delete-btn">
+            <img src="./icons/delete.svg" alt="trash" />
+          </button>
+        </div>
+      </div>
+    </div>
     </template>
   </body>
 </html>

@@ -86,7 +86,7 @@ body,
   width: 100%;
 
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   grid-template-rows: repeat(auto-fit);
   gap: 1rem;
 
@@ -97,6 +97,11 @@ body,
   background-color: #fff;
   border-radius: 5px;
   padding: 0.5rem;
+  display: grid;
+  grid-template-rows:
+    20%
+    auto
+    10%;
 }
 
 .note-btn {
@@ -107,9 +112,9 @@ body,
 
 .note-header {
   display: flex;
-  background-color: chocolate;
+
   width: 100%;
-  height: 20%;
+
   font-size: 0.8rem;
   justify-content: space-between;
   align-items: center;
@@ -123,4 +128,5 @@ body,
 .note-footer {
   width: 100%;
   display: flex;
+  justify-content: center;
 }
