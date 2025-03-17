@@ -1,14 +1,14 @@
-export function getFormattedDate() {
-
-    const date = new Date()
-
-    return {
-        year: date.getFullYear(),
-        month: date.toLocaleString('en-US', { month: 'short' }),
-        day: String(date.getDate()).padStart(2, '0'),
-        hour: String(date.getHours()).padStart(2, '0'),
-        minutes: String(date.getMinutes()).padStart(2, '0')
-    }
-
-
+export function today() {
+    const now = new Date()
+    const dateFormatter = new Intl.DateTimeFormat("PL", {
+        day: "numeric",
+        month: "numeric",
+        year: "numeric",
+        hour: "numeric",
+        minute: "numeric"
+    })
+    const formattedDate = dateFormatter.format(now)
+    return formattedDate
 }
+
+// maybe I will add other dates here so the app looks better for now I don't want to do that.

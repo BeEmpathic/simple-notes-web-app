@@ -1,4 +1,4 @@
-import { getFormattedDate } from "../modules/dateFormatter.js"
+import { today } from "../modules/dateFormatter.js"
 
 
 
@@ -14,20 +14,23 @@ export function renderNotes() {
 
 }
 
+// this might become a problem when you will need more than 1 date
+const date = today()
+console.log(date)
 
-
+// add created at, modfied at and pinned 
 
 export function setNote(title, content, bgColor) {
 
     if (localStorage.getItem("notes")) {
-        const formattedDate = getFormattedDate()
+
         const notes = JSON.parse(localStorage.getItem("notes"))
         const note = {
             id: notes.length ? notes[notes.length - 1].id + 1 : 1,
             title: title,
             content: content,
             bgColor: bgColor,
-            date: formattedDate
+            date: date
         }
 
         notes.push(note)
