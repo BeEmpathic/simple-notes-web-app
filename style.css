@@ -142,6 +142,17 @@ body,
   border: none;
 }
 
+.note-editor-title {
+  min-height: 40px; /* Ensure height */
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+.note-editor-title:empty:before {
+  content: attr(data-note-title-placeholder);
+  color: gray;
+  pointer-events: none;
+}
 .note-editor::backdrop {
   background: rgba(0, 0, 0, 0.4);
 }
