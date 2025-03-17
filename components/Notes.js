@@ -15,12 +15,12 @@ export function renderNotes() {
 }
 
 // this might become a problem when you will need more than 1 date
-const date = today()
-console.log(date)
 
-// add created at, modfied at and pinned 
 
-export function setNote(title, content, bgColor) {
+// add created at, modified at and pinned 
+const now = today()
+
+export function setNote(title, content, bgColor, createdAt = now, modifiedAt = now) {
 
     if (localStorage.getItem("notes")) {
 
@@ -30,7 +30,9 @@ export function setNote(title, content, bgColor) {
             title: title,
             content: content,
             bgColor: bgColor,
-            date: date
+            createdAt: createdAt,
+            modifiedAt: modifiedAt,
+            pinned: false
         }
 
         notes.push(note)
