@@ -79,7 +79,24 @@
       </div>
     </div>
     <dialog class="note-editor" data-note-editor>
-      It's empty note editor don't be fooled
+
+        <div class="note-title" data-note-title-input type="text">
+
+        </div>
+
+        <div data-note-content-input contenteditable="true">
+          <p>Let me see you</p>
+        </div>
+
+      <footer class="note-editor-footer">
+        <div class="note-editor-date">
+          Modified: <span data-note-editor-modifiedAt>17.03.25 16:58</span>
+        </div>
+        <div class="note-editor-date">
+          Created: <span data-note-editor-createdAt>17.03.25 16:58</span>
+        </div>
+      </footer>
+
     </dialog>
     <template id="note-template">
       <div class="note" data-note>

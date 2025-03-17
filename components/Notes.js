@@ -17,7 +17,7 @@ export function renderNotes() {
 // this might become a problem when you will need more than 1 date
 
 
-// add created at, modified at and pinned 
+
 const now = today()
 
 export function setNote(title, content, bgColor, createdAt = now, modifiedAt = now) {

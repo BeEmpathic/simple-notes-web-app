@@ -135,6 +135,13 @@ body,
   align-items: center;
 }
 
+.note-editor {
+  width: 50%;
+  height: 50%;
+  border-radius: 25px;
+  border: none;
+}
+
 .note-editor::backdrop {
   background: rgba(0, 0, 0, 0.4);
 }
