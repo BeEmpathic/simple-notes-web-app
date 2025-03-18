@@ -142,6 +142,7 @@ body,
     10%
     80%
     10%;
+  position: relative;
 }
 
 .note-editor::backdrop {
@@ -162,6 +163,7 @@ body,
 
 .note-editor-content {
   margin-top: 1rem;
+  font-size: 1.2rem;
 }
 
 .note-editor-content:empty:before {
@@ -174,4 +176,24 @@ body,
   display: flex;
   justify-content: space-between;
   align-items: end;
+}
+
+.note-editor-close-btn {
+  position: absolute;
+  right: 0;
+  top: 0;
+  border: none;
+  background: none;
+  margin: 0.5rem;
+  cursor: pointer;
+}
+
+.note-editor-close-btn:hover img {
+  filter: invert(80%);
+}
+
+.note-editor-content:focus,
+.note-editor-title:focus {
+  border: none;
+  outline: none;
 }
