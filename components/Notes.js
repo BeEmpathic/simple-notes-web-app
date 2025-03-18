@@ -1,14 +1,12 @@
 import { today } from "../modules/dateFormatter.js"
 
-
-
+const notesWrapper = document.querySelector("[data-notes-wrapper]")
+const notes = JSON.parse(localStorage.getItem("notes"))
+const notesTemplate = document.querySelector("[data-note-template]")
 
 export function renderNotes() {
-    const notesWrapper = document.querySelector("[data-notes-wrapper]")
     console.log(notesWrapper)
-    const notes = JSON.parse(localStorage.getItem("notes"))
     notes.forEach(note => {
-        console.log(note)
         notesWrapper.append(note)
     })
 

@@ -24,11 +24,11 @@
                 data-notes-search-bar
                 type="search"
                 placeholder="Search"
-              /><button class="search-bar-submit">
+              /><button class="note-btn search-bar-submit">
                 <img src="icons/search.svg" />
               </button>
             </div>
-            <button class="search-bar-input-settings">
+            <button class="note-btn search-bar-input-settings">
               <img src="icons/settings.svg" />
             </button>
           </div>
@@ -41,50 +41,37 @@
                 <img src="./icons/pin-off.svg" alt="pin-off" />
               </button>
             </header>
-            <div class="note-content" data-note-content>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa
-              perspiciatis ipsam minima quia minus rerum, incidunt accusamus
-              commodi, nihil at earum illo quo facilis neque veniam. Magni
-              voluptates nam doloribus!
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa
-              perspiciatis ipsam minima quia minus rerum, incidunt accusamus
-              commodi, nihil at earum illo quo facilis neque veniam. Magni
-              voluptates nam doloribus!
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa
-              perspiciatis ipsam minima quia minus rerum, incidunt accusamus
-              commodi, nihil at earum illo quo facilis neque veniam. Magni
-              voluptates nam doloribus!
-
-            </div>
+            <div class="note-content" data-note-content></div>
             <div class="note-footer">
               <button class="note-btn colors-btn">
                 <img src="./icons/palette.svg" alt="palette" />
               </button>
-              <div class="note-date" data-note-date>Mar 13 2025</div>
+              <div class="note-date" data-note-date></div>
               <button class="note-btn delete-btn">
                 <img src="./icons/delete.svg" alt="trash" />
               </button>
             </div>
           </div>
-          <script>
-            const notesWrapper = document.querySelector("[data-notes-wrapper]");
-            const note = document.querySelector("[data-note]");
-
-            for (let i = 0; i <= 25; i++) {
-              const element = note.cloneNode(true);
-              notesWrapper.append(element);
-            }
-          </script>
         </div>
       </div>
     </div>
     <dialog class="note-editor" data-note-editor>
+      <button data-note-editor-close-btn class="note-btn note-editor-close-btn">
+        <img src="./icons/x.svg" alt="x" />
+      </button>
+      <div
+        placeholder="test"
+        class="note-editor-title"
+        data-note-editor-title-placeholder="Title"
+        contenteditable="true"
+      ></div>
 
-      <button data-note-editor-close-btn class="note-editor-close-btn"><img src="./icons/x.svg" alt="x"></button>
-          <div placeholder="test" class="note-editor-title" data-note-editor-title-placeholder="Title" contenteditable="true"></div>
-
-
-        <div class="note-editor-content" data-note-editor-content data-note-editor-content-placeholder="Note content" contenteditable="true"></div>
+      <div
+        class="note-editor-content"
+        data-note-editor-content
+        data-note-editor-content-placeholder="Note content"
+        contenteditable="true"
+      ></div>
 
       <footer class="note-editor-footer">
         <div class="note-editor-date">
@@ -94,18 +81,16 @@
           Created: <span data-note-editor-createdAt>17.03.25 16:58</span>
         </div>
       </footer>
-
     </dialog>
-    <template id="note-template">
+    <template data-note-template id="note-template">
       <div class="note" data-note>
         <header class="note-header">
-          <h1 data-note-title></h1>
+          <h1 data-note-title>Note title</h1>
           <button class="note-btn note-pin-btn">
             <img src="./icons/pin-off.svg" alt="pin-off" />
           </button>
         </header>
-        <div class="note-content" data-note-content>
-        </div>
+        <div class="note-content" data-note-content></div>
         <div class="note-footer">
           <button class="note-btn colors-btn">
             <img src="./icons/palette.svg" alt="palette" />
@@ -116,7 +101,6 @@
           </button>
         </div>
       </div>
-    </div>
     </template>
   </body>
 </html>

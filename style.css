@@ -5,6 +5,16 @@ body,
   box-sizing: border-box;
 }
 
+button {
+  background: none;
+  border: none;
+}
+
+.note-btn:hover {
+  filter: invert(60%);
+  cursor: pointer;
+}
+
 .container {
   min-height: 100dvh;
   width: 100%;
@@ -128,7 +138,7 @@ body,
 .note-footer {
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 }
 
