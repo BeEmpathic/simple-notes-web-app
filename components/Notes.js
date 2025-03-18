@@ -5,12 +5,23 @@ const notes = JSON.parse(localStorage.getItem("notes"))
 const notesTemplate = document.querySelector("[data-note-template]")
 
 export function renderNotes() {
-    console.log(notesWrapper)
-    notes.forEach(note => {
-        notesWrapper.append(note)
+
+
+    notesWrapper.innerHTML = ""
+    notes.forEach((note) => {
+        const template = notesTemplate.content.cloneNode(true)
+        template.querySelector("[data-note-title]").textContent = note.title
+        template.querySelector("[data-note-content]").textContent = note.content
+        template.querySelector("[data-note-date]").textContent = note.date
+
+
+        notesWrapper.append(template)
     })
 
 }
+
+
+
 
 // this might become a problem when you will need more than 1 date
 
@@ -52,4 +63,10 @@ createNoteBtn.addEventListener('click', () => {
 
 export function noteEditor() {
 
+}
+
+
+
+function setValue(selector, value, { parent = document } = {}) {
+    parent.querySelector(`[data-${selector}]`).textContent = value;
 }
