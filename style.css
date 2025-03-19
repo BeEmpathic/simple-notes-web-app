@@ -38,7 +38,11 @@ button {
   padding: 1rem;
   font-weight: bold;
   font-size: 1rem;
+}
+
+.create-note-button:hover {
   cursor: pointer;
+  background-color: #006fff;
 }
 
 .notes-search-form {
