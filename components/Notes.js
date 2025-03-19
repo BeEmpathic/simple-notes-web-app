@@ -8,29 +8,32 @@ export function renderNotes() {
 
 
     notesWrapper.innerHTML = ""
-    notes.forEach((note) => {
-        const template = notesTemplate.content.cloneNode(true)
-        template.querySelector("[data-note-title]").textContent = note.title
-        template.querySelector("[data-note-content]").textContent = note.content
-        template.querySelector("[data-note-date]").textContent = note.date
+    if (notes) {
+        notes.forEach((note) => {
+            const template = notesTemplate.content.cloneNode(true)
+            const createdAt = note.date
+            const formatter = new Intl.DateTimeFormat("PL", {
+                dateStyle: "short"
+            })
+            console.log(note.createdAt)
+            template.querySelector("[data-note-title]").textContent = note.title
+            template.querySelector("[data-note-content]").textContent = note.content
+            template.querySelector("[data-note-date]").textContent = formatter.format(note.date)
 
 
-        notesWrapper.append(template)
-    })
+            notesWrapper.append(template)
+        })
+    }
 
 }
 
 
+export function setNote(title, content, bgColor) {
 
-
-// this might become a problem when you will need more than 1 date
-
-
-
-const now = today()
-
-export function setNote(title, content, bgColor, createdAt = now, modifiedAt = now) {
-
+    const now = new Date()
+    const createdAt = now
+    const modifiedAt = now
+    console.log(createdAt)
     if (localStorage.getItem("notes")) {
 
         const notes = JSON.parse(localStorage.getItem("notes"))
@@ -46,7 +49,7 @@ export function setNote(title, content, bgColor, createdAt = now, modifiedAt = n
 
         notes.push(note)
 
-        localStorage.getItem("notes", JSON.stringify(notes))
+        localStorage.setItem("notes", JSON.stringify(notes))
 
     } else {
         localStorage.setItem('notes', "[]")
