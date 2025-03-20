@@ -1,24 +1,24 @@
 const notesTemplate = document.querySelector("[data-note-template]")
-
+let notes
 
 export function displayNotes() {
     const notesWrapper = document.querySelector("[data-notes-wrapper]")
-    const notes = JSON.parse(localStorage.getItem("notes"))
+    notes = JSON.parse(localStorage.getItem("notes"))
     notesWrapper.innerHTML = ""
 
     if (notes) {
         notes.forEach((note) => {
             const template = notesTemplate.content.cloneNode(true)
-            const createdAt = note.date
+            const createdAt = new Date(note.createdAt)
             const formatter = new Intl.DateTimeFormat("PL", {
                 dateStyle: "short"
             })
 
             template.querySelector("[data-note-title]").textContent = note.title
             template.querySelector("[data-note-content]").textContent = note.content
-            template.querySelector("[data-note-date]").textContent = formatter.format(new Date(note.createdAt))
+            template.querySelector("[data-note-date]").textContent = formatter.format(createdAt)
             template.addEventListener("click", () => {
-                editNote(note.id)
+                editNote(null, note.id)
             }
             )
 
@@ -28,12 +28,13 @@ export function displayNotes() {
     }
 
 }
-export function saveNote(id = self.crypto.randomUUID(), title, content = "") {
+
+export function saveNote(title, content = "", id = self.crypto.randomUUID()) {
     const now = new Date()
 
     let notes = JSON.parse(localStorage.getItem("notes")) || [];
 
-
+    console.log("Save notes was invoked")
     let noteIndex = notes.findIndex(n => n.id === id);
     if (noteIndex !== -1) {
         notes[noteIndex].title = title;
@@ -53,6 +54,7 @@ export function saveNote(id = self.crypto.randomUUID(), title, content = "") {
     }
 
     localStorage.setItem("notes", JSON.stringify(notes))
+    displayNotes()
 }
 
 
@@ -61,7 +63,8 @@ const noteEditorTitle = noteEditor.querySelector("[data-note-editor-title]")
 const noteEditorContent = noteEditor.querySelector("[data-note-editor-content]")
 
 const createNoteBtn = document.querySelector("[data-create-note-btn]")
-export function editNote(id) {
+export function editNote(e, id) {
+
     noteEditorTitle.innerHTML = ""
     noteEditorContent.innerHTML = ""
     if (id) {
@@ -76,18 +79,22 @@ export function editNote(id) {
         // check if the removing works correctly
         noteEditor.removeEventListener("close", saveNote)
         // this I think will get the needed stuff udpated by user
-        noteEditor.addEventListener("close", saveNote(id, noteEditorTitle.textContent, noteEditorContent.textContent))
+        noteEditor.addEventListener("close", saveNote.bind(() => {
+            return { id, noteEditorTitle.textContent, noteEditorContent.textContent }
+        })
+        )
+
 
 
     } else {
         if (noteEditorTitle.textContent) {
 
-            noteEditor.addEventListener("close", saveNote(noteEditorTitle.textContent, noteEditorContent.textContent))
+            noteEditor.addEventListener("close", saveNote.bind(noteEditorTitle.textContent, noteEditorContent.textContent))
         }
     }
 
 
-    // noteEditor.showModal()
+    noteEditor.showModal()
 }
 
 export function deleteNote(id) {
