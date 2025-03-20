@@ -16,11 +16,8 @@ export function displayNotes() {
 
             template.querySelector("[data-note-title]").textContent = note.title
             template.querySelector("[data-note-content]").textContent = note.content
-            template.querySelector("[data-note-date]").textContent = formatter.format(new Date(note.createdAt))
-            template.addEventListener("click", () => {
-                editNote(note.id)
-            }
-            )
+            template.querySelector("[data-note-date]").textContent = formatter.format(note.date)
+            template.addEventListener("click", editNote(note.id))
 
             notesWrapper.append(template)
         })
@@ -30,28 +27,21 @@ export function displayNotes() {
 }
 export function saveNote(id = self.crypto.randomUUID(), title, content = "") {
     const now = new Date()
+    const createdAt = now
+    const modifiedAt = now
 
-    let notes = JSON.parse(localStorage.getItem("notes")) || [];
-
-
-    let noteIndex = notes.findIndex(n => n.id === id);
-    if (noteIndex !== -1) {
-        notes[noteIndex].title = title;
-        notes[noteIndex].content = content;
-        notes[noteIndex].modifiedAt = now;
-    } else {
-        const note = {
-            id,
-            title,
-            content,
-            bgColor: "white",
-            createdAt: now,
-            modifiedAt: now,
-            pinned: false
-        }
-        notes.push(note)
+    const note = {
+        id: id,
+        title: title,
+        content: content,
+        bgColor: "white",
+        createdAt: createdAt,
+        modifiedAt: modifiedAt,
+        pinned: false
     }
 
+    const notes = JSON.parse(localStorage.getItem("notes")) || []
+    notes.push(note)
     localStorage.setItem("notes", JSON.stringify(notes))
 }
 
@@ -81,13 +71,13 @@ export function editNote(id) {
 
     } else {
         if (noteEditorTitle.textContent) {
-
+            noteEditor.removeEventListener("close", saveNote)
             noteEditor.addEventListener("close", saveNote(noteEditorTitle.textContent, noteEditorContent.textContent))
         }
     }
 
 
-    // noteEditor.showModal()
+    noteEditor.showModal()
 }
 
 export function deleteNote(id) {
