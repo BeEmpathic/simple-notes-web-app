@@ -7,7 +7,9 @@ export function displayNotes() {
     notesWrapper.innerHTML = ""
 
     if (notes) {
+
         notes.forEach((note) => {
+
             const template = notesTemplate.content.cloneNode(true)
             const createdAt = new Date(note.createdAt)
             const formatter = new Intl.DateTimeFormat("PL", {
@@ -17,7 +19,9 @@ export function displayNotes() {
             template.querySelector("[data-note-title]").textContent = note.title
             template.querySelector("[data-note-content]").textContent = note.content
             template.querySelector("[data-note-date]").textContent = formatter.format(createdAt)
+
             template.addEventListener("click", () => {
+                console.log("Note id:", note.id)
                 editNote(note.id)
             }
             )
@@ -62,13 +66,16 @@ const noteEditor = document.querySelector("[data-note-editor]")
 const noteEditorTitle = noteEditor.querySelector("[data-note-editor-title]")
 const noteEditorContent = noteEditor.querySelector("[data-note-editor-content]")
 
+let currentNoteId
+
 const createNoteBtn = document.querySelector("[data-create-note-btn]")
 export function editNote(id) {
     console.log("EditNote was invoken")
+    let notes = JSON.parse(localStorage.getItem("notes"))
     noteEditorTitle.innerHTML = ""
     noteEditorContent.innerHTML = ""
     if (id) {
-
+        currentNoteId = id
         let note = notes.find(n => n.id === id);
 
         noteEditorTitle.textContent = note.title
@@ -76,44 +83,14 @@ export function editNote(id) {
 
         noteEditor.style.backgroundColor = note.bgColor
 
-        function handleModalClose() {
-            const noteEditorTitle = noteEditor.querySelector("[data-note-editor-title]")
-            const noteEditorContent = noteEditor.querySelector("[data-note-editor-content]")
-            saveNote(noteEditorTitle, noteEditorContent, id)
-            noteEditor.close()
-        }
-
-        // check if the removing works correctly
-        noteEditor.removeEventListener("close", handleModalClose)
-        // this I think will get the needed stuff udpated by user
-        noteEditor.addEventListener("close", handleModalClose)
-
-
-
-
-
     } else {
-        console.log("else in editoNote")
-
-        function handleModalClose() {
-
-            console.log("handle close was invoken")
-            if (noteEditorTitle.textContent) {
-                console.log("if in elese")
-
-                saveNote(noteEditorTitle.textContent, noteEditorContent.textContent)
-
-            }
-        }
-
-
-
-        noteEditor.addEventListener("close", handleModalClose)
+        currentNoteId = undefined
     }
-
-
     noteEditor.showModal()
 }
+
+
+
 
 
 
@@ -129,3 +106,10 @@ export function pinNote(id) {
 
 }
 
+
+
+function handleEditorClose() {
+    saveNote(noteEditorTitle.textContent, noteEditorContent.textContent, currentNoteId)
+}
+
+noteEditor.addEventListener("close", handleEditorClose)

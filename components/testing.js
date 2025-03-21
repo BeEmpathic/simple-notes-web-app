@@ -1,8 +1,10 @@
 const notesTemplate = document.querySelector("[data-note-template]")
 
+const notesWrapper = document.querySelector("[data-notes-wrapper]")
+
+let note = {}
 
 export function displayNotes() {
-    const notesWrapper = document.querySelector("[data-notes-wrapper]")
     const notes = JSON.parse(localStorage.getItem("notes"))
     notesWrapper.innerHTML = ""
 
@@ -19,12 +21,14 @@ export function displayNotes() {
             template.querySelector("[data-note-date]").textContent = formatter.format(note.date)
             template.addEventListener("click", editNote(note.id))
 
-            notesWrapper.append(template)
+            notesWrapper.appendChild(template)
         })
 
     }
 
 }
+
+
 export function saveNote(id = self.crypto.randomUUID(), title, content = "") {
     const now = new Date()
     const createdAt = now
