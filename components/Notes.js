@@ -1,9 +1,11 @@
 const notesTemplate = document.querySelector("[data-note-template]")
 
 
+let notes
+
 export function displayNotes() {
     const notesWrapper = document.querySelector("[data-notes-wrapper]")
-    let notes = JSON.parse(localStorage.getItem("notes"))
+    notes = JSON.parse(localStorage.getItem("notes"))
     notesWrapper.innerHTML = ""
 
     if (notes) {
@@ -19,9 +21,9 @@ export function displayNotes() {
             template.querySelector("[data-note-title]").textContent = note.title
             template.querySelector("[data-note-content]").innerHTML = note.content
             template.querySelector("[data-note-date]").textContent = formatter.format(createdAt)
-            console.log(template)
+
             template.querySelector("[data-note]").addEventListener("click", () => {
-                console.log("Note id:", note.id)
+
                 editNote(note.id)
             }
             )
@@ -70,7 +72,7 @@ let currentNoteId
 
 const createNoteBtn = document.querySelector("[data-create-note-btn]")
 export function editNote(id) {
-    console.log("EditNote was invoken")
+
     let notes = JSON.parse(localStorage.getItem("notes"))
     noteEditorTitle.innerHTML = ""
     noteEditorContent.innerHTML = ""
@@ -96,7 +98,11 @@ export function editNote(id) {
 
 
 export function deleteNote(id) {
-
+    if (id) {
+        notes.split(id, 1)
+        localStorage.setItem("notes", stringify(notes))
+        displayNotes()
+    }
 }
 
 export function changeNoteBackgroundColor(id) {
@@ -116,3 +122,8 @@ function handleEditorClose() {
 }
 
 noteEditor.addEventListener("close", handleEditorClose)
+
+noteEditor.querySelector("[data-note-editor-close-btn]").addEventListener("click", () => {
+    editNote
+    noteEditor.close()
+})

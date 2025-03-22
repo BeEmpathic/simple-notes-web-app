@@ -114,6 +114,7 @@ button {
     70%
     10%;
   height: 250px;
+  cursor: pointer;
 }
 
 .note-btn {
