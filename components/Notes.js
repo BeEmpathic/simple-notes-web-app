@@ -87,6 +87,7 @@ export function editNote(id) {
         currentNoteId = undefined
     }
     noteEditor.showModal()
+    noteEditor.style.display = "grid"
 }
 
 
@@ -111,6 +112,7 @@ export function pinNote(id) {
 function handleEditorClose() {
     if (noteEditorTitle.textContent || noteEditorContent.textContent)
         saveNote(noteEditorTitle.textContent, noteEditorContent.innerHTML, currentNoteId)
+    noteEditor.style.display = "none"
 }
 
 noteEditor.addEventListener("close", handleEditorClose)

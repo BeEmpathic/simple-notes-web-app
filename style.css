@@ -151,7 +151,7 @@ button {
   height: 50%;
   border-radius: 25px;
   border: none;
-  display: grid;
+  display: none;
   grid-template-rows:
     10%
     80%
