@@ -17,10 +17,10 @@ export function displayNotes() {
             })
 
             template.querySelector("[data-note-title]").textContent = note.title
-            template.querySelector("[data-note-content]").textContent = note.content
+            template.querySelector("[data-note-content]").innerHTML = note.content
             template.querySelector("[data-note-date]").textContent = formatter.format(createdAt)
-
-            template.addEventListener("click", () => {
+            console.log(template)
+            template.querySelector("[data-note]").addEventListener("click", () => {
                 console.log("Note id:", note.id)
                 editNote(note.id)
             }
@@ -79,7 +79,7 @@ export function editNote(id) {
         let note = notes.find(n => n.id === id);
 
         noteEditorTitle.textContent = note.title
-        noteEditorContent.textContent = note.content
+        noteEditorContent.innerHTML = note.content
 
         noteEditor.style.backgroundColor = note.bgColor
 
@@ -109,7 +109,7 @@ export function pinNote(id) {
 
 
 function handleEditorClose() {
-    saveNote(noteEditorTitle.textContent, noteEditorContent.textContent, currentNoteId)
+    saveNote(noteEditorTitle.textContent, noteEditorContent.innerHTML, currentNoteId)
 }
 
 noteEditor.addEventListener("close", handleEditorClose)
