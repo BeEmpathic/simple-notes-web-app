@@ -109,7 +109,8 @@ export function pinNote(id) {
 
 
 function handleEditorClose() {
-    saveNote(noteEditorTitle.textContent, noteEditorContent.innerHTML, currentNoteId)
+    if (noteEditorTitle.textContent || noteEditorContent.textContent)
+        saveNote(noteEditorTitle.textContent, noteEditorContent.innerHTML, currentNoteId)
 }
 
 noteEditor.addEventListener("close", handleEditorClose)
