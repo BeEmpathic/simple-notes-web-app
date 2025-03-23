@@ -1,6 +1,7 @@
 const notesTemplate = document.querySelector("[data-note-template]")
 
 
+
 let notes
 
 export function displayNotes() {
@@ -25,8 +26,12 @@ export function displayNotes() {
             template.querySelector("[data-note]").addEventListener("click", () => {
 
                 editNote(note.id)
-            }
-            )
+            })
+            template.querySelector("[data-note-delete-btn]").addEventListener("click", (e) => {
+
+                deleteNote(note.id)
+                e.stopPropagation()
+            })
 
             notesWrapper.append(template)
         })
@@ -99,8 +104,9 @@ export function editNote(id) {
 
 export function deleteNote(id) {
     if (id) {
-        notes.split(id, 1)
-        localStorage.setItem("notes", stringify(notes))
+        console.log(notes)
+        notes = notes.filter((note) => note.id !== id)
+        localStorage.setItem("notes", JSON.stringify(notes))
         displayNotes()
     }
 }
