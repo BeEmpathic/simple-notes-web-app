@@ -10,6 +10,7 @@ button {
   border: none;
 }
 
+.note-color-picker > button:focus,
 .note-btn:hover {
   filter: invert(60%);
   cursor: pointer;
@@ -142,9 +143,53 @@ button {
 
 .note-footer {
   width: 100%;
-  display: flex;
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
   justify-content: space-between;
   align-items: center;
+}
+
+.note-delete-btn {
+  text-align: right;
+}
+
+.note-color-picker {
+  position: relative;
+  width: 100%;
+}
+
+.note-colors-palette {
+  display: flex;
+  flex-wrap: wrap;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  top: 2rem;
+  left: 0%;
+
+  background: white;
+  padding: 0.5rem;
+  border-radius: 1em;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-10px);
+  transition: opacity 150ms ease-in-out, transform 150ms ease-in-out;
+}
+
+.note-colors-palette.active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.note-color-circle {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+  margin: 0.3rem;
 }
 
 .note-editor {
@@ -211,33 +256,4 @@ button {
 .note-editor-title:focus {
   border: none;
   outline: none;
-}
-
-.note-color-picker {
-  position: relative;
-  width: 100%;
-}
-
-.note-colors {
-  display: flex;
-  flex-wrap: wrap;
-  position: absolute;
-  justify-content: center;
-  align-items: center;
-  bottom: 2rem;
-  left: 0%;
-  max-width: 90%;
-  background: white;
-  padding: 1rem;
-  border-radius: 1em;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-}
-
-.note-color-circle {
-  width: 1rem;
-  height: 1rem;
-  border-radius: 50%;
-  cursor: pointer;
-  box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
-  margin: 0.3rem;
 }
