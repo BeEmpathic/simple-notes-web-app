@@ -77,10 +77,10 @@
 
       <footer class="note-editor-footer">
         <div class="note-editor-date">
-          Modified: <span data-note-editor-modifiedAt>17.03.25 16:58</span>
+          Modified: <span data-note-editor-modifiedAt></span>
         </div>
         <div class="note-editor-date">
-          Created: <span data-note-editor-createdAt>17.03.25 16:58</span>
+          Created: <span data-note-editor-createdAt></span>
         </div>
       </footer>
     </dialog>
@@ -95,9 +95,43 @@
         </header>
         <div class="note-content" data-note-content></div>
         <div class="note-footer">
-          <button data-note-colors-btn class="note-btn colors-btn">
-            <img src="./icons/palette.svg" alt="palette" />
-          </button>
+          <div class="note-color-picker">
+            <button data-note-colors-btn class="note-btn colors-btn">
+              <img src="./icons/palette.svg" alt="palette" />
+            </button>
+            <div class="note-colors">
+              <div
+                class="note-color-circle"
+                style="background-color: #f28b82"
+                data-color="#f28b82"
+              ></div>
+              <div
+                class="note-color-circle"
+                style="background-color: #fbbc04"
+                data-color="#fbbc04"
+              ></div>
+              <div
+                class="note-color-circle"
+                style="background-color: #fff475"
+                data-color="#fff475"
+              ></div>
+              <div
+                class="note-color-circle"
+                style="background-color: #ccff90"
+                data-color="#ccff90"
+              ></div>
+              <div
+                class="note-color-circle"
+                style="background-color: #a7ffeb"
+                data-color="#a7ffeb"
+              ></div>
+              <div
+                class="note-color-circle"
+                style="background-color: #cbf0f8"
+                data-color="#cbf0f8"
+              ></div>
+            </div>
+          </div>
           <div class="note-date" data-note-date></div>
           <button data-note-delete-btn class="note-btn delete-btn">
             <img src="./icons/delete.svg" alt="trash" />

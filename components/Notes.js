@@ -2,11 +2,15 @@ const notesTemplate = document.querySelector("[data-note-template]")
 
 
 
-let notes
+
+
+const formatter = new Intl.DateTimeFormat("PL", {
+    dateStyle: "short"
+})
 
 export function displayNotes() {
     const notesWrapper = document.querySelector("[data-notes-wrapper]")
-    notes = JSON.parse(localStorage.getItem("notes"))
+    let notes = JSON.parse(localStorage.getItem("notes"))
     notesWrapper.innerHTML = ""
 
     if (notes) {
@@ -15,9 +19,7 @@ export function displayNotes() {
 
             const template = notesTemplate.content.cloneNode(true)
             const createdAt = new Date(note.createdAt)
-            const formatter = new Intl.DateTimeFormat("PL", {
-                dateStyle: "short"
-            })
+
 
             template.querySelector("[data-note-title]").textContent = note.title
             template.querySelector("[data-note-content]").innerHTML = note.content
@@ -45,7 +47,6 @@ export function saveNote(title, content = "", id = self.crypto.randomUUID()) {
 
     let notes = JSON.parse(localStorage.getItem("notes")) || [];
 
-    console.log("Save notes was invoked")
     let noteIndex = notes.findIndex(n => n.id === id);
     if (noteIndex !== -1) {
         notes[noteIndex].title = title;
@@ -72,6 +73,8 @@ export function saveNote(title, content = "", id = self.crypto.randomUUID()) {
 const noteEditor = document.querySelector("[data-note-editor]")
 const noteEditorTitle = noteEditor.querySelector("[data-note-editor-title]")
 const noteEditorContent = noteEditor.querySelector("[data-note-editor-content]")
+const noteEditorCreatedAt = noteEditor.querySelector("[data-note-editor-createdAt]")
+const noteEditorModifiedAt = noteEditor.querySelector("[data-note-editor-modifiedAt]")
 
 let currentNoteId
 
@@ -87,7 +90,8 @@ export function editNote(id) {
 
         noteEditorTitle.textContent = note.title
         noteEditorContent.innerHTML = note.content
-
+        noteEditorCreatedAt.textContent = formatter.format(new Date(note.createdAt))
+        noteEditorModifiedAt.textContent = formatter.format(new Date(note.modifiedAt))
         noteEditor.style.backgroundColor = note.bgColor
 
     } else {
@@ -104,7 +108,6 @@ export function editNote(id) {
 
 export function deleteNote(id) {
     if (id) {
-        console.log(notes)
         notes = notes.filter((note) => note.id !== id)
         localStorage.setItem("notes", JSON.stringify(notes))
         displayNotes()
