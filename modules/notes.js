@@ -24,6 +24,7 @@ export function displayNotes() {
             template.querySelector("[data-note-title]").textContent = note.title
             template.querySelector("[data-note-content]").innerHTML = note.content
             template.querySelector("[data-note-date]").textContent = formatter.format(createdAt)
+            template.querySelector("[data-note]").style.backgroundColor = note.bgColor
 
             template.querySelector("[data-note]").addEventListener("click", () => {
 
@@ -35,14 +36,18 @@ export function displayNotes() {
                 e.stopPropagation()
             })
 
-            // template.querySelector("[data-note-colors-palette-btn]").addEventListener("click", (e) => {
-            //     console.log("I worked")
-            //     let currentDropdown = e.target.closest("[data-dropdown]")
 
-            //     currentDropdown.classList.toggle("active")
 
-            //     e.stopPropagation()
-            // })
+            const colorsbtns = template.querySelectorAll("[data-color]")
+            colorsbtns.forEach(btn => {
+                btn.addEventListener("click", (e) => {
+                    const color = btn.style.backgroundColor
+                    changeNoteBackgroundColor(note.id, color)
+                    e.stopPropagation()
+                })
+
+            })
+
 
             notesWrapper.append(template)
         })
@@ -117,13 +122,25 @@ export function editNote(id) {
 
 export function deleteNote(id) {
     if (id) {
+        let notes = JSON.parse(localStorage.getItem("notes"))
         notes = notes.filter((note) => note.id !== id)
         localStorage.setItem("notes", JSON.stringify(notes))
         displayNotes()
     }
 }
 
-export function changeNoteBackgroundColor(id) {
+export function changeNoteBackgroundColor(id, color) {
+
+    if (id) {
+        let notes = JSON.parse(localStorage.getItem("notes"))
+        let noteIndex = notes.findIndex(n => n.id === id);
+        if (noteIndex !== -1) {
+            notes[noteIndex].bgColor = color;
+            localStorage.setItem("notes", JSON.stringify(notes))
+        }
+
+        displayNotes()
+    }
 
 }
 

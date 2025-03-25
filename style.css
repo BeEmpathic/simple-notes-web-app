@@ -194,6 +194,10 @@ button {
   margin: 0.3rem;
 }
 
+.note-color-circle:hover {
+  box-shadow: 0 0 2px rgba(0, 0, 0, 1);
+}
+
 .note-editor {
   width: 50%;
   height: 50%;
