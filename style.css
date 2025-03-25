@@ -10,7 +10,6 @@ button {
   border: none;
 }
 
-.note-color-picker > button:focus,
 .note-btn:hover {
   filter: invert(60%);
   cursor: pointer;
@@ -155,7 +154,6 @@ button {
 
 .note-color-picker {
   position: relative;
-  width: 100%;
 }
 
 .note-colors-palette {
@@ -164,7 +162,7 @@ button {
   position: absolute;
   justify-content: center;
   align-items: center;
-  top: 2rem;
+  top: 1rem;
   left: 0%;
 
   background: white;
@@ -177,10 +175,14 @@ button {
   transition: opacity 150ms ease-in-out, transform 150ms ease-in-out;
 }
 
-.note-colors-palette.active {
+.note-color-picker:hover .note-colors-palette {
   opacity: 1;
   transform: translateY(0);
   pointer-events: auto;
+}
+
+.note-color-picker:hover .note-colors-palette-btn {
+  filter: invert(60%);
 }
 
 .note-color-circle {

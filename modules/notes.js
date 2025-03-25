@@ -35,6 +35,15 @@ export function displayNotes() {
                 e.stopPropagation()
             })
 
+            // template.querySelector("[data-note-colors-palette-btn]").addEventListener("click", (e) => {
+            //     console.log("I worked")
+            //     let currentDropdown = e.target.closest("[data-dropdown]")
+
+            //     currentDropdown.classList.toggle("active")
+
+            //     e.stopPropagation()
+            // })
+
             notesWrapper.append(template)
         })
 
