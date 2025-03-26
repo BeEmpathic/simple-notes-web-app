@@ -25,18 +25,18 @@ export function displayNotes() {
             template.querySelector("[data-note-content]").innerHTML = note.content
             template.querySelector("[data-note-date]").textContent = formatter.format(createdAt)
             template.querySelector("[data-note]").style.backgroundColor = note.bgColor
+            template.querySelector("[data-note-pin-btn] img").src = note.pinned ? "./icons/pin-on.svg" : "./icons/pin-off.svg"
+
 
             template.querySelector("[data-note]").addEventListener("click", () => {
-
                 editNote(note.id)
             })
+
             template.querySelector("[data-note-delete-btn]").addEventListener("click", (e) => {
 
                 deleteNote(note.id)
                 e.stopPropagation()
             })
-
-
 
             const colorsbtns = template.querySelectorAll("[data-color]")
             colorsbtns.forEach(btn => {
@@ -46,6 +46,13 @@ export function displayNotes() {
                     e.stopPropagation()
                 })
 
+            })
+
+
+            template.querySelector("[data-note-pin-btn]").addEventListener("click", (e) => {
+
+                pinNote(note.id)
+                e.stopPropagation()
             })
 
 
@@ -145,11 +152,13 @@ export function changeNoteBackgroundColor(id, color) {
 }
 
 export function pinNote(id) {
+    let notes = JSON.parse(localStorage.getItem("notes"))
     let noteIndex = notes.findIndex(n => n.id === id);
     if (noteIndex !== -1) {
-        notes[noteIndex].pinned = pinned ? false : true;
+        notes[noteIndex].pinned = notes[noteIndex].pinned ? false : true;
         localStorage.setItem("notes", JSON.stringify(notes))
     }
+    displayNotes()
 }
 
 
