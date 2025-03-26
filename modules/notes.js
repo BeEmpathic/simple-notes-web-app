@@ -145,7 +145,11 @@ export function changeNoteBackgroundColor(id, color) {
 }
 
 export function pinNote(id) {
-
+    let noteIndex = notes.findIndex(n => n.id === id);
+    if (noteIndex !== -1) {
+        notes[noteIndex].pinned = pinned ? false : true;
+        localStorage.setItem("notes", JSON.stringify(notes))
+    }
 }
 
 
