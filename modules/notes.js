@@ -8,10 +8,13 @@ const formatter = new Intl.DateTimeFormat("PL", {
     dateStyle: "short"
 })
 
+
+
 export function displayNotes() {
     const notesWrapper = document.querySelector("[data-notes-wrapper]")
     let notes = JSON.parse(localStorage.getItem("notes"))
     notesWrapper.innerHTML = ""
+    notes = sortByBoolean(notes, "pinned")
 
     if (notes) {
 
@@ -55,8 +58,8 @@ export function displayNotes() {
                 e.stopPropagation()
             })
 
-
             notesWrapper.append(template)
+
         })
 
     }
@@ -175,3 +178,7 @@ noteEditor.querySelector("[data-note-editor-close-btn]").addEventListener("click
     editNote
     noteEditor.close()
 })
+
+function sortByBoolean(arr, key) {
+    return arr.sort((a, b) => b[key] - a[key]);
+}
