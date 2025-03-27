@@ -30,19 +30,28 @@ button {
   padding: 1rem;
 }
 
-.create-note-button {
-  background-color: #003cff;
+.create-button {
   color: white;
   border: none;
   border-radius: 30px;
   padding: 1rem;
   font-weight: bold;
   font-size: 1rem;
+  width: 100%;
+  margin: 0.5rem 0;
+
+  &.create-note-button {
+    background-color: #003cff;
+  }
+  &.create-folder-btn {
+    background-color: #0030ce;
+  }
 }
 
-.create-note-button:hover {
+.create-button:hover {
   cursor: pointer;
-  background-color: #006fff;
+  filter: brightness(1.8);
+  color: #333;
 }
 
 .notes-search-form {
