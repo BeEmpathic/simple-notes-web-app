@@ -63,8 +63,13 @@ export function displayNotes() {
         })
 
     }
+    displayFolders()
+}
+
+function displayFolders() {
 
 }
+
 
 export function saveNote(title, content = "", id = self.crypto.randomUUID()) {
     const now = new Date()

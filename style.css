@@ -269,3 +269,7 @@ button {
   align-items: center;
   justify-content: space-between;
 }
+
+.folder > div {
+  display: flex;
+}

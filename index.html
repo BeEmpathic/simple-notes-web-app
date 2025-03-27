@@ -10,12 +10,17 @@
   <body>
     <div class="container">
       <div class="folders-navbar">
-        <button class="create-note-button" data-create-note-btn>
-          + New Note
-        </button>
+        <div class="create-btns-container">
+          <button class="create-note-button" data-create-note-btn>
+            + New Note
+          </button>
+          <button class="create-note-button" data-create-note-btn>
+            + New Folder
+          </button>
+        </div>
         <div class="folders-container">
           <div class="folder">
-            <div style="display: flex">
+            <div draggable="true">
               <img src="./icons/arrow-foward.svg" alt="foward-arrow" />
               <img src="./icons/folder.svg" alt="folder-icon" />
               <h3>Folder</h3>
