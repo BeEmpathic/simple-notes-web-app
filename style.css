@@ -282,3 +282,6 @@ button {
 .folder > div {
   display: flex;
 }
+
+.folder:hover {
+}

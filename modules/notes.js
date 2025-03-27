@@ -11,6 +11,11 @@ const formatter = new Intl.DateTimeFormat("PL", {
 
 
 export function displayNotes() {
+
+    if (!localStorage.getItem("notes")) return
+
+
+
     const notesWrapper = document.querySelector("[data-notes-wrapper]")
     let notes = JSON.parse(localStorage.getItem("notes"))
     notesWrapper.innerHTML = ""
@@ -66,10 +71,6 @@ export function displayNotes() {
     displayFolders()
 }
 
-function displayFolders() {
-
-}
-
 
 export function saveNote(title, content = "", id = self.crypto.randomUUID()) {
     const now = new Date()
@@ -107,7 +108,7 @@ const noteEditorModifiedAt = noteEditor.querySelector("[data-note-editor-modifie
 
 let currentNoteId
 
-const createNoteBtn = document.querySelector("[data-create-note-btn]")
+
 export function editNote(id) {
 
     let notes = JSON.parse(localStorage.getItem("notes"))
@@ -183,6 +184,33 @@ noteEditor.querySelector("[data-note-editor-close-btn]").addEventListener("click
     editNote
     noteEditor.close()
 })
+
+
+const createNoteBtn = document.querySelector("[data-create-note-btn]")
+createNoteBtn.addEventListener("click", () => {
+    editNote()
+})
+
+
+function displayFolders() {
+
+}
+
+
+const createFolderbtn = document.querySelector("[data-create-folder-btn]")
+function editFolder(id) {
+    let folders = localStorage.getItem("folders")
+}
+
+function saveFolder(id) {
+
+}
+
+function deleteFolder(id) {
+
+}
+
+
 
 function sortByBoolean(arr, key) {
     return arr.sort((a, b) => b[key] - a[key]);
