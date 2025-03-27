@@ -263,3 +263,9 @@ button {
   border: none;
   outline: none;
 }
+
+.folder {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
