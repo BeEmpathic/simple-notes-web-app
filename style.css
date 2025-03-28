@@ -51,7 +51,6 @@ button {
 .create-button:hover {
   cursor: pointer;
   filter: brightness(1.8);
-  color: #333;
 }
 
 .notes-search-form {

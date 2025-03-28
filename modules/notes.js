@@ -195,6 +195,7 @@ function displayFolders() {
     folders.forEach((folder) => {
         const template = folderTemplate.content.cloneNode(true)
         template.querySelector("[data-folder-name]").textContent = folder.name
+        template.querySelector("[data-folder-content]")
     })
 
 

@@ -30,6 +30,7 @@
             </div>
             <span data-notes-in-folder-count>0</span>
           </div>
+          <div data-folder-content class="folder-content"></div>
         </div>
       </div>
       <div class="notes-container">
@@ -141,12 +142,13 @@
       </div>
     </template>
     <template data-folder-template>
-      <div>
+      <div class="folder-info">
         <img src="./icons/arrow-foward.svg" alt="foward-arrow" />
         <img src="./icons/folder.svg" alt="folder-icon" />
         <h3 data-folder-name>Folder</h3>
         <span data-notes-in-folder-count>0</span>
       </div>
+      <div data-folder-content class="folder-content"></div>
     </template>
   </body>
 </html>
