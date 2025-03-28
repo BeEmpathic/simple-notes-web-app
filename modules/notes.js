@@ -1,73 +1,66 @@
 const notesTemplate = document.querySelector("[data-note-template]")
 
 
-
-
-
 const formatter = new Intl.DateTimeFormat("PL", {
     dateStyle: "short"
 })
 
 
 
+const notesWrapper = document.querySelector("[data-notes-wrapper]")
 export function displayNotes() {
 
     if (!localStorage.getItem("notes")) return
 
-
-
-    const notesWrapper = document.querySelector("[data-notes-wrapper]")
     let notes = JSON.parse(localStorage.getItem("notes"))
     notesWrapper.innerHTML = ""
     notes = sortByBoolean(notes, "pinned")
 
-    if (notes) {
+    notes.forEach((note) => {
 
-        notes.forEach((note) => {
-
-            const template = notesTemplate.content.cloneNode(true)
-            const createdAt = new Date(note.createdAt)
+        const template = notesTemplate.content.cloneNode(true)
+        const createdAt = new Date(note.createdAt)
 
 
-            template.querySelector("[data-note-title]").textContent = note.title
-            template.querySelector("[data-note-content]").innerHTML = note.content
-            template.querySelector("[data-note-date]").textContent = formatter.format(createdAt)
-            template.querySelector("[data-note]").style.backgroundColor = note.bgColor
-            template.querySelector("[data-note-pin-btn] img").src = note.pinned ? "./icons/pin-on.svg" : "./icons/pin-off.svg"
+        template.querySelector("[data-note-title]").textContent = note.title
+        template.querySelector("[data-note-content]").innerHTML = note.content
+        template.querySelector("[data-note-date]").textContent = formatter.format(createdAt)
+        template.querySelector("[data-note]").style.backgroundColor = note.bgColor
+        template.querySelector("[data-note-pin-btn] img").src = note.pinned ? "./icons/pin-on.svg" : "./icons/pin-off.svg"
 
 
-            template.querySelector("[data-note]").addEventListener("click", () => {
-                editNote(note.id)
-            })
+        template.querySelector("[data-note]").addEventListener("click", () => {
+            editNote(note.id)
+        })
 
-            template.querySelector("[data-note-delete-btn]").addEventListener("click", (e) => {
+        template.querySelector("[data-note-delete-btn]").addEventListener("click", (e) => {
 
-                deleteNote(note.id)
+            deleteNote(note.id)
+            e.stopPropagation()
+        })
+
+        const colorsbtns = template.querySelectorAll("[data-color]")
+        colorsbtns.forEach(btn => {
+            btn.addEventListener("click", (e) => {
+                const color = btn.style.backgroundColor
+                changeNoteBackgroundColor(note.id, color)
                 e.stopPropagation()
             })
-
-            const colorsbtns = template.querySelectorAll("[data-color]")
-            colorsbtns.forEach(btn => {
-                btn.addEventListener("click", (e) => {
-                    const color = btn.style.backgroundColor
-                    changeNoteBackgroundColor(note.id, color)
-                    e.stopPropagation()
-                })
-
-            })
-
-
-            template.querySelector("[data-note-pin-btn]").addEventListener("click", (e) => {
-
-                pinNote(note.id)
-                e.stopPropagation()
-            })
-
-            notesWrapper.append(template)
 
         })
 
-    }
+
+        template.querySelector("[data-note-pin-btn]").addEventListener("click", (e) => {
+
+            pinNote(note.id)
+            e.stopPropagation()
+        })
+
+        notesWrapper.append(template)
+
+    })
+
+
     displayFolders()
 }
 
@@ -191,24 +184,66 @@ createNoteBtn.addEventListener("click", () => {
     editNote()
 })
 
-
+const foldersContainer = document.querySelector("[data-folders-container]")
+const folderTemplate = document.querySelector("[data-folder-template]")
 function displayFolders() {
+    if (!localStorage.getItem("folders")) return
+
+    let folders = JSON.parse(localStorage.getItem("folders"))
+    foldersContainer.innerHTML = ""
+
+    folders.forEach((folder) => {
+        const template = folderTemplate.content.cloneNode(true)
+        template.querySelector("[data-folder-name]").textContent = folder.name
+    })
+
 
 }
 
-
+let currentFolderId
 const createFolderbtn = document.querySelector("[data-create-folder-btn]")
-function editFolder(id) {
-    let folders = localStorage.getItem("folders")
+const folderName = document.querySelector("[data-folder-name]")
+function changeFolderName(id, newName) {
+    // on stopping editing folder name
+    let folders = JSON.parse(localStorage.getItem("folders")) || []
+
+    let folderIndex = folders.findIndex(f => f.id === id)
+    if (folderIndex !== -1) {
+        folders[folderIndex].name = newName
+    }
+
+    localStorage.setItem("folders", JSON.stringify(folders))
+    displayFolders()
 }
 
-function saveFolder(id) {
 
+
+
+function saveFolder(name, content, id = crypto.self.randomUUID()) {
+    let folders = JSON.parse(localStorage.getItem("folders")) || []
+
+    let folderIndex = folders.findIndex(f => f.id === id)
+    if (folderIndex !== -1) {
+        folders[folderIndex].name = name
+        folders[folderIndex].content = content
+    } else {
+        const folder = {
+            id,
+            name,
+            content
+        }
+        folders.push(folder)
+    }
+
+    localStorage.setItem("folders", JSON.stringify(folders))
+    displayFolders()
 }
 
 function deleteFolder(id) {
 
 }
+
+
 
 
 
