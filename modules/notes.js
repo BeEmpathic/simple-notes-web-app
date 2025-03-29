@@ -197,6 +197,25 @@ function displayFolders() {
         template.querySelector("[data-folder-name]").textContent = folder.name
 
         template.querySelector("[data-folder-content]").innerHTML = folder.content; // you will have to decode folder content cause of nesting
+
+        template.querySelector("[data-folder-name]").addEventListener("dblclick", (e) => {
+            e.target.setAttribute("contenteditable", "true")
+            e.target.focus()
+        })
+
+        template.querySelector("[data-folder-name]").addEventListener("blur", (e) => {
+            e.target.removeAttribute("contenteditable")
+            changeFolderName(e.target.textContent, folder.id)
+        })
+
+        template.querySelector("[data-folder-name]").addEventListener("keydown", (e) => {
+            if (e.key === "Enter") {
+                e.preventDefault()
+                e.target.blur()
+            }
+        })
+
+
         foldersContainer.append(template)
     })
 
@@ -246,6 +265,7 @@ function deleteFolder(id) {
 
 
 createFolderbtn.addEventListener("click", () => changeFolderName("New Folder"))
+
 
 
 function sortByBoolean(arr, key) {
