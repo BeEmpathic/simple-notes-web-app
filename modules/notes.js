@@ -195,7 +195,9 @@ function displayFolders() {
     folders.forEach((folder) => {
         const template = folderTemplate.content.cloneNode(true)
         template.querySelector("[data-folder-name]").textContent = folder.name
-        template.querySelector("[data-folder-content]").innerHTML = innerHTML + folder.content; // you will have to decode folder content cause of nesting
+
+        template.querySelector("[data-folder-content]").innerHTML = folder.content; // you will have to decode folder content cause of nesting
+        foldersContainer.append(template)
     })
 
 
@@ -225,6 +227,7 @@ function changeFolderName(name, id = self.crypto.randomUUID()) {
 
 function saveFolderContent(content, id) {
     if (!content) return
+
     let folders = JSON.parse(localStorage.getItem("folders"))
 
     let folderIndex = folders.findIndex(f => f.id === id)
@@ -236,32 +239,13 @@ function saveFolderContent(content, id) {
 }
 
 
-function saveFolder(name, content, id = crypto.self.randomUUID()) {
-    let folders = JSON.parse(localStorage.getItem("folders")) || []
-
-    let folderIndex = folders.findIndex(f => f.id === id)
-    if (folderIndex !== -1) {
-        folders[folderIndex].name = name
-        folders[folderIndex].content = content
-    } else {
-        const folder = {
-            id,
-            name,
-            content
-        }
-        folders.push(folder)
-    }
-
-    localStorage.setItem("folders", JSON.stringify(folders))
-    displayFolders()
-}
 
 function deleteFolder(id) {
 
 }
 
 
-
+createFolderbtn.addEventListener("click", () => changeFolderName("New Folder"))
 
 
 function sortByBoolean(arr, key) {
