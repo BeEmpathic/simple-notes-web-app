@@ -195,7 +195,7 @@ function displayFolders() {
     folders.forEach((folder) => {
         const template = folderTemplate.content.cloneNode(true)
         template.querySelector("[data-folder-name]").textContent = folder.name
-        template.querySelector("[data-folder-content]")
+        template.querySelector("[data-folder-content]").innerHTML = innerHTML + folder.content; // you will have to decode folder content cause of nesting
     })
 
 
@@ -204,20 +204,36 @@ function displayFolders() {
 let currentFolderId
 const createFolderbtn = document.querySelector("[data-create-folder-btn]")
 const folderName = document.querySelector("[data-folder-name]")
-function changeFolderName(id, newName) {
+function changeFolderName(name, id = self.crypto.randomUUID()) {
     // on stopping editing folder name
     let folders = JSON.parse(localStorage.getItem("folders")) || []
 
     let folderIndex = folders.findIndex(f => f.id === id)
     if (folderIndex !== -1) {
-        folders[folderIndex].name = newName
+        folders[folderIndex].name = name
+    } else {
+        const folder = {
+            id: id,
+            name: name,
+            content: []
+        }
+        folders.push(folder)
     }
-
     localStorage.setItem("folders", JSON.stringify(folders))
     displayFolders()
 }
 
+function saveFolderContent(content, id) {
+    if (!content) return
+    let folders = JSON.parse(localStorage.getItem("folders"))
 
+    let folderIndex = folders.findIndex(f => f.id === id)
+    if (folderIndex !== -1) {
+        folders[folderIndex].content = content
+    }
+    localStorage.setItem("folders", JSON.stringify(folders))
+    displayFolders()
+}
 
 
 function saveFolder(name, content, id = crypto.self.randomUUID()) {
