@@ -119,6 +119,8 @@ export function editNote(id) {
 
     } else {
         currentNoteId = undefined
+        noteEditorCreatedAt.textContent = formatter.format(new Date())
+        noteEditorModifiedAt.textContent = formatter.format(new Date())
     }
     noteEditor.showModal()
     noteEditor.style.display = "grid"
