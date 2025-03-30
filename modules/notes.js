@@ -127,6 +127,16 @@ export function editNote(id) {
 }
 
 
+noteEditorTitle.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+        e.preventDefault()
+        e.target.blur()
+    }
+})
+
+
+
+
 
 
 
