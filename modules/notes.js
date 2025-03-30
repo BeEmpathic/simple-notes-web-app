@@ -201,7 +201,7 @@ function displayFolders() {
 
     folders.forEach((folder) => {
         const template = folderTemplate.content.cloneNode(true)
-        template.querySelector("[data-folder-name]").textContent = folder.name
+        template.querySelector("[data-folder-name]").textContent = truncateString(folder.name, 10)
 
         template.querySelector("[data-folder-content]").innerHTML = folder.content; // you will have to decode folder content cause of nesting
 
