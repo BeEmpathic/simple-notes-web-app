@@ -136,11 +136,6 @@ noteEditorTitle.addEventListener("keydown", (e) => {
 
 
 
-
-
-
-
-
 export function deleteNote(id) {
     if (id) {
         let notes = JSON.parse(localStorage.getItem("notes"))
@@ -282,4 +277,11 @@ createFolderbtn.addEventListener("click", () => changeFolderName("New Folder"))
 
 function sortByBoolean(arr, key) {
     return arr.sort((a, b) => b[key] - a[key]);
+}
+
+function truncateString(str, maxLength) {
+    if (str.length > maxLength) {
+        return str.slice(0, maxLength) + "...";
+    }
+    return str;
 }
