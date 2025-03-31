@@ -1,4 +1,3 @@
-const notesTemplate = document.querySelector("[data-note-template]")
 
 
 const formatter = new Intl.DateTimeFormat("PL", {
@@ -7,6 +6,7 @@ const formatter = new Intl.DateTimeFormat("PL", {
 
 
 
+const notesTemplate = document.querySelector("[data-note-template]")
 const notesWrapper = document.querySelector("[data-notes-wrapper]")
 export function displayNotes() {
 
@@ -22,12 +22,13 @@ export function displayNotes() {
         const createdAt = new Date(note.createdAt)
 
 
-        template.querySelector("[data-note-title]").textContent = truncateString(note.title, 10)
-        template.querySelector("[data-note-content]").innerHTML = truncateString(note.content, 270)
+        template.querySelector("[data-note-title]").textContent = note.title
+        template.querySelector("[data-note-content]").innerHTML = note.content
         template.querySelector("[data-note-date]").textContent = formatter.format(createdAt)
         template.querySelector("[data-note]").style.backgroundColor = note.bgColor
         template.querySelector("[data-note-pin-btn] img").src = note.pinned ? "./icons/pin-on.svg" : "./icons/pin-off.svg"
 
+        truncateText(template.querySelector("[data-note-content]"))
 
         template.querySelector("[data-note]").addEventListener("click", () => {
             editNote(note.id)
@@ -55,6 +56,9 @@ export function displayNotes() {
             pinNote(note.id)
             e.stopPropagation()
         })
+
+
+
 
         notesWrapper.append(template)
 
@@ -201,7 +205,7 @@ function displayFolders() {
 
     folders.forEach((folder) => {
         const template = folderTemplate.content.cloneNode(true)
-        template.querySelector("[data-folder-name]").textContent = truncateString(folder.name, 10)
+        template.querySelector("[data-folder-name]").textContent = folder.name // I think this is a mistake
 
         template.querySelector("[data-folder-content]").innerHTML = folder.content; // you will have to decode folder content cause of nesting
 
@@ -279,9 +283,32 @@ function sortByBoolean(arr, key) {
     return arr.sort((a, b) => b[key] - a[key]);
 }
 
-function truncateString(str, maxLength) {
-    if (str.length > maxLength) {
-        return str.slice(0, maxLength) + "...";
+function truncateText(element) {
+    const maxHeight = element.parentElement.offsetHeight * 0.7; // 70% matches grid-template-rows
+    let originalContent = element.innerHTML;
+    element.style.height = 'auto'; // Reset to measure content
+
+    // If content exceeds max height, truncate it
+    if (element.scrollHeight > maxHeight) {
+        element.style.height = `${maxHeight}px`;
+
+        // Create a temporary container for measurement
+        const temp = document.createElement('div');
+        temp.style.visibility = 'hidden';
+        temp.style.position = 'absolute';
+        temp.style.width = element.offsetWidth + 'px';
+        temp.innerHTML = originalContent;
+        document.body.appendChild(temp);
+
+        let text = originalContent;
+        while (temp.scrollHeight > maxHeight && text.length > 0) {
+            text = text.slice(0, -1);
+            temp.innerHTML = text + '...';
+        }
+
+        element.innerHTML = text + '<span style="position: absolute; bottom: 0; right: 0; background: inherit;">...</span>';
+        document.body.removeChild(temp);
+    } else {
+        element.style.height = 'auto'; // Reset if no truncation needed
     }
-    return str;
 }
