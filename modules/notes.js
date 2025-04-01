@@ -5,7 +5,6 @@ const formatter = new Intl.DateTimeFormat("PL", {
 })
 
 
-
 const notesTemplate = document.querySelector("[data-note-template]")
 const notesWrapper = document.querySelector("[data-notes-wrapper]")
 export function displayNotes() {
@@ -28,7 +27,6 @@ export function displayNotes() {
         template.querySelector("[data-note]").style.backgroundColor = note.bgColor
         template.querySelector("[data-note-pin-btn] img").src = note.pinned ? "./icons/pin-on.svg" : "./icons/pin-off.svg"
 
-        truncateText(template.querySelector("[data-note-content]"))
 
         template.querySelector("[data-note]").addEventListener("click", () => {
             editNote(note.id)
@@ -60,13 +58,33 @@ export function displayNotes() {
 
 
 
+
         notesWrapper.append(template)
+
 
     })
 
-
     displayFolders()
+
+    const notesContent = notesWrapper.querySelectorAll("[data-note-content]")
+    notesContent.forEach(noteContent => {
+        textOverFlowHandler(noteContent)
+    })
+
 }
+
+function textOverFlowHandler(element) {
+    let textfullLength = element.textContent.length
+    let text = element.textContent
+    while ((element.scrollWidth > element.clientWidth || element.scrollHeight > element.clientHeight) && textfullLength > 0) {
+        textfullLength--
+        text = text.slice(0, textfullLength)
+        element.textContent = text
+        textOverFlowHandler(element)
+    }
+}
+
+
 
 
 export function saveNote(title, content = "", id = self.crypto.randomUUID()) {
