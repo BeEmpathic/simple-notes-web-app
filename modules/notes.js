@@ -74,15 +74,16 @@ export function displayNotes() {
 }
 
 function textOverFlowHandler(element) {
-    let textfullLength = element.textContent.length
-    let text = element.textContent
+    let text = element.textContent;
+    let textfullLength = text.length;
+
     while ((element.scrollWidth > element.clientWidth || element.scrollHeight > element.clientHeight) && textfullLength > 0) {
-        textfullLength--
-        text = text.slice(0, textfullLength)
-        element.textContent = text
-        textOverFlowHandler(element)
+        textfullLength--;
+        text = text.slice(0, textfullLength).trim() + "...";
+        element.textContent = text;
     }
 }
+
 
 
 
@@ -301,32 +302,3 @@ function sortByBoolean(arr, key) {
     return arr.sort((a, b) => b[key] - a[key]);
 }
 
-function truncateText(element) {
-    const maxHeight = element.parentElement.offsetHeight * 0.7; // 70% matches grid-template-rows
-    let originalContent = element.innerHTML;
-    element.style.height = 'auto'; // Reset to measure content
-
-    // If content exceeds max height, truncate it
-    if (element.scrollHeight > maxHeight) {
-        element.style.height = `${maxHeight}px`;
-
-        // Create a temporary container for measurement
-        const temp = document.createElement('div');
-        temp.style.visibility = 'hidden';
-        temp.style.position = 'absolute';
-        temp.style.width = element.offsetWidth + 'px';
-        temp.innerHTML = originalContent;
-        document.body.appendChild(temp);
-
-        let text = originalContent;
-        while (temp.scrollHeight > maxHeight && text.length > 0) {
-            text = text.slice(0, -1);
-            temp.innerHTML = text + '...';
-        }
-
-        element.innerHTML = text + '<span style="position: absolute; bottom: 0; right: 0; background: inherit;">...</span>';
-        document.body.removeChild(temp);
-    } else {
-        element.style.height = 'auto'; // Reset if no truncation needed
-    }
-}
