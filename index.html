@@ -21,17 +21,7 @@
             + New Folder
           </button>
         </div>
-        <div data-folders-container class="folders-container">
-          <div class="folder">
-            <div draggable="true">
-              <img src="./icons/arrow-foward.svg" alt="foward-arrow" />
-              <img src="./icons/folder.svg" alt="folder-icon" />
-              <h3>Folder</h3>
-            </div>
-            <span data-notes-in-folder-count>0</span>
-          </div>
-          <div data-folder-content class="folder-content"></div>
-        </div>
+        <div data-folders-container class="folders-container"></div>
       </div>
       <div class="notes-container">
         <form class="notes-search-form">
@@ -87,7 +77,6 @@
       <div class="note" draggable="true" data-note>
         <header class="note-header">
           <h1 class="note-title truncate-text" data-note-title></h1>
-          <!-- Try to make it checkbox should make your life easier I guess  -->
           <button class="note-btn note-pin-btn" data-note-pin-btn>
             <img src="./icons/pin-off.svg" alt="pin-off" />
           </button>
