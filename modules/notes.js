@@ -65,6 +65,7 @@ export function displayNotes() {
     })
 
     displayFolders()
+    applyTextOverflowHandler()
 
 
 }
