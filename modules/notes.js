@@ -287,13 +287,13 @@ function sortByBoolean(arr, key) {
 
 function textOverFlowHandler(element) {
     if (!element.dataset.originalText) {
-        element.dataset.originalText = element.textContent;
+        element.dataset.originalText = element.textContent; // Store original text
     }
 
     let text = element.dataset.originalText;
     let textfullLength = text.length;
 
-    element.textContent = text;
+    element.textContent = text; // Reset to original text before truncating
 
     while ((element.scrollWidth > element.clientWidth || element.scrollHeight > element.clientHeight) && textfullLength > 0) {
         textfullLength--;
@@ -302,13 +302,22 @@ function textOverFlowHandler(element) {
     }
 }
 
-
+// Apply to all elements with the class "truncate-text"
 function applyTextOverflowHandler() {
     document.querySelectorAll(".truncate-text").forEach(textOverFlowHandler);
 }
 
+// Debounce function to improve performance
+function debounce(func, delay) {
+    let timeout;
+    return function (...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, args), delay);
+    };
+}
 
+// Run on page load
 window.addEventListener("load", applyTextOverflowHandler);
 
-
-window.addEventListener("resize", applyTextOverflowHandler);
+// Run on window resize with debounce
+window.addEventListener("resize", debounce(applyTextOverflowHandler, 200));
