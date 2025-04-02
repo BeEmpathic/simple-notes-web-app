@@ -86,13 +86,13 @@
     <template data-note-template id="note-template">
       <div class="note" draggable="true" data-note>
         <header class="note-header">
-          <h1 class="note-title" data-note-title></h1>
+          <h1 class="note-title truncate-text" data-note-title></h1>
           <!-- Try to make it checkbox should make your life easier I guess  -->
           <button class="note-btn note-pin-btn" data-note-pin-btn>
             <img src="./icons/pin-off.svg" alt="pin-off" />
           </button>
         </header>
-        <div class="note-content" data-note-content></div>
+        <div class="note-content truncate-text" data-note-content></div>
         <div class="note-footer">
           <div data-note-color-picker class="note-color-picker">
             <button

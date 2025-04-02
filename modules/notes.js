@@ -66,29 +66,10 @@ export function displayNotes() {
 
     displayFolders()
 
-    const notesContent = notesWrapper.querySelectorAll("[data-note-content]")
-    notesContent.forEach(noteContent => {
-        textOverFlowHandler(noteContent)
-    })
-
-    const notesTitle = notesWrapper.querySelectorAll("[data-note-title]")
-    notesTitle.forEach(noteTitle => {
-        console.log(noteTitle)
-        textOverFlowHandler(noteTitle)
-    })
 
 }
 
-function textOverFlowHandler(element) {
-    let text = element.textContent;
-    let textfullLength = text.length;
 
-    while ((element.scrollWidth > element.clientWidth || element.scrollHeight > element.clientHeight) && textfullLength > 0) {
-        textfullLength--;
-        text = text.slice(0, textfullLength).trim() + "...";
-        element.textContent = text;
-    }
-}
 
 export function saveNote(title, content = "", id = self.crypto.randomUUID()) {
     const now = new Date()
@@ -304,3 +285,30 @@ function sortByBoolean(arr, key) {
     return arr.sort((a, b) => b[key] - a[key]);
 }
 
+function textOverFlowHandler(element) {
+    if (!element.dataset.originalText) {
+        element.dataset.originalText = element.textContent;
+    }
+
+    let text = element.dataset.originalText;
+    let textfullLength = text.length;
+
+    element.textContent = text;
+
+    while ((element.scrollWidth > element.clientWidth || element.scrollHeight > element.clientHeight) && textfullLength > 0) {
+        textfullLength--;
+        text = text.slice(0, textfullLength).trim() + "...";
+        element.textContent = text;
+    }
+}
+
+
+function applyTextOverflowHandler() {
+    document.querySelectorAll(".truncate-text").forEach(textOverFlowHandler);
+}
+
+
+window.addEventListener("load", applyTextOverflowHandler);
+
+
+window.addEventListener("resize", applyTextOverflowHandler);
