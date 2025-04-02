@@ -133,13 +133,27 @@ button {
 
 .note-header {
   display: flex;
-
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
   width: 100%;
+  max-height: 100%;
 
   font-size: 0.8rem;
   justify-content: space-between;
   align-items: center;
   font-family: Arial;
+}
+
+.note-title {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100%;
+  max-height: 100%;
+  max-height: 100%;
+  max-width: 100%;
+  display: block;
 }
 
 .note-content {

@@ -71,6 +71,12 @@ export function displayNotes() {
         textOverFlowHandler(noteContent)
     })
 
+    const notesTitle = notesWrapper.querySelectorAll("[data-note-title]")
+    notesTitle.forEach(noteTitle => {
+        console.log(noteTitle)
+        textOverFlowHandler(noteTitle)
+    })
+
 }
 
 function textOverFlowHandler(element) {
@@ -83,10 +89,6 @@ function textOverFlowHandler(element) {
         element.textContent = text;
     }
 }
-
-
-
-
 
 export function saveNote(title, content = "", id = self.crypto.randomUUID()) {
     const now = new Date()
