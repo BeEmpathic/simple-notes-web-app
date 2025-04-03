@@ -16,7 +16,6 @@ button {
 }
 
 .container {
-  min-height: 100dvh;
   width: 100%;
   display: grid;
   grid-template-columns: 20% 80%;
@@ -28,6 +27,7 @@ button {
   display: flex;
   flex-direction: column;
   padding: 1rem;
+  overflow: hidden;
 }
 
 .create-button {
@@ -97,6 +97,7 @@ button {
   max-width: 100%;
   padding: 1rem;
   background-color: rebeccapurple;
+  overflow: hidden;
 }
 
 .search-bar-input-settings {
@@ -106,6 +107,7 @@ button {
 
 .notes-wrapper {
   width: 100%;
+
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 1rem;
@@ -137,7 +139,6 @@ button {
   overflow: hidden;
   white-space: nowrap;
   width: 100%;
-  max-height: 100%;
 
   font-size: 0.8rem;
   justify-content: space-between;
@@ -150,8 +151,7 @@ button {
   overflow: hidden;
   white-space: nowrap;
   width: 100%;
-  max-height: 100%;
-  max-height: 100%;
+
   max-width: 100%;
   display: block;
 }
