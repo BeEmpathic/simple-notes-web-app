@@ -229,10 +229,7 @@ button {
   border-radius: 25px;
   border: none;
   display: none;
-  grid-template-rows:
-    10%
-    80%
-    10%;
+  flex-direction: column;
   position: relative;
 }
 
@@ -253,6 +250,7 @@ button {
 }
 
 .note-editor-content {
+  min-height: 80%;
   margin-top: 1rem;
   font-size: 1.2rem;
 }

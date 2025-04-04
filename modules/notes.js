@@ -128,9 +128,10 @@ export function editNote(id) {
         currentNoteId = undefined
         noteEditorCreatedAt.textContent = formatter.format(new Date())
         noteEditorModifiedAt.textContent = formatter.format(new Date())
+        noteEditor.style.backgroundColor = "white"
     }
     noteEditor.showModal()
-    noteEditor.style.display = "grid"
+    noteEditor.style.display = "flex"
 }
 
 
