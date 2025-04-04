@@ -224,13 +224,13 @@ button {
 }
 
 .note-editor {
-  width: 50%;
-  height: 50%;
+  width: 50dvw;
+  height: 50dvh;
   border-radius: 25px;
   border: none;
   display: none;
   flex-direction: column;
-  position: relative;
+  overflow: hidden;
 }
 
 .note-editor::backdrop {
@@ -253,6 +253,8 @@ button {
   min-height: 80%;
   margin-top: 1rem;
   font-size: 1.2rem;
+
+  overflow-y: auto;
 }
 
 .note-editor-content:empty:before {
