@@ -231,6 +231,7 @@ button {
   display: none;
   flex-direction: column;
   overflow: hidden;
+  padding: 1rem;
 }
 
 .note-editor::backdrop {

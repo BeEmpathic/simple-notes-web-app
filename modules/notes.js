@@ -23,6 +23,7 @@ export function displayNotes() {
 
         template.querySelector("[data-note-title]").textContent = note.title
         template.querySelector("[data-note-content]").innerHTML = note.content
+        console.log(note.content)
         template.querySelector("[data-note-date]").textContent = formatter.format(createdAt)
         template.querySelector("[data-note]").style.backgroundColor = note.bgColor
         template.querySelector("[data-note-pin-btn] img").src = note.pinned ? "./icons/pin-on.svg" : "./icons/pin-off.svg"
@@ -288,22 +289,24 @@ function sortByBoolean(arr, key) {
 }
 
 function textOverFlowHandler(element) {
-    if (!element.dataset.originalText) {
-        element.dataset.originalText = element.textContent;
-    }
+    let originalText = element.innerHTML;
+    let textfullLength = originalText.length;
 
-    let text = element.dataset.originalText;
-    let textfullLength = text.length;
 
-    element.textContent = text;
+    const lineBreakPlaceholder = "[[BR]]";
+    originalText = originalText.replace(/<div>/g, lineBreakPlaceholder).replace(/<\/div>/g, "");
 
     while ((element.scrollWidth > element.clientWidth || element.scrollHeight > element.clientHeight) && textfullLength > 0) {
         textfullLength--;
-        text = text.slice(0, textfullLength).trim() + "...";
-        element.textContent = text;
+        let trimmedText = originalText.slice(0, textfullLength);
+
+
+        trimmedText = trimmedText.replace(/([\s]|\[\[BR\]\])+$/g, "");
+
+
+        element.innerHTML = trimmedText.replaceAll(lineBreakPlaceholder, "<div></div>") + "...";
     }
 }
-
 
 function applyTextOverflowHandler() {
     document.querySelectorAll(".truncate-text").forEach(textOverFlowHandler);
