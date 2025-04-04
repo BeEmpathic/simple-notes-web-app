@@ -266,7 +266,10 @@ button {
 .note-editor-footer {
   display: flex;
   justify-content: space-between;
-  align-items: end;
+}
+
+.note-editor-footer > *:nth-child(2n) {
+  text-align: end;
 }
 
 .note-editor-close-btn {
