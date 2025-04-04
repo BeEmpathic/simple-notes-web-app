@@ -254,7 +254,7 @@ button {
   min-height: 80%;
   margin-top: 1rem;
   font-size: 1.2rem;
-
+  flex: 1;
   overflow-y: auto;
 }
 
