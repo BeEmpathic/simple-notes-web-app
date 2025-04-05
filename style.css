@@ -5,6 +5,17 @@ body,
   box-sizing: border-box;
 }
 
+:root {
+  --bar-width: 60px;
+  --bar-height: 8px;
+  --hamburger-gap: 6px;
+  --foreground: #333;
+  --background: white;
+  --hamburger-margin: 8px;
+  --animation-timing: 200ms ease-in-out;
+  --hamburger-height: calc(var(--bar-height) * 3 + var(--hamburger-gap) * 2);
+}
+
 button {
   background: none;
   border: none;
@@ -29,6 +40,81 @@ button {
   flex-direction: column;
   padding: 1rem;
   overflow: hidden;
+}
+
+.hamburger-menu {
+  display: none;
+}
+
+/* remember to set the colors right after the side menu shows up */
+
+/* mobile view */
+@media (max-width: 768px) {
+  .container {
+    display: flex;
+  }
+
+  .folders-navbar {
+    transition: translate var(--animation-timing);
+    translate: -100%;
+    position: absolute;
+    background-color: lightsalmon;
+  }
+  .hamburger-menu:has(input:checked) + .folders-navbar {
+    translate: 0;
+  }
+
+  .hamburger-menu {
+    --x-width: calc(var(--hamburger-height) * 1.41);
+    display: flex;
+    flex-direction: column;
+    gap: var(--hamburger-gap);
+    width: max-content;
+    position: absolute;
+    top: var(--hamburger-margin);
+    left: var(--hamburger-margin);
+    z-index: 2;
+    cursor: pointer;
+  }
+
+  .hamburger-menu::before,
+  .hamburger-menu::after,
+  .hamburger-menu input {
+    content: "";
+    width: var(--bar-width);
+    height: var(--bar-height);
+    background-color: var(--foreground);
+    border-radius: 9999px;
+    transform-origin: left center;
+    transition: translate var(--animation-timing),
+      rotate var(--animation-timing), opacity var(--animation-timing),
+      width var(--animation-timing), background-color var(--animation-timing);
+  }
+
+  .hamburger-menu input {
+    appearance: none;
+    padding: 0;
+    margin: 0;
+    outline: none;
+    pointer-events: none;
+  }
+
+  .hamburger-menu:has(input:checked)::before {
+    rotate: 45deg;
+    width: var(--x-width);
+    translate: 0 calc(var(--bar-height) / -2);
+  }
+
+  .hamburger-menu:has(input:checked)::after {
+    rotate: -45deg;
+    width: var(--x-width);
+    translate: 0 calc(var(--bar-height) / 2);
+  }
+
+  .hamburger-menu input:checked {
+    opacity: 0;
+    width: 0;
+  }
 }
 
 .create-button {
