@@ -54,11 +54,16 @@ button {
     display: flex;
   }
 
+  .notes-container {
+    flex: 1;
+  }
+
   .folders-navbar {
     transition: translate var(--animation-timing);
     translate: -100%;
     position: absolute;
     background-color: lightsalmon;
+    z-index: 3;
   }
   .hamburger-menu:has(input:checked) + .folders-navbar {
     translate: 0;
@@ -73,7 +78,7 @@ button {
     position: absolute;
     top: var(--hamburger-margin);
     left: var(--hamburger-margin);
-    z-index: 2;
+    z-index: 999;
     cursor: pointer;
   }
 
@@ -264,6 +269,7 @@ button {
 
 .note-color-picker {
   position: relative;
+  z-index: 2;
 }
 
 .note-colors-palette {
@@ -284,6 +290,7 @@ button {
   pointer-events: none;
   transform: translateY(-10px);
   transition: opacity 150ms ease-in-out, transform 150ms ease-in-out;
+  z-index: 2;
 }
 
 .note-color-picker:hover .note-colors-palette {
