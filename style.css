@@ -32,6 +32,7 @@ button {
   min-height: 100dvh;
   grid-template-columns: 20% 80%;
   background-color: lightblue;
+  position: relative;
 }
 
 .folders-navbar {
@@ -52,18 +53,20 @@ button {
 @media (max-width: 768px) {
   .container {
     display: flex;
+    height: 100dvh;
   }
 
   .notes-container {
     flex: 1;
+    height: 100dvh;
   }
-
   .folders-navbar {
     transition: translate var(--animation-timing);
     translate: -100%;
     position: absolute;
     background-color: lightsalmon;
     z-index: 3;
+    min-height: 100dvh;
   }
   .hamburger-menu:has(input:checked) + .folders-navbar {
     translate: 0;
@@ -75,7 +78,7 @@ button {
     flex-direction: column;
     gap: var(--hamburger-gap);
     width: max-content;
-    position: absolute;
+    position: fixed;
     top: var(--hamburger-margin);
     left: var(--hamburger-margin);
     z-index: 999;
