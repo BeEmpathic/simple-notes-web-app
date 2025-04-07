@@ -7,6 +7,7 @@ const formatter = new Intl.DateTimeFormat("PL", {
 
 const notesTemplate = document.querySelector("[data-note-template]")
 const notesWrapper = document.querySelector("[data-notes-wrapper]")
+
 export function displayNotes() {
 
     if (!localStorage.getItem("notes")) return
@@ -35,6 +36,16 @@ export function displayNotes() {
         template.querySelector("[data-note-delete-btn]").addEventListener("click", (e) => {
 
             deleteNote(note.id)
+            e.stopPropagation()
+        })
+
+        const colorsPaletteBtn = template.querySelector("[data-note-colors-palette-btn]")
+        const colorsPalette = template.querySelector("[data-colors-palette]")
+
+        colorsPaletteBtn.addEventListener("click", (e) => {
+            colorsPalette.classList.toggle("active")
+            colorsPaletteBtn.classList.toggle("active")
+
             e.stopPropagation()
         })
 

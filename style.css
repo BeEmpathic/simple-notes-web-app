@@ -296,13 +296,13 @@ button {
   z-index: 2;
 }
 
-.note-color-picker:hover .note-colors-palette {
+.note-colors-palette.active {
   opacity: 1;
   transform: translateY(0);
   pointer-events: auto;
 }
 
-.note-color-picker:hover .note-colors-palette-btn {
+.note-colors-palette-btn.active {
   filter: invert(60%);
 }
 
