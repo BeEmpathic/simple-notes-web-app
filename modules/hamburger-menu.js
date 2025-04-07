@@ -12,12 +12,15 @@ blackout.style.top = 0
 blackout.style.right = 0
 
 
-function handleHamburgerMenu(e) {
+function handleHamburgerMenu() {
     if (hamburgerMenuCheckbox.checked) {
         foldersNavbar.classList.add("active")
+        hamburgerMenuCheckbox.classList.add("active")
         document.body.appendChild(blackout)
     } else {
         foldersNavbar.classList.remove("active")
+        hamburgerMenuCheckbox.classList.remove("active")
+
         document.body.removeChild(blackout)
     }
 
@@ -25,23 +28,12 @@ function handleHamburgerMenu(e) {
 }
 
 blackout.addEventListener("click", () => {
-    foldersNavbar.classList.remove("active")
-    document.body.removeChild(blackout)
     hamburgerMenuCheckbox.checked = false
+    handleHamburgerMenu()
+
 })
 
 hamburgerMenuCheckbox.addEventListener("click", handleHamburgerMenu)
-
-
-
-// document.addEventListener("click", (e) => {
-
-//     if (hamburgerMenuCheckbox.checked && e.target.hasOwnProperty("folders-navbar")) {
-//         foldersNavbar.classList.remove("active")
-//         console.log("The document event worked")
-//         e.stopPropagation()
-//     }
-// })
 
 
 
