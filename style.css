@@ -40,7 +40,6 @@ button {
   display: flex;
   flex-direction: column;
   padding: 1rem;
-  overflow: hidden;
 }
 
 .hamburger-menu {
@@ -53,12 +52,10 @@ button {
 @media (max-width: 768px) {
   .container {
     display: flex;
-    height: 100dvh;
   }
 
   .notes-container {
     flex: 1;
-    height: 100dvh;
   }
   .folders-navbar {
     transition: translate var(--animation-timing);
@@ -192,7 +189,6 @@ button {
   max-width: 100%;
   padding: 1rem;
   background-color: rebeccapurple;
-  overflow: hidden;
 }
 
 .search-bar-input-settings {
