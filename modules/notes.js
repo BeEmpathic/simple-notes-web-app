@@ -23,7 +23,6 @@ export function displayNotes() {
 
         template.querySelector("[data-note-title]").textContent = note.title
         template.querySelector("[data-note-content]").innerHTML = note.content
-        console.log(note.content)
         template.querySelector("[data-note-date]").textContent = formatter.format(createdAt)
         template.querySelector("[data-note]").style.backgroundColor = note.bgColor
         template.querySelector("[data-note-pin-btn] img").src = note.pinned ? "./icons/pin-on.svg" : "./icons/pin-off.svg"

@@ -68,7 +68,7 @@ button {
     z-index: 3;
     min-height: 100dvh;
   }
-  .hamburger-menu:has(input:checked) + .folders-navbar {
+  .folders-navbar.active {
     translate: 0;
   }
 
