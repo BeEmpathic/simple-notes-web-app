@@ -1,5 +1,6 @@
 
 const hamburgerMenuCheckbox = document.querySelector("[data-hamburger-menu-checkbox]")
+hamburgerMenuCheckbox.checked = false;
 const foldersNavbar = document.querySelector("[data-folders-navbar]")
 
 const blackout = document.createElement("div")
