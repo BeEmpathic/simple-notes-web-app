@@ -3,6 +3,7 @@ body,
 *::before {
   margin: 0;
   box-sizing: border-box;
+  background-color: red;
 }
 
 :root {
@@ -31,6 +32,7 @@ button {
   display: grid;
   min-height: 100dvh;
   grid-template-columns: 20% 80%;
+  overflow: hidden;
   background-color: lightblue;
   position: relative;
 }
@@ -244,7 +246,6 @@ button {
   width: 100%;
 
   max-width: 100%;
-  display: block;
 }
 
 .note-content {
@@ -274,7 +275,7 @@ button {
 .note-colors-palette {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  flex-wrap: wrap;
+  gap: 0.3rem;
   position: absolute;
   justify-content: center;
   align-items: center;
@@ -308,11 +309,11 @@ button {
   border-radius: 50%;
   cursor: pointer;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
-  margin: 0.3rem;
 }
 
 .note-color-circle:hover {
   box-shadow: 0 0 2px rgba(0, 0, 0, 1);
+  display: none;
 }
 
 .note-editor {
@@ -324,22 +325,26 @@ button {
   flex-direction: column;
   overflow: hidden;
   padding: 1rem;
+  display: none;
 }
 
 .note-editor::backdrop {
   background: rgba(0, 0, 0, 0.4);
+  display: none;
 }
 
 .note-editor-title {
   font-size: 2rem;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
+  display: none;
 }
 
 .note-editor-title:empty:before {
   content: attr(data-note-editor-title-placeholder);
   color: gray;
   pointer-events: none;
+  display: none;
 }
 
 .note-editor-content {
@@ -347,21 +352,25 @@ button {
   font-size: 1.2rem;
   flex: 1;
   overflow-y: auto;
+  display: none;
 }
 
 .note-editor-content:empty:before {
   content: attr(data-note-editor-content-placeholder);
   color: gray;
   pointer-events: none;
+  display: none;
 }
 
 .note-editor-footer {
   display: flex;
   justify-content: space-between;
+  display: none;
 }
 
 .note-editor-footer > *:nth-child(2n) {
   text-align: end;
+  display: none;
 }
 
 .note-editor-close-btn {
@@ -372,27 +381,29 @@ button {
   background: none;
   margin: 0.5rem;
   cursor: pointer;
+  display: none;
 }
 
 .note-editor-close-btn:hover img {
   filter: invert(80%);
+  display: none;
 }
 
 .note-editor-content:focus,
 .note-editor-title:focus {
   border: none;
   outline: none;
+  display: none;
 }
 
 .folder {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  display: none;
 }
 
 .folder > div {
   display: flex;
-}
-
-.folder:hover {
+  display: none;
 }
