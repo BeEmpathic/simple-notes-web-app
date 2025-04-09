@@ -20,34 +20,54 @@ export function displayNotes() {
 
         const template = notesTemplate.content.cloneNode(true)
         const createdAt = new Date(note.createdAt)
+        const pinBtn = template.querySelector("[data-note-pin-btn]")
+        const pinBtnImg = template.querySelector("[data-note-pin-btn] img")
+        const noteDiv = template.querySelector("[data-note]")
+        const deleteButton = template.querySelector("[data-note-delete-btn]")
+        const colorsPaletteBtn = template.querySelector("[data-note-colors-palette-btn]")
+        const colorsPalette = template.querySelector("[data-colors-palette]")
+
 
 
         template.querySelector("[data-note-title]").textContent = note.title
         template.querySelector("[data-note-content]").innerHTML = note.content
         template.querySelector("[data-note-date]").textContent = formatter.format(createdAt)
         template.querySelector("[data-note]").style.backgroundColor = note.bgColor
-        template.querySelector("[data-note-pin-btn] img").src = note.pinned ? "./icons/pin-on.svg" : "./icons/pin-off.svg"
+        pinBtnImg.src = note.pinned ? "./icons/pin-on.svg" : "./icons/pin-off.svg"
 
 
-        template.querySelector("[data-note]").addEventListener("click", () => {
+        noteDiv.addEventListener("click", (e) => {
+
+
+
+
+            if (e.target.parentElement === deleteButton) {
+                deleteNote(note.id)
+                return
+            }
+
+            // still didn't fix the colors pallettes made the on the whole document I think we will seee 
+            if (e.target.parentElement === colorsPaletteBtn) {
+                colorsPalette.classList.toggle("active")
+                colorsPaletteBtn.classList.toggle("active")
+                return
+            }
+
+            if (e.target.parentElement === deleteButton) {
+                deleteNote(note.id)
+                return
+            }
+
+
+            if (e.target.parentElement === pinBtn) {
+                pinNote(note.id)
+                return
+            }
+
+
             editNote(note.id)
         })
 
-        template.querySelector("[data-note-delete-btn]").addEventListener("click", (e) => {
-
-            deleteNote(note.id)
-            e.stopPropagation()
-        })
-
-        const colorsPaletteBtn = template.querySelector("[data-note-colors-palette-btn]")
-        const colorsPalette = template.querySelector("[data-colors-palette]")
-
-        colorsPaletteBtn.addEventListener("click", (e) => {
-            colorsPalette.classList.toggle("active")
-            colorsPaletteBtn.classList.toggle("active")
-
-            e.stopPropagation()
-        })
 
         const colorsbtns = template.querySelectorAll("[data-color]")
         colorsbtns.forEach(btn => {
@@ -59,17 +79,6 @@ export function displayNotes() {
 
         })
 
-
-        template.querySelector("[data-note-pin-btn]").addEventListener("click", (e) => {
-
-            pinNote(note.id)
-            e.stopPropagation()
-        })
-
-
-
-
-
         notesWrapper.append(template)
 
 
@@ -80,6 +89,41 @@ export function displayNotes() {
 
 
 }
+
+// you arent working on color picker you are working on the button this is why it doesn't work I'm going on a break 
+
+document.addEventListener("click", (e) => {
+    const colorsPaletteBtns = document.querySelectorAll("[data-note-colors-palette-btn]")
+    console.log("If was chedked but falsed")
+    colorsPaletteBtns.forEach((colorsPaletteBtn) => {
+        if (colorsPaletteBtn.classList.contains("active")) {
+            colorsPaletteBtn.classList.toggle("active")
+            console.log("if happened")
+        }
+    })
+
+})
+
+
+// // work on the colors palettes closing when you click somewhere elese than on them
+
+// document.addEventListener('click', (e) => {
+//     const colorsPalettes = document.querySelectorAll("[data-note-colors-palette-btn]")
+
+//     // If the menu is open and click is outside of it, hide it
+//     colorsPalettes.forEach((colorsPalette) => {
+//         console.log("target parent", e.target.parentElement)
+//         console.log("colorsPalette", colorsPalette)
+//         if (e.target.parentElement === colorsPalette) {
+//             console.log(colorsPalette)
+//             colorsPalette.classList.toggle('active');
+//             e.target.parentElement.nextElementSibling.classList.toggle("active")
+//             console.log("if worked")
+//         }
+//         e.stopPropagation
+//     })
+
+// });
 
 
 

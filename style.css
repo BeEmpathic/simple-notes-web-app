@@ -3,7 +3,6 @@ body,
 *::before {
   margin: 0;
   box-sizing: border-box;
-  background-color: red;
 }
 
 :root {
@@ -200,7 +199,7 @@ button {
 
 .notes-wrapper {
   width: 100%;
-
+  margin-bottom: 1rem;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 1rem;
@@ -313,7 +312,6 @@ button {
 
 .note-color-circle:hover {
   box-shadow: 0 0 2px rgba(0, 0, 0, 1);
-  display: none;
 }
 
 .note-editor {
@@ -325,26 +323,22 @@ button {
   flex-direction: column;
   overflow: hidden;
   padding: 1rem;
-  display: none;
 }
 
 .note-editor::backdrop {
   background: rgba(0, 0, 0, 0.4);
-  display: none;
 }
 
 .note-editor-title {
   font-size: 2rem;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
-  display: none;
 }
 
 .note-editor-title:empty:before {
   content: attr(data-note-editor-title-placeholder);
   color: gray;
   pointer-events: none;
-  display: none;
 }
 
 .note-editor-content {
@@ -352,25 +346,21 @@ button {
   font-size: 1.2rem;
   flex: 1;
   overflow-y: auto;
-  display: none;
 }
 
 .note-editor-content:empty:before {
   content: attr(data-note-editor-content-placeholder);
   color: gray;
   pointer-events: none;
-  display: none;
 }
 
 .note-editor-footer {
   display: flex;
   justify-content: space-between;
-  display: none;
 }
 
 .note-editor-footer > *:nth-child(2n) {
   text-align: end;
-  display: none;
 }
 
 .note-editor-close-btn {
@@ -381,29 +371,24 @@ button {
   background: none;
   margin: 0.5rem;
   cursor: pointer;
-  display: none;
 }
 
 .note-editor-close-btn:hover img {
   filter: invert(80%);
-  display: none;
 }
 
 .note-editor-content:focus,
 .note-editor-title:focus {
   border: none;
   outline: none;
-  display: none;
 }
 
 .folder {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  display: none;
 }
 
 .folder > div {
   display: flex;
-  display: none;
 }
