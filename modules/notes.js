@@ -37,10 +37,6 @@ export function displayNotes() {
 
 
         noteDiv.addEventListener("click", (e) => {
-
-
-
-
             if (e.target.parentElement === deleteButton) {
                 deleteNote(note.id)
                 return
@@ -94,11 +90,13 @@ export function displayNotes() {
 
 document.addEventListener("click", (e) => {
     const colorsPaletteBtns = document.querySelectorAll("[data-note-colors-palette-btn]")
-    console.log("If was chedked but falsed")
+    const colorsPalette = document.querySelectorAll("[data-colors-palette]")
+
     colorsPaletteBtns.forEach((colorsPaletteBtn) => {
-        if (colorsPaletteBtn.classList.contains("active")) {
+
+        if (e.target.parentElement !== colorsPaletteBtn && colorsPaletteBtn.classList.contains("active")) {
             colorsPaletteBtn.classList.toggle("active")
-            console.log("if happened")
+            colorsPaletteBtn.nextElementSibling.classList.toggle("active")
         }
     })
 
