@@ -81,12 +81,14 @@ export function displayNotes() {
     })
 
     displayFolders()
+
+    // this function need to be optimized 
     applyTextOverflowHandler()
 
 
 }
 
-// you arent working on color picker you are working on the button this is why it doesn't work I'm going on a break 
+
 
 document.addEventListener("click", (e) => {
     const colorsPaletteBtns = document.querySelectorAll("[data-note-colors-palette-btn]")
@@ -103,25 +105,7 @@ document.addEventListener("click", (e) => {
 })
 
 
-// // work on the colors palettes closing when you click somewhere elese than on them
 
-// document.addEventListener('click', (e) => {
-//     const colorsPalettes = document.querySelectorAll("[data-note-colors-palette-btn]")
-
-//     // If the menu is open and click is outside of it, hide it
-//     colorsPalettes.forEach((colorsPalette) => {
-//         console.log("target parent", e.target.parentElement)
-//         console.log("colorsPalette", colorsPalette)
-//         if (e.target.parentElement === colorsPalette) {
-//             console.log(colorsPalette)
-//             colorsPalette.classList.toggle('active');
-//             e.target.parentElement.nextElementSibling.classList.toggle("active")
-//             console.log("if worked")
-//         }
-//         e.stopPropagation
-//     })
-
-// });
 
 
 
@@ -294,7 +278,7 @@ let currentFolderId
 const createFolderbtn = document.querySelector("[data-create-folder-btn]")
 const folderName = document.querySelector("[data-folder-name]")
 function changeFolderName(name, id = self.crypto.randomUUID()) {
-    // on stopping editing folder name
+
     let folders = JSON.parse(localStorage.getItem("folders")) || []
 
     let folderIndex = folders.findIndex(f => f.id === id)
@@ -340,6 +324,9 @@ function sortByBoolean(arr, key) {
     return arr.sort((a, b) => b[key] - a[key]);
 }
 
+
+
+// this function need to be optimized
 function textOverFlowHandler(element) {
     let originalText = element.innerHTML;
     let textfullLength = originalText.length;
