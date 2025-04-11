@@ -238,6 +238,8 @@ createNoteBtn.addEventListener("click", () => {
 
 const foldersContainer = document.querySelector("[data-folders-container]")
 const folderTemplate = document.querySelector("[data-folder-template]")
+let draggableFolders
+let folders
 function displayFolders() {
     if (!localStorage.getItem("folders")) return
 
@@ -271,8 +273,49 @@ function displayFolders() {
         foldersContainer.append(template)
     })
 
+    // you need to put any functionality here cause otherwise it won't work
+
+    draggableFolders = foldersContainer.querySelectorAll("[data-draggable-folder]")
+    folders = foldersContainer.querySelectorAll("[data-folder]")
+
+
+    draggableFolders = foldersContainer.querySelectorAll("[data-draggable-folder]")
+    console.log(draggableFolders)
+
+    draggableFolders.forEach(draggableFolder => {
+
+        draggableFolder.addEventListener('mousedown', (e) => {
+            foldersContainer.style.cursor = 'move';
+            folders.forEach((f) => f.style.cursor = "move")
+
+        });
+
+
+        draggableFolder.addEventListener('dragstart', (e) => {
+
+            draggableFolder.classList.add('dragging')
+            e.preventDefault()
+        })
+
+
+        draggableFolder.addEventListener('dragend', (e) => {
+
+            draggableFolder.classList.remove('dragging')
+
+            foldersContainer.style.cursor = 'default';
+            draggableFolders.forEach((f) => f.style.cursor = "default")
+        })
+
+        draggableFolder.addEventListener("dragover", () => {
+
+        })
+    })
+
+
 
 }
+
+
 
 let currentFolderId
 const createFolderbtn = document.querySelector("[data-create-folder-btn]")
@@ -317,6 +360,7 @@ function deleteFolder(id) {
 
 
 createFolderbtn.addEventListener("click", () => changeFolderName("New Folder"))
+
 
 
 
