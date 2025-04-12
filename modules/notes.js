@@ -284,30 +284,46 @@ function displayFolders() {
 
     draggableFolders.forEach(draggableFolder => {
 
-        draggableFolder.addEventListener('mousedown', (e) => {
-            foldersContainer.style.cursor = 'move';
-            folders.forEach((f) => f.style.cursor = "move")
+        // let isDragging = false
+        // let offsetX, offsetY
 
-        });
+        // draggableFolder.addEventListener('mousedown', (e) => {
+        //     isDragging = true
+        //     offsetX = e.clientX - draggableFolder.offsetLeft
+        //     offsetY = e.clientY - draggableFolder.offsetTop
+        // })
 
+        // draggableFolder.addEventListener("mousemove", (e) => {
+        //     if (isDragging) {
+        //         draggableFolder.style.position = "absolute"
+        //         draggableFolder.style.left = `${e.clientX - offsetX}px`
+        //         draggableFolder.style.top = `${e.clientY - offsetY}px`
+        //     }
+        // })
+
+        // draggableFolder.addEventListener("mouseup", () => {
+        //     if (isDragging) {
+        //         isDragging = false;
+        //     }
+        // })
 
         draggableFolder.addEventListener('dragstart', (e) => {
 
             draggableFolder.classList.add('dragging')
-            e.preventDefault()
+
         })
 
 
         draggableFolder.addEventListener('dragend', (e) => {
 
             draggableFolder.classList.remove('dragging')
-
-            foldersContainer.style.cursor = 'default';
-            draggableFolders.forEach((f) => f.style.cursor = "default")
         })
 
-        draggableFolder.addEventListener("dragover", () => {
-
+        draggableFolder.addEventListener("dragover", (e) => {
+            console.log("dragged over other folder")
+            const draggedFolder = document.querySelector(".dragging")
+            e.preventDefault()
+            draggableFolder.appendChild(draggedFolder)
         })
     })
 
