@@ -26,6 +26,10 @@ button {
   cursor: pointer;
 }
 
+.note-btn.active {
+  filter: invert(60%);
+}
+
 .container {
   width: 100%;
   display: grid;

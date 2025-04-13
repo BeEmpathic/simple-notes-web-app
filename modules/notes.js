@@ -94,6 +94,7 @@ export function displayNotes() {
         if (folders) {
             folders.forEach(folder => {
                 const folderBtn = document.createElement("button")
+                folderBtn.classList.add("note-btn")
                 folderBtn.innerHTML = `${folder.name}`
                 folderBtn.addEventListener("click", (e) => {
                     addNoteToFolder(folder.id, false, note.id)
@@ -263,7 +264,7 @@ function addNoteToFolder(folderId, isAFolder, itemId) {
         itemId,
         isAFolder
     }
-    console.log("The note was added to:", folders[folderIndex].name)
+
 
     localStorage.setItem("folders", JSON.stringify(folders))
 
