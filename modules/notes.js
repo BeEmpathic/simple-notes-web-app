@@ -354,7 +354,7 @@ function changeFolderName(name, id = self.crypto.randomUUID()) {
         folders.push(folder)
     }
     localStorage.setItem("folders", JSON.stringify(folders))
-    displayFolders()
+    displayNotes()
 }
 
 
