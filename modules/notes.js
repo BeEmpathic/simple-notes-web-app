@@ -126,10 +126,9 @@ export function displayNotes() {
 document.addEventListener("click", (e) => {
     const colorsPaletteBtns = document.querySelectorAll("[data-note-colors-palette-btn]")
     const colorsPalette = document.querySelectorAll("[data-colors-palette]")
-    const addNoteToFolderBtns = document.querySelectorAll("[data-add-to-folder-btn]")
+    const addNoteToFolderBtns = document.querySelectorAll("[data-add-note-to-folder-btn]")
 
     colorsPaletteBtns.forEach((colorsPaletteBtn) => {
-
         if (e.target.parentElement !== colorsPaletteBtn && colorsPaletteBtn.classList.contains("active")) {
             colorsPaletteBtn.classList.toggle("active")
             colorsPaletteBtn.nextElementSibling.classList.toggle("active")
@@ -137,9 +136,7 @@ document.addEventListener("click", (e) => {
     })
 
     addNoteToFolderBtns.forEach(btn => {
-
         if (e.target.parentElement !== btn && btn.classList.contains("active")) {
-            console.log("the if was truth")
             btn.classList.toggle("active")
             btn.nextElementSibling.classList.toggle("active")
         }
