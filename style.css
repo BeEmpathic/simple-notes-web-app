@@ -415,3 +415,27 @@ button {
 .dragging img {
   display: none;
 }
+
+.folder-select-dropdown {
+  position: relative;
+}
+
+.folder-select-dropdown-menu {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  background-color: white;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-10px);
+  transition: opacity 150ms ease-in-out, transform 150ms ease-in-out;
+}
+
+.folder-select-dropdown-menu.active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}

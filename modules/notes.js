@@ -15,6 +15,8 @@ export function displayNotes() {
     let notes = JSON.parse(localStorage.getItem("notes"))
     notesWrapper.innerHTML = ""
     notes = sortByBoolean(notes, "pinned")
+    let folders = JSON.parse(localStorage.getItem("folders")) // this doesn't work if there is no folders but is it a problem? 
+
 
     notes.forEach((note) => {
 
@@ -27,6 +29,7 @@ export function displayNotes() {
         const colorsPaletteBtn = template.querySelector("[data-note-colors-palette-btn]")
         const colorsPalette = template.querySelector("[data-colors-palette]")
         const addToFolderBtn = template.querySelector("[data-add-note-to-folder-btn]")
+        const addToFolderDropdownMenuContent = template.querySelector("[data-add-note-to-folder-dropdown-menu-content]")
 
 
         template.querySelector("[data-note-title]").textContent = note.title
@@ -35,7 +38,7 @@ export function displayNotes() {
         template.querySelector("[data-note]").style.backgroundColor = note.bgColor
         pinBtnImg.src = note.pinned ? "./icons/pin-on.svg" : "./icons/pin-off.svg"
 
-
+        // leave the returns alone they are good 
         noteDiv.addEventListener("click", (e) => {
 
             switch (e.target.parentElement) {
@@ -62,6 +65,13 @@ export function displayNotes() {
                 }
 
 
+                // work on that
+                case addToFolderBtn: {
+                    addToFolderBtn.classList.toggle("active")
+                    addToFolderDropdownMenuContent.classList.toggle("active")
+
+                    return
+                }
 
                 default: {
                     editNote(note.id)
@@ -70,7 +80,6 @@ export function displayNotes() {
 
             }
         })
-
 
         const colorsbtns = template.querySelectorAll("[data-color]")
         colorsbtns.forEach(btn => {
@@ -82,8 +91,21 @@ export function displayNotes() {
 
         })
 
-        notesWrapper.append(template)
+        if (folders) {
+            folders.forEach(folder => {
+                const folderBtn = document.createElement("button")
+                folderBtn.innerHTML = `${folder.name}`
+                folderBtn.addEventListener("click", (e) => {
+                    addNoteToFolder(folder.id, false, note.id)
+                    e.stopPropagation()
+                })
+                addToFolderDropdownMenuContent.append(folderBtn)
+            })
 
+
+        }
+
+        notesWrapper.append(template)
 
     })
 
@@ -103,6 +125,7 @@ export function displayNotes() {
 document.addEventListener("click", (e) => {
     const colorsPaletteBtns = document.querySelectorAll("[data-note-colors-palette-btn]")
     const colorsPalette = document.querySelectorAll("[data-colors-palette]")
+    const addNoteToFolderBtns = document.querySelectorAll("[data-add-to-folder-btn]")
 
     colorsPaletteBtns.forEach((colorsPaletteBtn) => {
 
@@ -111,6 +134,15 @@ document.addEventListener("click", (e) => {
             colorsPaletteBtn.nextElementSibling.classList.toggle("active")
         }
     })
+
+    addNoteToFolderBtns.forEach(btn => {
+
+        if (e.target.parentElement !== btn && btn.classList.contains("active")) {
+            btn.classList.toggle("active")
+            btn.nextElementSibling.classList.toggle("active")
+        }
+    })
+
 
 })
 
@@ -186,17 +218,17 @@ noteEditorTitle.addEventListener("keydown", (e) => {
 })
 
 
-
-export function deleteNote(id) {
-    if (id) {
-        let notes = JSON.parse(localStorage.getItem("notes"))
-        notes = notes.filter((note) => note.id !== id)
+function pinNote(id) {
+    let notes = JSON.parse(localStorage.getItem("notes"))
+    let noteIndex = notes.findIndex(n => n.id === id);
+    if (noteIndex !== -1) {
+        notes[noteIndex].pinned = notes[noteIndex].pinned ? false : true;
         localStorage.setItem("notes", JSON.stringify(notes))
-        displayNotes()
     }
+    displayNotes()
 }
 
-export function changeNoteBackgroundColor(id, color) {
+function changeNoteBackgroundColor(id, color) {
 
     if (id) {
         let notes = JSON.parse(localStorage.getItem("notes"))
@@ -211,13 +243,30 @@ export function changeNoteBackgroundColor(id, color) {
 
 }
 
-export function pinNote(id) {
-    let notes = JSON.parse(localStorage.getItem("notes"))
-    let noteIndex = notes.findIndex(n => n.id === id);
-    if (noteIndex !== -1) {
-        notes[noteIndex].pinned = notes[noteIndex].pinned ? false : true;
+function deleteNote(id) {
+    if (id) {
+        let notes = JSON.parse(localStorage.getItem("notes"))
+        notes = notes.filter((note) => note.id !== id)
         localStorage.setItem("notes", JSON.stringify(notes))
+        displayNotes()
     }
+}
+
+function addNoteToFolder(folderId, isAFolder, itemId) {
+
+    const folders = JSON.parse(localStorage.getItem("folders"))
+    if (!folders) return
+
+    const folderIndex = folders.findIndex(f => f.id === folderId)
+
+    folders[folderIndex].content = {
+        itemId,
+        isAFolder
+    }
+    console.log("The note was added to:", folders[folderIndex].name)
+
+    localStorage.setItem("folders", JSON.stringify(folders))
+
     displayNotes()
 }
 
@@ -235,6 +284,8 @@ noteEditor.querySelector("[data-note-editor-close-btn]").addEventListener("click
     editNote
     noteEditor.close()
 })
+
+
 
 
 const createNoteBtn = document.querySelector("[data-create-note-btn]")
@@ -307,6 +358,8 @@ function changeFolderName(name, id = self.crypto.randomUUID()) {
     displayFolders()
 }
 
+
+// probably you will delete this 
 function saveFolderContent(content, id) {
     if (!content) return
 
