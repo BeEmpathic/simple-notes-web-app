@@ -26,7 +26,7 @@ export function displayNotes() {
         const deleteButton = template.querySelector("[data-note-delete-btn]")
         const colorsPaletteBtn = template.querySelector("[data-note-colors-palette-btn]")
         const colorsPalette = template.querySelector("[data-colors-palette]")
-
+        const addToFolderBtn = template.querySelector("[data-add-note-to-folder-btn]")
 
 
         template.querySelector("[data-note-title]").textContent = note.title
@@ -37,31 +37,38 @@ export function displayNotes() {
 
 
         noteDiv.addEventListener("click", (e) => {
-            if (e.target.parentElement === deleteButton) {
-                deleteNote(note.id)
-                return
+
+            switch (e.target.parentElement) {
+
+                case pinBtn: {
+                    pinNote(note.id)
+                    return
+                }
+
+                case colorsPaletteBtn: {
+                    colorsPalette.classList.toggle("active")
+                    colorsPaletteBtn.classList.toggle("active")
+                    return
+                }
+
+                case deleteButton: {
+                    deleteNote(note.id)
+                    return
+                }
+
+                case pinBtn: {
+                    pinNote(note.id)
+                    return
+                }
+
+
+
+                default: {
+                    editNote(note.id)
+                    return;
+                }
+
             }
-
-            // still didn't fix the colors pallettes made the on the whole document I think we will seee 
-            if (e.target.parentElement === colorsPaletteBtn) {
-                colorsPalette.classList.toggle("active")
-                colorsPaletteBtn.classList.toggle("active")
-                return
-            }
-
-            if (e.target.parentElement === deleteButton) {
-                deleteNote(note.id)
-                return
-            }
-
-
-            if (e.target.parentElement === pinBtn) {
-                pinNote(note.id)
-                return
-            }
-
-
-            editNote(note.id)
         })
 
 
@@ -80,6 +87,7 @@ export function displayNotes() {
 
     })
 
+    // It's not recurrenction
     displayFolders()
 
     // this function need to be optimized 
@@ -90,6 +98,8 @@ export function displayNotes() {
 
 
 
+
+// closing colors palette functionality
 document.addEventListener("click", (e) => {
     const colorsPaletteBtns = document.querySelectorAll("[data-note-colors-palette-btn]")
     const colorsPalette = document.querySelectorAll("[data-colors-palette]")
@@ -103,10 +113,6 @@ document.addEventListener("click", (e) => {
     })
 
 })
-
-
-
-
 
 
 export function saveNote(title, content = "", id = self.crypto.randomUUID()) {
