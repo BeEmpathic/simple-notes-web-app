@@ -275,60 +275,6 @@ function displayFolders() {
 
     // you need to put any functionality here cause otherwise it won't work
 
-    draggableFolders = foldersContainer.querySelectorAll("[data-draggable-folder]")
-    folders = foldersContainer.querySelectorAll("[data-folder]")
-
-
-    draggableFolders = foldersContainer.querySelectorAll("[data-draggable-folder]")
-    console.log(draggableFolders)
-
-    draggableFolders.forEach(draggableFolder => {
-
-        // let isDragging = false
-        // let offsetX, offsetY
-
-        // draggableFolder.addEventListener('mousedown', (e) => {
-        //     isDragging = true
-        //     offsetX = e.clientX - draggableFolder.offsetLeft
-        //     offsetY = e.clientY - draggableFolder.offsetTop
-        // })
-
-        // draggableFolder.addEventListener("mousemove", (e) => {
-        //     if (isDragging) {
-        //         draggableFolder.style.position = "absolute"
-        //         draggableFolder.style.left = `${e.clientX - offsetX}px`
-        //         draggableFolder.style.top = `${e.clientY - offsetY}px`
-        //     }
-        // })
-
-        // draggableFolder.addEventListener("mouseup", () => {
-        //     if (isDragging) {
-        //         isDragging = false;
-        //     }
-        // })
-
-        draggableFolder.addEventListener('dragstart', (e) => {
-
-            draggableFolder.classList.add('dragging')
-
-        })
-
-
-        draggableFolder.addEventListener('dragend', (e) => {
-
-            draggableFolder.classList.remove('dragging')
-        })
-
-        draggableFolder.addEventListener("dragover", (e) => {
-            console.log("dragged over other folder")
-            const draggedFolder = document.querySelector(".dragging")
-            e.preventDefault()
-            draggableFolder.appendChild(draggedFolder)
-        })
-    })
-
-
-
 }
 
 

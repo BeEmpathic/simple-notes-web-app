@@ -90,8 +90,16 @@
             <button
               data-note-colors-palette-btn
               class="note-btn note-colors-palette-btn"
+              title="change note's color"
             >
               <img src="./icons/palette.svg" alt="palette" />
+            </button>
+            <button
+              class="note-btn"
+              data-add-note-to-folder-btn
+              title="add note to a folder"
+            >
+              <img src="./icons/new-folder.svg" alt="add note to a folder" />
             </button>
             <div data-colors-palette class="note-colors-palette">
               <div
@@ -127,7 +135,11 @@
             </div>
           </div>
           <div class="note-date" data-note-date></div>
-          <button data-note-delete-btn class="note-btn note-delete-btn">
+          <button
+            data-note-delete-btn
+            class="note-btn note-delete-btn"
+            title="delete note"
+          >
             <img src="./icons/delete.svg" alt="trash" />
           </button>
         </div>
