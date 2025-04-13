@@ -64,6 +64,7 @@ button {
     position: absolute;
     background-color: lightsalmon;
     z-index: 4;
+    min-height: 100dvh;
     max-height: 100dvh;
     position: fixed;
     overflow-y: scroll;
@@ -409,4 +410,8 @@ button {
 
 .dragging {
   opacity: 0.5;
+}
+
+.dragging img {
+  display: none;
 }
