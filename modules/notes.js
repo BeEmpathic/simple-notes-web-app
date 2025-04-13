@@ -139,6 +139,7 @@ document.addEventListener("click", (e) => {
     addNoteToFolderBtns.forEach(btn => {
 
         if (e.target.parentElement !== btn && btn.classList.contains("active")) {
+            console.log("the if was truth")
             btn.classList.toggle("active")
             btn.nextElementSibling.classList.toggle("active")
         }
