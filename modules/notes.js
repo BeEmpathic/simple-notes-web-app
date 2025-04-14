@@ -97,7 +97,7 @@ export function displayNotes() {
                 folderBtn.classList.add("note-btn")
                 folderBtn.innerHTML = `${folder.name}`
                 folderBtn.addEventListener("click", (e) => {
-                    addNoteToFolder(folder.id, false, note.id)
+                    addItemToFolder(folder.id, false, note.id)
                     e.stopPropagation()
                 })
                 addToFolderDropdownMenuContent.append(folderBtn)
@@ -111,7 +111,7 @@ export function displayNotes() {
     })
 
     // It's not recurrenction
-    displayFolders()
+    displayFolders(folders, notes)
 
     // this function need to be optimized 
     applyTextOverflowHandler()
@@ -251,7 +251,7 @@ function deleteNote(id) {
     }
 }
 
-function addNoteToFolder(folderId, isAFolder, itemId) {
+function addItemToFolder(folderId, isAFolder, itemId) {
 
     const folders = JSON.parse(localStorage.getItem("folders"))
     if (!folders) return
@@ -295,14 +295,21 @@ createNoteBtn.addEventListener("click", () => {
 
 const foldersContainer = document.querySelector("[data-folders-container]")
 const folderTemplate = document.querySelector("[data-folder-template]")
-function displayFolders() {
-    if (!localStorage.getItem("folders")) return
+function displayFolders(folders, notes) {
 
-    let folders = JSON.parse(localStorage.getItem("folders"))
+    if (!folders) {
+        changeFolderName("All Notes", "All Notes")
+        addItemToFolder("All notes", notes) // you need to put all notes in the folder and
+        //  for some reason you don't accept whole notes table maybe use for each or 
+        // run the function again and this function will make sure that this default folder always contains all notes
+        return
+    }
+
+
 
     foldersContainer.innerHTML = ""
 
-    const notes = JSON.parse(localStorage.getItem("notes"))
+
 
     folders.forEach((folder) => {
         const template = folderTemplate.content.cloneNode(true)
@@ -318,20 +325,21 @@ function displayFolders() {
 
         })
 
+        if (folder.content) {
+            folder.content.forEach(item => {
+                if (item.isAFolder) {
+                    const folder = folders.find(itemId => itemId === f.id)
 
-        folder.content.forEach(item => {
-            if (item.isAFolder) {
-                const folder = folders.find(itemId => itemId === f.id)
+                } else if (!item.isAFolder) {
+                    const note = notes.find(n => n.id === item.itemId)
+                    const noteDiv = document.createElement("div")
+                    noteDiv.innerHTML = '<img src="./icons/note.svg" alt="note icon">' + (note.title ? note.title : '<span style="color: gray">(note without a title)</span>')
+                    folderContent.append(noteDiv)
 
-            } else if (!item.isAFolder) {
-                const note = notes.find(n => n.id === item.itemId)
-                const noteDiv = document.createElement("div")
-                noteDiv.innerHTML = '<img src="./icons/note.svg" alt="note icon">' + (note.title ? note.title : '<span style="color: gray">(note without a title)</span>')
-                folderContent.append(noteDiv)
-
-            }
-            folderItemsCountElement.textContent = folderItemsCount
-        })
+                }
+                folderItemsCountElement.textContent = folderItemsCount
+            })
+        }
 
 
 
