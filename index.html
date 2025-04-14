@@ -77,7 +77,7 @@
       </footer>
     </dialog>
     <template data-note-template id="note-template">
-      <div class="note" draggable="true" data-note>
+      <div class="note" data-note>
         <header class="note-header">
           <h1 class="note-title truncate-text" data-note-title></h1>
           <button class="note-btn note-pin-btn" data-note-pin-btn>
@@ -86,60 +86,62 @@
         </header>
         <div class="note-content truncate-text" data-note-content></div>
         <div class="note-footer">
-          <div data-note-color-picker class="note-color-picker">
-            <button
-              data-note-colors-palette-btn
-              class="note-btn note-colors-palette-btn"
-              title="change note's color"
-            >
-              <img src="./icons/palette.svg" alt="palette" />
-            </button>
-            <!-- This div below has to be next to the button above (colors-palette-btn must be next to colors-palette) -->
-            <div data-colors-palette class="note-colors-palette">
+          <div style="display: flex">
+            <div data-note-color-picker class="note-color-picker">
+              <button
+                data-note-colors-palette-btn
+                class="note-btn note-colors-palette-btn"
+                title="change note's color"
+              >
+                <img src="./icons/palette.svg" alt="palette" />
+              </button>
+              <!-- This div below has to be next to the button above (colors-palette-btn must be next to colors-palette) -->
+              <div data-colors-palette class="note-colors-palette">
+                <div
+                  class="note-color-circle"
+                  style="background-color: #f28b82"
+                  data-color="#f28b82"
+                ></div>
+                <div
+                  class="note-color-circle"
+                  style="background-color: #fbbc04"
+                  data-color="#fbbc04"
+                ></div>
+                <div
+                  class="note-color-circle"
+                  style="background-color: #fff475"
+                  data-color="#fff475"
+                ></div>
+                <div
+                  class="note-color-circle"
+                  style="background-color: #ccff90"
+                  data-color="#ccff90"
+                ></div>
+                <div
+                  class="note-color-circle"
+                  style="background-color: #a7ffeb"
+                  data-color="#a7ffeb"
+                ></div>
+                <div
+                  class="note-color-circle"
+                  style="background-color: #fff"
+                  data-color="#fff"
+                ></div>
+              </div>
+            </div>
+            <div class="folder-select-dropdown">
+              <button
+                class="note-btn"
+                data-add-note-to-folder-btn
+                title="add note to a folder"
+              >
+                <img src="./icons/new-folder.svg" alt="add note to a folder" />
+              </button>
               <div
-                class="note-color-circle"
-                style="background-color: #f28b82"
-                data-color="#f28b82"
-              ></div>
-              <div
-                class="note-color-circle"
-                style="background-color: #fbbc04"
-                data-color="#fbbc04"
-              ></div>
-              <div
-                class="note-color-circle"
-                style="background-color: #fff475"
-                data-color="#fff475"
-              ></div>
-              <div
-                class="note-color-circle"
-                style="background-color: #ccff90"
-                data-color="#ccff90"
-              ></div>
-              <div
-                class="note-color-circle"
-                style="background-color: #a7ffeb"
-                data-color="#a7ffeb"
-              ></div>
-              <div
-                class="note-color-circle"
-                style="background-color: #fff"
-                data-color="#fff"
+                data-add-note-to-folder-dropdown-menu-content
+                class="folder-select-dropdown-menu"
               ></div>
             </div>
-          </div>
-          <div class="folder-select-dropdown">
-            <button
-              class="note-btn"
-              data-add-note-to-folder-btn
-              title="add note to a folder"
-            >
-              <img src="./icons/new-folder.svg" alt="add note to a folder" />
-            </button>
-            <div
-              data-add-note-to-folder-dropdown-menu-content
-              class="folder-select-dropdown-menu"
-            ></div>
           </div>
 
           <div class="note-date" data-note-date></div>
@@ -154,15 +156,15 @@
       </div>
     </template>
     <template data-folder-template>
-      <div data-folders-container class="folders-container">
-        <div data-folder class="folder">
-          <div data-draggable-folder class="folder-draggable">
+      <div data-folder class="folder">
+        <header class="folder-header">
+          <span class="folder-name">
             <img src="./icons/arrow-foward.svg" alt="foward-arrow" />
             <img src="./icons/folder.svg" alt="folder-icon" />
-            <h3 data-folder-name>Folder</h3>
-          </div>
+            <h3 data-folder-name></h3>
+          </span>
           <span data-notes-in-folder-count>0</span>
-        </div>
+        </header>
         <div data-folder-content class="folder-content"></div>
       </div>
     </template>

@@ -401,15 +401,40 @@ button {
   outline: none;
 }
 
-.folder {
+.folder-header {
   display: flex;
   align-items: center;
+  width: 100%;
   justify-content: space-between;
-  cursor: default;
+}
+
+.folder-name {
+  display: flex;
+}
+
+.folder-name h3 {
+  margin: 0.3rem;
+}
+
+.folder {
+  display: flex;
+  flex-direction: column;
 }
 
 .folder > div {
   display: flex;
+}
+
+.folder-content {
+  margin-left: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.folder-content > div {
+  display: flex;
+  align-items: center;
 }
 
 .folder-select-dropdown {
