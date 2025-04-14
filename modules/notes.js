@@ -294,12 +294,13 @@ createNoteBtn.addEventListener("click", () => {
 
 const foldersContainer = document.querySelector("[data-folders-container]")
 const folderTemplate = document.querySelector("[data-folder-template]")
-let draggableFolders
-let folders
+
+
 function displayFolders() {
     if (!localStorage.getItem("folders")) return
 
     let folders = JSON.parse(localStorage.getItem("folders"))
+
     foldersContainer.innerHTML = ""
 
     const notes = JSON.parse(localStorage.getItem("notes"))
@@ -307,20 +308,22 @@ function displayFolders() {
     folders.forEach((folder) => {
         const template = folderTemplate.content.cloneNode(true)
         const folderContent = template.querySelector("[data-folder-content]")
+        const folderItemsCount = folder.content.length
+        const folderItemsCountElement = template.querySelector("[data-folder-items-count]")
         template.querySelector("[data-folder-name]").textContent = folder.name // I think this is a mistake
 
         folder.content.forEach(item => {
             if (item.isAFolder) {
                 const folder = folders.find(itemId => itemId === f.id)
 
-            } else {
-
+            } else if (!item.isAFolder) {
                 const note = notes.find(n => n.id === item.itemId)
                 const noteDiv = document.createElement("div")
                 noteDiv.innerHTML = '<img src="./icons/note.svg" alt="note icon">' + (note.title ? note.title : '<span style="color: gray">(note without a title)</span>')
                 folderContent.append(noteDiv)
 
             }
+            folderItemsCountElement.textContent = folderItemsCount
         })
 
 
