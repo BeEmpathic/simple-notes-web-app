@@ -429,7 +429,7 @@ button {
   margin-left: 2.5rem;
   display: flex;
   flex-direction: column;
-  gap: 0.3rem;
+  gap: 0.4rem;
 }
 
 .folder-content > div {
@@ -440,6 +440,8 @@ button {
 .folder-select-dropdown {
   position: relative;
 }
+
+/* Move code below closer to the note cause it's stuff in note */
 
 .folder-select-dropdown-menu {
   position: absolute;

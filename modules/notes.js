@@ -317,7 +317,7 @@ function displayFolders() {
 
                 const note = notes.find(n => n.id === item.itemId)
                 const noteDiv = document.createElement("div")
-                noteDiv.innerHTML = '<img src="./icons/note.svg" alt="note icon">' + (note.title ? note.title : "(note without a title)")
+                noteDiv.innerHTML = '<img src="./icons/note.svg" alt="note icon">' + (note.title ? note.title : '<span style="color: gray">(note without a title)</span>')
                 folderContent.append(noteDiv)
 
             }
