@@ -412,14 +412,6 @@ button {
   display: flex;
 }
 
-.dragging {
-  opacity: 0.5;
-}
-
-.dragging img {
-  display: none;
-}
-
 .folder-select-dropdown {
   position: relative;
 }
