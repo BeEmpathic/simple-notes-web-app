@@ -258,10 +258,10 @@ function addNoteToFolder(folderId, isAFolder, itemId) {
 
     const folderIndex = folders.findIndex(f => f.id === folderId)
 
-    folders[folderIndex].content = {
+    folders[folderIndex].content.push({
         itemId,
         isAFolder
-    }
+    })
 
 
     localStorage.setItem("folders", JSON.stringify(folders))
@@ -302,11 +302,28 @@ function displayFolders() {
     let folders = JSON.parse(localStorage.getItem("folders"))
     foldersContainer.innerHTML = ""
 
+    const notes = JSON.parse(localStorage.getItem("notes"))
+
     folders.forEach((folder) => {
         const template = folderTemplate.content.cloneNode(true)
+        const folderContent = template.querySelector("[data-folder-content]")
         template.querySelector("[data-folder-name]").textContent = folder.name // I think this is a mistake
 
-        template.querySelector("[data-folder-content]").innerHTML = folder.content; // you will have to decode folder content cause of nesting
+        folder.content.forEach(item => {
+            if (item.isAFolder) {
+                const folder = folders.find(itemId => itemId === f.id)
+
+            } else {
+
+                const note = notes.find(n => n.id === item.itemId)
+                const noteDiv = document.createElement("div")
+                noteDiv.textContent = note.title ? note.title : "(note without a title)"
+                folderContent.append(noteDiv)
+
+            }
+        })
+
+
 
         template.querySelector("[data-folder-name]").addEventListener("dblclick", (e) => {
             e.target.setAttribute("contenteditable", "true")
