@@ -292,10 +292,9 @@ createNoteBtn.addEventListener("click", () => {
     editNote()
 })
 
+
 const foldersContainer = document.querySelector("[data-folders-container]")
 const folderTemplate = document.querySelector("[data-folder-template]")
-
-
 function displayFolders() {
     if (!localStorage.getItem("folders")) return
 
@@ -310,7 +309,15 @@ function displayFolders() {
         const folderContent = template.querySelector("[data-folder-content]")
         const folderItemsCount = folder.content.length
         const folderItemsCountElement = template.querySelector("[data-folder-items-count]")
+        const folderFoldBtn = template.querySelector("[data-folder-fold-btn]")
         template.querySelector("[data-folder-name]").textContent = folder.name // I think this is a mistake
+
+        folderFoldBtn.addEventListener("click", () => {
+            folderContent.classList.toggle("active")
+            folderFoldBtn.firstElementChild.classList.toggle("active")
+
+        })
+
 
         folder.content.forEach(item => {
             if (item.isAFolder) {

@@ -426,10 +426,28 @@ button {
 }
 
 .folder-content {
-  margin-left: 2.5rem;
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
+  margin-left: 2.5rem;
+  opacity: 0;
+  transform: translateY(-10px);
+  pointer-events: none;
+  transition: opacity 150ms ease-in-out, transform 150ms ease-in-out;
+}
+
+.folder-content.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.folder-arrow {
+  transform: rotate(0) translateX(0);
+  transition: transform 150ms ease-in-out;
+}
+
+.folder-arrow.active {
+  transform: rotate(90deg) translateX(10%);
 }
 
 .folder-content > div {
