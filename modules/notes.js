@@ -10,7 +10,10 @@ const notesWrapper = document.querySelector("[data-notes-wrapper]")
 
 export function displayNotes() {
 
-    if (!localStorage.getItem("notes")) return
+    if (!localStorage.getItem("notes")) {
+        displayFolders()
+        return
+    }
 
     let notes = JSON.parse(localStorage.getItem("notes"))
     notesWrapper.innerHTML = ""
@@ -256,6 +259,8 @@ function addItemToFolder(folderId, isAFolder, itemId) {
     const folders = JSON.parse(localStorage.getItem("folders"))
     if (!folders) return
 
+    // change this so it find's whole folder folder
+
     const folderIndex = folders.findIndex(f => f.id === folderId)
 
     folders[folderIndex].content.push({
@@ -297,14 +302,23 @@ const foldersContainer = document.querySelector("[data-folders-container]")
 const folderTemplate = document.querySelector("[data-folder-template]")
 function displayFolders(folders, notes) {
 
+    console.log(notes)
     if (!folders) {
+        console.log("There is no folders")
         changeFolderName("All Notes", "All Notes")
-        addItemToFolder("All notes", notes) // you need to put all notes in the folder and
-        //  for some reason you don't accept whole notes table maybe use for each or 
-        // run the function again and this function will make sure that this default folder always contains all notes
         return
+        // this sutff doesn't work notes are undefinded which is normal cause there is no notes Yeah 
+        // and there is endles recurrenction cause for some reason changeFolderName doesn't want to create "All Notes" folder 
     }
 
+    if (folders.find(f => f.id === "All Notes")) {
+        console.log("there are folders")
+        if (notes) {
+            notes.forEach(note => {
+                addItemToFolder("All Notes", false, note)
+            })
+        }
+    }
 
 
     foldersContainer.innerHTML = ""
@@ -328,7 +342,7 @@ function displayFolders(folders, notes) {
         if (folder.content) {
             folder.content.forEach(item => {
                 if (item.isAFolder) {
-                    const folder = folders.find(itemId => itemId === f.id)
+                    const folder = folders.find(f => f.id === item.itemId) // not finished putting folders in folders
 
                 } else if (!item.isAFolder) {
                     const note = notes.find(n => n.id === item.itemId)
@@ -367,12 +381,12 @@ function displayFolders(folders, notes) {
     // you need to put any functionality here cause otherwise it won't work
 
 }
-
+changeFolderName("All Notes", "All Notes")
 
 
 let currentFolderId
 const createFolderbtn = document.querySelector("[data-create-folder-btn]")
-const folderName = document.querySelector("[data-folder-name]")
+
 function changeFolderName(name, id = self.crypto.randomUUID()) {
 
     let folders = JSON.parse(localStorage.getItem("folders")) || []
