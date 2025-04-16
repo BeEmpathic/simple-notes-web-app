@@ -376,15 +376,24 @@ function displayFolders(folders, notes) {
         }
 
 
-        folderDiv.addEventListener("click", (e) => {
-            displayNotes(folder.content)
-        })
 
+        let clickTimeout;
+        let isDbClick = false
+        folderDiv.addEventListener("click", (e) => {
+            clickTimeout = setTimeout(() => {
+                if (!isDbClick) {
+                    displayNotes(folder.content);
+                    isDbClick = true
+                }
+            }, 300); // Delay to allow dblclick to be detected
+        });
 
         folderName.addEventListener("dblclick", (e) => {
-            e.target.setAttribute("contenteditable", "true")
-            e.target.focus()
-        })
+            isDbClick = true
+            clearTimeout(clickTimeout); // Cancel the click event
+            e.target.setAttribute("contenteditable", "true");
+            e.target.focus();
+        });
 
         folderName.addEventListener("blur", (e) => {
             e.target.removeAttribute("contenteditable")
