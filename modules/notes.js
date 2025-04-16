@@ -10,6 +10,7 @@ const notesWrapper = document.querySelector("[data-notes-wrapper]")
 
 export function displayNotes(filter) {
     let notes = JSON.parse(localStorage.getItem("notes"))
+    let notesToDisplay = notes
     let folders = JSON.parse(localStorage.getItem("folders")) // this doesn't work if there is no folders but is it a problem? 
 
     if (!localStorage.getItem("notes")) {
@@ -20,23 +21,19 @@ export function displayNotes(filter) {
     notesWrapper.innerHTML = ""
 
     if (typeof filter === "object") {
-        console.log(notes)
-        notes = notes.filter(n => {
-            filter.forEach(filterContent => {
-                n.id = filterContent.itemId
-            })
 
-        })
+        notesToDisplay = notes.filter(n => filter.some(filterContent => n.id === filterContent.itemId))
+
     }
 
-    notes = sortByBoolean(notes, "pinned")
+    notesToDisplay = sortByBoolean(notesToDisplay, "pinned")
 
 
 
 
 
 
-    notes.forEach((note) => {
+    notesToDisplay.forEach((note) => {
 
         const template = notesTemplate.content.cloneNode(true)
         const createdAt = new Date(note.createdAt)
