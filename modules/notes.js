@@ -19,13 +19,15 @@ export function displayNotes(filter) {
 
     notesWrapper.innerHTML = ""
 
-    // if (typeof filter === "object")
-    //     notes = notes.filter(n => {
-    //         filter.forEach(filterContent => {
-    //             n.id = filterContent
-    //         })
-    //         console.log("filter was inwoked")
-    //     })
+    if (typeof filter === "object") {
+        console.log(notes)
+        notes = notes.filter(n => {
+            filter.forEach(filterContent => {
+                n.id = filterContent.itemId
+            })
+
+        })
+    }
 
     notes = sortByBoolean(notes, "pinned")
 
@@ -338,7 +340,7 @@ function displayFolders(folders, notes) {
 
 
 
-    // allNotesFolder(folders, notes)
+    allNotesFolder(folders, notes)
 
     foldersContainer.innerHTML = ""
 
