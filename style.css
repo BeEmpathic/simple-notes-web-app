@@ -6,6 +6,11 @@ body,
 }
 
 :root {
+  --background-color: #f1efec;
+  --foreground-color: #d4c9be;
+  --utlities-color: #123458;
+
+  /* hamburger menu variables */
   --bar-width: 60px;
   --bar-height: 8px;
   --hamburger-gap: 6px;
@@ -36,11 +41,11 @@ button {
   min-height: 100dvh;
   grid-template-columns: 20% 80%;
   overflow: hidden;
-  background-color: lightblue;
   position: relative;
 }
 
 .folders-navbar {
+  background-color: var(--foreground-color);
   border-right: 1px solid #999;
   display: flex;
   flex-direction: column;
@@ -66,7 +71,6 @@ button {
     transition: translate var(--animation-timing);
     translate: -100%;
     position: absolute;
-    background-color: lightsalmon;
     z-index: 4;
     min-height: 100dvh;
     max-height: 100dvh;
@@ -419,6 +423,10 @@ button {
 .folder {
   display: flex;
   flex-direction: column;
+}
+
+.folder.active {
+  background-color: #003cff;
 }
 
 .folder > div {
