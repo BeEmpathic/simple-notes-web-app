@@ -297,29 +297,31 @@ createNoteBtn.addEventListener("click", () => {
     editNote()
 })
 
+function allNotesFolder(folders, notes) {
+    const allNotesFolder = folders.find(f => f.id === "All Notes")
+    allNotesFolder.content = []
+    notes.forEach(note => {
+        allNotesFolder.content.push({
+            isAFolder: false,
+            itemId: note.id
+        })
+    })
+
+}
+
 
 const foldersContainer = document.querySelector("[data-folders-container]")
 const folderTemplate = document.querySelector("[data-folder-template]")
 function displayFolders(folders, notes) {
 
-    console.log(notes)
+    console.log("notes", notes)
+    console.log("folders", folders)
     if (!folders) {
-        console.log("There is no folders")
         changeFolderName("All Notes", "All Notes")
         return
-        // this sutff doesn't work notes are undefinded which is normal cause there is no notes Yeah 
-        // and there is endles recurrenction cause for some reason changeFolderName doesn't want to create "All Notes" folder 
     }
 
-    if (folders.find(f => f.id === "All Notes")) {
-        console.log("there are folders")
-        if (notes) {
-            notes.forEach(note => {
-                addItemToFolder("All Notes", false, note)
-            })
-        }
-    }
-
+    allNotesFolder(folders, notes)
 
     foldersContainer.innerHTML = ""
 
@@ -344,7 +346,7 @@ function displayFolders(folders, notes) {
                 if (item.isAFolder) {
                     const folder = folders.find(f => f.id === item.itemId) // not finished putting folders in folders
 
-                } else if (!item.isAFolder) {
+                } else if (!(item.isAFolder)) {
                     const note = notes.find(n => n.id === item.itemId)
                     const noteDiv = document.createElement("div")
                     noteDiv.innerHTML = '<img src="./icons/note.svg" alt="note icon">' + (note.title ? note.title : '<span style="color: gray">(note without a title)</span>')
@@ -378,10 +380,11 @@ function displayFolders(folders, notes) {
         foldersContainer.append(template)
     })
 
+    // I don't know what this code means
     // you need to put any functionality here cause otherwise it won't work
 
 }
-changeFolderName("All Notes", "All Notes")
+
 
 
 let currentFolderId
