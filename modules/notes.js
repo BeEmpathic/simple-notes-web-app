@@ -8,17 +8,30 @@ const formatter = new Intl.DateTimeFormat("PL", {
 const notesTemplate = document.querySelector("[data-note-template]")
 const notesWrapper = document.querySelector("[data-notes-wrapper]")
 
-export function displayNotes() {
+export function displayNotes(filter) {
+    let notes = JSON.parse(localStorage.getItem("notes"))
+    let folders = JSON.parse(localStorage.getItem("folders")) // this doesn't work if there is no folders but is it a problem? 
 
     if (!localStorage.getItem("notes")) {
-        displayFolders()
+        displayFolders(folders, notes)
         return
     }
 
-    let notes = JSON.parse(localStorage.getItem("notes"))
     notesWrapper.innerHTML = ""
+
+    // if (typeof filter === "object")
+    //     notes = notes.filter(n => {
+    //         filter.forEach(filterContent => {
+    //             n.id = filterContent
+    //         })
+    //         console.log("filter was inwoked")
+    //     })
+
     notes = sortByBoolean(notes, "pinned")
-    let folders = JSON.parse(localStorage.getItem("folders")) // this doesn't work if there is no folders but is it a problem? 
+
+
+
+
 
 
     notes.forEach((note) => {
@@ -245,6 +258,8 @@ function changeNoteBackgroundColor(id, color) {
 
 }
 
+
+// I think this one should take the notes from local storage
 function deleteNote(id) {
     if (id) {
         let notes = JSON.parse(localStorage.getItem("notes"))
@@ -314,14 +329,16 @@ const foldersContainer = document.querySelector("[data-folders-container]")
 const folderTemplate = document.querySelector("[data-folder-template]")
 function displayFolders(folders, notes) {
 
-    console.log("notes", notes)
-    console.log("folders", folders)
+
     if (!folders) {
         changeFolderName("All Notes", "All Notes")
+
         return
     }
 
-    allNotesFolder(folders, notes)
+
+
+    // allNotesFolder(folders, notes)
 
     foldersContainer.innerHTML = ""
 
@@ -329,11 +346,13 @@ function displayFolders(folders, notes) {
 
     folders.forEach((folder) => {
         const template = folderTemplate.content.cloneNode(true)
+        const folderDiv = template.querySelector("[data-folder]")
         const folderContent = template.querySelector("[data-folder-content]")
+        const folderName = template.querySelector("[data-folder-name]")
         const folderItemsCount = folder.content.length
         const folderItemsCountElement = template.querySelector("[data-folder-items-count]")
         const folderFoldBtn = template.querySelector("[data-folder-fold-btn]")
-        template.querySelector("[data-folder-name]").textContent = folder.name // I think this is a mistake
+        folderName.textContent = folder.name // I think this is a mistake
 
         folderFoldBtn.addEventListener("click", () => {
             folderContent.classList.toggle("active")
@@ -358,18 +377,22 @@ function displayFolders(folders, notes) {
         }
 
 
+        folderDiv.addEventListener("click", (e) => {
+            displayNotes(folder.content)
+        })
 
-        template.querySelector("[data-folder-name]").addEventListener("dblclick", (e) => {
+
+        folderName.addEventListener("dblclick", (e) => {
             e.target.setAttribute("contenteditable", "true")
             e.target.focus()
         })
 
-        template.querySelector("[data-folder-name]").addEventListener("blur", (e) => {
+        folderName.addEventListener("blur", (e) => {
             e.target.removeAttribute("contenteditable")
             changeFolderName(e.target.textContent, folder.id)
         })
 
-        template.querySelector("[data-folder-name]").addEventListener("keydown", (e) => {
+        folderName.addEventListener("keydown", (e) => {
             if (e.key === "Enter") {
                 e.preventDefault()
                 e.target.blur()
@@ -380,14 +403,14 @@ function displayFolders(folders, notes) {
         foldersContainer.append(template)
     })
 
-    // I don't know what this code means
+
     // you need to put any functionality here cause otherwise it won't work
 
 }
 
 
 
-let currentFolderId
+
 const createFolderbtn = document.querySelector("[data-create-folder-btn]")
 
 function changeFolderName(name, id = self.crypto.randomUUID()) {
@@ -423,6 +446,9 @@ function saveFolderContent(content, id) {
     localStorage.setItem("folders", JSON.stringify(folders))
     displayFolders()
 }
+
+
+
 
 
 
