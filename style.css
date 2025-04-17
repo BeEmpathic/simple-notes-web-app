@@ -9,6 +9,7 @@ body,
   --background-color: #f1efec;
   --foreground-color: #d4c9be;
   --utlities-color: #123458;
+  --brighter-utlities-color: #234569;
 
   /* hamburger menu variables */
   --bar-width: 60px;
@@ -146,10 +147,10 @@ button {
   margin: 0.5rem 0;
 
   &.create-note-button {
-    background-color: #003cff;
+    background-color: var(--utlities-color);
   }
   &.create-folder-btn {
-    background-color: #0030ce;
+    background-color: var(--brighter-utlities-color);
   }
 }
 
@@ -201,7 +202,7 @@ button {
   align-items: center;
   max-width: 100%;
   padding: 1rem;
-  background-color: rebeccapurple;
+  background-color: var(--background-color);
 }
 
 .search-bar-input-settings {
@@ -215,7 +216,6 @@ button {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 1rem;
-  background-color: #003cff;
 }
 
 .note {
