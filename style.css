@@ -9,7 +9,7 @@ body,
   --background-color: #f1efec;
   --foreground-color: #d4c9be;
   --utlities-color: #123458;
-  --brighter-utlities-color: #234569;
+  --brighter-utlities-color: #34567a;
 
   /* hamburger menu variables */
   --bar-width: 60px;
@@ -156,7 +156,7 @@ button {
 
 .create-button:hover {
   cursor: pointer;
-  filter: brightness(1.8);
+  filter: brightness(1.4);
 }
 
 .notes-search-form {
