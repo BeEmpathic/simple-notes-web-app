@@ -10,6 +10,7 @@ const notesWrapper = document.querySelector("[data-notes-wrapper]")
 
 export function displayNotes(filter) {
     let notes = JSON.parse(localStorage.getItem("notes"))
+
     let notesToDisplay = notes
     let folders = JSON.parse(localStorage.getItem("folders")) // this doesn't work if there is no folders but is it a problem? 
 
@@ -34,12 +35,13 @@ export function displayNotes(filter) {
 
 
     notesToDisplay.forEach((note) => {
-
+        console.log(note.content)
         const template = notesTemplate.content.cloneNode(true)
         const createdAt = new Date(note.createdAt)
         const pinBtn = template.querySelector("[data-note-pin-btn]")
         const pinBtnImg = template.querySelector("[data-note-pin-btn] img")
         const noteDiv = template.querySelector("[data-note]")
+        const noteContent = template.querySelector("[data-note-content]")
         const deleteButton = template.querySelector("[data-note-delete-btn]")
         const colorsPaletteBtn = template.querySelector("[data-note-colors-palette-btn]")
         const colorsPalette = template.querySelector("[data-colors-palette]")
@@ -48,7 +50,7 @@ export function displayNotes(filter) {
 
 
         template.querySelector("[data-note-title]").textContent = note.title
-        template.querySelector("[data-note-content]").innerHTML = note.content
+        noteContent.innerHTML = note.content
         template.querySelector("[data-note-date]").textContent = formatter.format(createdAt)
         template.querySelector("[data-note]").style.backgroundColor = note.bgColor
         pinBtnImg.src = note.pinned ? "./icons/pin-on.svg" : "./icons/pin-off.svg"
@@ -122,14 +124,13 @@ export function displayNotes(filter) {
         }
 
         notesWrapper.append(template)
+        textOverFlowHandler(noteContent)
 
     })
 
     // It's not recurrenction
     displayFolders(folders, notes)
 
-    // this function need to be optimized 
-    applyTextOverflowHandler()
 
 
 }
@@ -475,42 +476,33 @@ function sortByBoolean(arr, key) {
 }
 
 
-
-// this function need to be optimized
+// make it so it doesn't kill users line breaks 
+// to improve this function check if something is a node or just grab a last node in text and then remove text from it 
+// until you it stops overflowing or the node is empty. If node is empty remove it repeat untill overflow is ended
+let maxrecurr = 0
 function textOverFlowHandler(element) {
-    let originalText = element.innerHTML;
-    let textfullLength = originalText.length;
+    console.log(element.innerHTML)
+    if (element.scrollHeight > element.clientHeight) {
+        console.log("The element: ", element)
+        while (element.scrollHeight > element.clientHeight) {
+            if (maxrecurr > 1000) {
+
+                break;
+            }
+            maxrecurr++
+
+            if (element.lastElementChild !== null) {
+                if (element.lastChild.textContent.trim().length > 0) {
+                    console.log("sliced")
+                    element.lastChild.textContent = element.lastChild.textContent.slice(0, -1)
+                } else if (element.lastChild.textContent.trim().length === 0)
+                    element.removeChild(element.lastElementChild)
+            }
 
 
-    const lineBreakPlaceholder = "[[BR]]";
-    originalText = originalText.replace(/<div>/g, lineBreakPlaceholder).replace(/<\/div>/g, "");
 
-    while ((element.scrollWidth > element.clientWidth || element.scrollHeight > element.clientHeight) && textfullLength > 0) {
-        textfullLength--;
-        let trimmedText = originalText.slice(0, textfullLength);
-
-
-        trimmedText = trimmedText.replace(/([\s]|\[\[BR\]\])+$/g, "");
-
-
-        element.innerHTML = trimmedText.replaceAll(lineBreakPlaceholder, "<div></div>") + "...";
+        }
+        element.textContent = element.textContent.slice(3, -1)
+        element.textContent = element.textContent + "..."
     }
 }
-
-function applyTextOverflowHandler() {
-    document.querySelectorAll(".truncate-text").forEach(textOverFlowHandler);
-}
-
-function debounce(func, delay) {
-    let timeout;
-    return function (...args) {
-        clearTimeout(timeout);
-        timeout = setTimeout(() => func.apply(this, args), delay);
-    };
-}
-
-
-window.addEventListener("load", applyTextOverflowHandler);
-
-
-window.addEventListener("resize", debounce(applyTextOverflowHandler, 200));
