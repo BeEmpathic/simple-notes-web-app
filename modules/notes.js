@@ -30,7 +30,6 @@ export function displayNotes(filter) {
     notesToDisplay = sortByBoolean(notesToDisplay, "pinned")
 
 
-    console.log(notes[8].content)
 
 
 
@@ -476,17 +475,11 @@ function sortByBoolean(arr, key) {
 }
 
 
-// make it so it doesn't kill users line breaks 
-// to improve this function check if something is a node or just grab a last node in text and then remove text from it 
-// until you it stops overflowing or the node is empty. If node is empty remove it repeat untill overflow is ended
-let maxrecurr = 0
+// The function was improved It still doesn't work if someone give you unclosed div probably, but that's not my problem.
 function textOverFlowHandler(element) {
-
-    // it isn't adding ... at the end of long aaaa note 
-
-
+    let isOverFlowing = false
     while (element.scrollHeight > element.clientHeight) {
-
+        isOverFlowing = true
         if (element.lastElementChild && element.lastElementChild.nextSibling === null) {
 
 
@@ -502,8 +495,6 @@ function textOverFlowHandler(element) {
         }
 
     }
-
-
     if (element.lastElementChild && element.lastElementChild.nextSibling === null) {
 
         if (element.lastElementChild.textContent !== '') {
@@ -512,12 +503,18 @@ function textOverFlowHandler(element) {
             element.lastElementChild.textContent = element.lastElementChild.textContent.slice(0, -3)
             element.lastElementChild.textContent = element.lastElementChild.textContent + "..."
         } else if (element.lastElementChild.textContent === "") {
+            console.log("There was lastElementChild.textCOntent")
+
             element.removeChild(element.lastElementChild)
             element.lastElementChild.textContent = element.lastElementChild.textContent.slice(0, -3)
             element.lastElementChild.textContent = element.lastElementChild.textContent + "..."
         }
-    } else if (element.lastElementChild && element.lastElementChild.nextSibling !== null) {
-
+    } else if (element.lastElementChild !== null && element.lastElementChild.nextSibling !== null) {
+        console.log("the last if happened")
+        console.log(element)
+        element.innerHTML = element.innerHTML.slice(0, -3)
+        element.innerHTML = element.innerHTML + "..."
+    } else if (isOverFlowing) {
         element.innerHTML = element.innerHTML.slice(0, -3)
         element.innerHTML = element.innerHTML + "..."
     }
