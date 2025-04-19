@@ -30,12 +30,12 @@ export function displayNotes(filter) {
     notesToDisplay = sortByBoolean(notesToDisplay, "pinned")
 
 
-
+    console.log(notes[8].content)
 
 
 
     notesToDisplay.forEach((note) => {
-        console.log(note.content)
+
         const template = notesTemplate.content.cloneNode(true)
         const createdAt = new Date(note.createdAt)
         const pinBtn = template.querySelector("[data-note-pin-btn]")
@@ -481,28 +481,45 @@ function sortByBoolean(arr, key) {
 // until you it stops overflowing or the node is empty. If node is empty remove it repeat untill overflow is ended
 let maxrecurr = 0
 function textOverFlowHandler(element) {
-    console.log(element.innerHTML)
-    if (element.scrollHeight > element.clientHeight) {
-        console.log("The element: ", element)
-        while (element.scrollHeight > element.clientHeight) {
-            if (maxrecurr > 1000) {
 
-                break;
+    // it isn't adding ... at the end of long aaaa note 
+
+
+    while (element.scrollHeight > element.clientHeight) {
+
+        if (element.lastElementChild && element.lastElementChild.nextSibling === null) {
+
+
+            if (element.lastElementChild.textContent !== "") {
+
+                element.lastElementChild.textContent = element.lastElementChild.textContent.slice(0, -1)
+            } else if (element.lastElementChild.textContent === "") {
+                element.removeChild(element.lastElementChild)
             }
-            maxrecurr++
+        } else if (element.lastElement !== null) {
 
-            if (element.lastElementChild !== null) {
-                if (element.lastChild.textContent.trim().length > 0) {
-                    console.log("sliced")
-                    element.lastChild.textContent = element.lastChild.textContent.slice(0, -1)
-                } else if (element.lastChild.textContent.trim().length === 0)
-                    element.removeChild(element.lastElementChild)
-            }
-
-
-
+            element.innerHTML = element.innerHTML.slice(0, -1)
         }
-        element.textContent = element.textContent.slice(3, -1)
-        element.textContent = element.textContent + "..."
+
     }
+
+
+    if (element.lastElementChild && element.lastElementChild.nextSibling === null) {
+
+        if (element.lastElementChild.textContent !== '') {
+            console.log("the textContent of this last div is exisitng")
+            console.log(element.lastElementChild)
+            element.lastElementChild.textContent = element.lastElementChild.textContent.slice(0, -3)
+            element.lastElementChild.textContent = element.lastElementChild.textContent + "..."
+        } else if (element.lastElementChild.textContent === "") {
+            element.removeChild(element.lastElementChild)
+            element.lastElementChild.textContent = element.lastElementChild.textContent.slice(0, -3)
+            element.lastElementChild.textContent = element.lastElementChild.textContent + "..."
+        }
+    } else if (element.lastElementChild && element.lastElementChild.nextSibling !== null) {
+
+        element.innerHTML = element.innerHTML.slice(0, -3)
+        element.innerHTML = element.innerHTML + "..."
+    }
+
 }
