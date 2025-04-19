@@ -10,6 +10,9 @@ const notesWrapper = document.querySelector("[data-notes-wrapper]")
 
 export function displayNotes(filter) {
     let notes = JSON.parse(localStorage.getItem("notes"))
+    const theOne = notes.find(n => n.title === "notes")
+    console.log(theOne.content)
+
 
     let notesToDisplay = notes
     let folders = JSON.parse(localStorage.getItem("folders")) // this doesn't work if there is no folders but is it a problem? 
@@ -28,7 +31,6 @@ export function displayNotes(filter) {
     }
 
     notesToDisplay = sortByBoolean(notesToDisplay, "pinned")
-
 
 
 
@@ -478,7 +480,7 @@ function sortByBoolean(arr, key) {
 // The function was improved It still doesn't work if someone give you unclosed div probably, but that's not my problem.
 function textOverFlowHandler(element) {
     let isOverFlowing = false
-    while (element.scrollHeight > element.clientHeight) {
+    while (element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth) {
         isOverFlowing = true
         if (element.lastElementChild && element.lastElementChild.nextSibling === null) {
 
@@ -496,22 +498,15 @@ function textOverFlowHandler(element) {
 
     }
     if (element.lastElementChild && element.lastElementChild.nextSibling === null) {
-
         if (element.lastElementChild.textContent !== '') {
-            console.log("the textContent of this last div is exisitng")
-            console.log(element.lastElementChild)
             element.lastElementChild.textContent = element.lastElementChild.textContent.slice(0, -3)
             element.lastElementChild.textContent = element.lastElementChild.textContent + "..."
         } else if (element.lastElementChild.textContent === "") {
-            console.log("There was lastElementChild.textCOntent")
-
             element.removeChild(element.lastElementChild)
             element.lastElementChild.textContent = element.lastElementChild.textContent.slice(0, -3)
             element.lastElementChild.textContent = element.lastElementChild.textContent + "..."
         }
     } else if (element.lastElementChild !== null && element.lastElementChild.nextSibling !== null) {
-        console.log("the last if happened")
-        console.log(element)
         element.innerHTML = element.innerHTML.slice(0, -3)
         element.innerHTML = element.innerHTML + "..."
     } else if (isOverFlowing) {
