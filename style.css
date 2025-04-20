@@ -266,7 +266,8 @@ button {
   margin-bottom: 5px;
   max-width: 100%;
   width: 100%;
-  overflow-x: hidden;
+  overflow-y: auto;
+  text-overflow: ellipsis;
   text-wrap: wrap;
   word-wrap: break-word;
   white-space: pre-wrap;
