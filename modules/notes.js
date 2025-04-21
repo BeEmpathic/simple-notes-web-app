@@ -355,10 +355,11 @@ function displayFolders(folders, notes) {
         const folderFoldBtn = template.querySelector("[data-folder-fold-btn]")
         folderName.textContent = folder.name // I think this is a mistake
 
-        folderFoldBtn.addEventListener("click", () => {
+        folderFoldBtn.addEventListener("click", (e) => {
+            folderDiv.classList.toggle("active")
             folderContent.classList.toggle("active")
             folderFoldBtn.firstElementChild.classList.toggle("active")
-
+            e.stopPropagation()
         })
 
         if (folder.content) {
