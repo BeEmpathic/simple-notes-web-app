@@ -14,7 +14,7 @@ let folders = []
 let filter
 
 
-export function displayNotes(filter) {
+export function displayNotes() {
     if (!localStorage.getItem("notes"))
         return
 
@@ -31,7 +31,8 @@ export function displayNotes(filter) {
 
     // I'm testing if this is working right now
     if (typeof filter === "object") {
-        notesToDisplay = notes.filter(n => filter.some(filterContent => n.id === filterContent.itemId))
+        console.log(notesToDisplay)
+        notesToDisplay = notesToDisplay.filter(n => filter.some(filterContent => n.id === filterContent.itemId))
     }
 
     notesToDisplay = sortByBoolean(notesToDisplay, "pinned")
@@ -91,7 +92,6 @@ export function displayNotes(filter) {
                 case addToFolderBtn: {
                     addToFolderBtn.classList.toggle("active")
                     addToFolderDropdownMenuContent.classList.toggle("active")
-
                     return
                 }
 
@@ -140,7 +140,10 @@ export function displayNotes(filter) {
 
 
 
-// closing colors palette functionality
+// closing colors palette and addingfolders dropdown functionality
+// now I don't know what it works when the colorsPalletteBtns are grabbed
+//  only once that means that It shouldn't work at all or that it shouldn't work on the 
+// newest notes I checked it. it wokrs 
 document.addEventListener("click", (e) => {
     const colorsPaletteBtns = document.querySelectorAll("[data-note-colors-palette-btn]")
     const colorsPalette = document.querySelectorAll("[data-colors-palette]")
@@ -328,6 +331,20 @@ function allNotesFolder() {
 
 
 const foldersContainer = document.querySelector("[data-folders-container]")
+
+foldersContainer.addEventListener("click", (e) => {
+    const foldersOnSite = foldersContainer.querySelectorAll("[data-folder]")
+
+    foldersOnSite.forEach((folder) => {
+        if (e.target !== folder && folder.classList.contains("active")) {
+            folder.classList.toggle("active")
+        }
+    })
+
+})
+
+
+
 const folderTemplate = document.querySelector("[data-folder-template]")
 export function displayFolders() {
 
@@ -385,8 +402,11 @@ export function displayFolders() {
         folderDiv.addEventListener("click", (e) => {
             clickTimeout = setTimeout(() => {
                 if (!isDbClick) {
-                    displayNotes(folder.content);
+                    filter = folder.content
+                    console.log("filter:", filter)
+                    displayNotes();
                     isDbClick = true
+                    console.log("I was cliked", e)
                 }
                 folderDiv.classList.toggle("active")
             }, 300); // Delay to allow dblclick to be detected
