@@ -8,6 +8,7 @@ body,
 :root {
   --background-color: #f1efec;
   --foreground-color: #d4c9be;
+
   --utlities-color: #123458;
   --brighter-utlities-color: #34567a;
 
@@ -428,8 +429,9 @@ button {
   flex-direction: column;
 }
 
-.folder.active {
-  background-color: #003cff;
+.folder.active header {
+  padding-right: 1rem;
+  background-color: var(--background-color);
 }
 
 .folder > div {
