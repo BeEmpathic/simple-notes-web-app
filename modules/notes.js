@@ -4,30 +4,34 @@ const formatter = new Intl.DateTimeFormat("PL", {
     dateStyle: "short"
 })
 
+const FOLDERS_COLORS = []
+
 
 const notesTemplate = document.querySelector("[data-note-template]")
 const notesWrapper = document.querySelector("[data-notes-wrapper]")
+let notes = []
+let folders = []
+let filter
+
 
 export function displayNotes(filter) {
-    let notes = JSON.parse(localStorage.getItem("notes"))
-    const theOne = notes.find(n => n.title === "notes")
-    console.log(theOne.content)
+    if (!localStorage.getItem("notes"))
+        return
+
+
+    notes = JSON.parse(localStorage.getItem("notes"))
 
 
     let notesToDisplay = notes
-    let folders = JSON.parse(localStorage.getItem("folders")) // this doesn't work if there is no folders but is it a problem? 
 
-    if (!localStorage.getItem("notes")) {
-        displayFolders(folders, notes)
-        return
-    }
 
+    // try to change that to update what has to be updated instead of updating the whole website
     notesWrapper.innerHTML = ""
 
+
+    // I'm testing if this is working right now
     if (typeof filter === "object") {
-
         notesToDisplay = notes.filter(n => filter.some(filterContent => n.id === filterContent.itemId))
-
     }
 
     notesToDisplay = sortByBoolean(notesToDisplay, "pinned")
@@ -129,9 +133,6 @@ export function displayNotes(filter) {
 
     })
 
-    // It's not recurrenction
-    displayFolders(folders, notes)
-
 
 
 }
@@ -166,7 +167,7 @@ document.addEventListener("click", (e) => {
 export function saveNote(title, content = "", id = self.crypto.randomUUID()) {
     const now = new Date()
 
-    let notes = JSON.parse(localStorage.getItem("notes")) || [];
+    notes = JSON.parse(localStorage.getItem("notes")) || [];
 
     let noteIndex = notes.findIndex(n => n.id === id);
     if (noteIndex !== -1) {
@@ -187,7 +188,7 @@ export function saveNote(title, content = "", id = self.crypto.randomUUID()) {
     }
 
     localStorage.setItem("notes", JSON.stringify(notes))
-    displayNotes()
+    displayNotes(filter)
 }
 
 
@@ -272,7 +273,7 @@ function deleteNote(id) {
 
 function addItemToFolder(folderId, isAFolder, itemId) {
 
-    const folders = JSON.parse(localStorage.getItem("folders"))
+    folders = JSON.parse(localStorage.getItem("folders"))
     if (!folders) return
 
     // change this so it find's whole folder folder
@@ -287,7 +288,7 @@ function addItemToFolder(folderId, isAFolder, itemId) {
 
     localStorage.setItem("folders", JSON.stringify(folders))
 
-    displayNotes()
+    displayFolders()
 }
 
 
@@ -313,11 +314,11 @@ createNoteBtn.addEventListener("click", () => {
     editNote()
 })
 
-function allNotesFolder(folders, notes) {
-    const allNotesFolder = folders.find(f => f.id === "All Notes")
-    allNotesFolder.content = []
+function allNotesFolder() {
+    const allNotes = folders.find(f => f.id === "All Notes")
+    allNotes.content = []
     notes.forEach(note => {
-        allNotesFolder.content.push({
+        allNotes.content.push({
             isAFolder: false,
             itemId: note.id
         })
@@ -328,18 +329,18 @@ function allNotesFolder(folders, notes) {
 
 const foldersContainer = document.querySelector("[data-folders-container]")
 const folderTemplate = document.querySelector("[data-folder-template]")
-function displayFolders(folders, notes) {
+export function displayFolders() {
 
-
-    if (!folders) {
+    if (!localStorage.getItem("folders")) {
         changeFolderName("All Notes", "All Notes")
 
         return
     }
 
+    folders = JSON.parse(localStorage.getItem("folders"))
 
 
-    allNotesFolder(folders, notes)
+    allNotesFolder()
 
     foldersContainer.innerHTML = ""
 
@@ -356,7 +357,6 @@ function displayFolders(folders, notes) {
         folderName.textContent = folder.name // I think this is a mistake
 
         folderFoldBtn.addEventListener("click", (e) => {
-            folderDiv.classList.toggle("active")
             folderContent.classList.toggle("active")
             folderFoldBtn.firstElementChild.classList.toggle("active")
             e.stopPropagation()
@@ -388,6 +388,7 @@ function displayFolders(folders, notes) {
                     displayNotes(folder.content);
                     isDbClick = true
                 }
+                folderDiv.classList.toggle("active")
             }, 300); // Delay to allow dblclick to be detected
         });
 
@@ -426,7 +427,7 @@ const createFolderbtn = document.querySelector("[data-create-folder-btn]")
 
 function changeFolderName(name, id = self.crypto.randomUUID()) {
 
-    let folders = JSON.parse(localStorage.getItem("folders")) || []
+    folders = JSON.parse(localStorage.getItem("folders")) || []
 
     let folderIndex = folders.findIndex(f => f.id === id)
     if (folderIndex !== -1) {
