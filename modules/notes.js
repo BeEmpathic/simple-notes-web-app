@@ -31,7 +31,7 @@ export function displayNotes() {
 
     // I'm testing if this is working right now
     if (typeof filter === "object") {
-        console.log(notesToDisplay)
+
         notesToDisplay = notesToDisplay.filter(n => filter.some(filterContent => n.id === filterContent.itemId))
     }
 
@@ -403,10 +403,8 @@ export function displayFolders() {
             clickTimeout = setTimeout(() => {
                 if (!isDbClick) {
                     filter = folder.content
-                    console.log("filter:", filter)
                     displayNotes();
-                    isDbClick = true
-                    console.log("I was cliked", e)
+                    isDbClick = false
                 }
                 folderDiv.classList.toggle("active")
             }, 300); // Delay to allow dblclick to be detected
@@ -414,7 +412,7 @@ export function displayFolders() {
 
         folderName.addEventListener("dblclick", (e) => {
             isDbClick = true
-            clearTimeout(clickTimeout); // Cancel the click event
+
             e.target.setAttribute("contenteditable", "true");
             e.target.focus();
         });
