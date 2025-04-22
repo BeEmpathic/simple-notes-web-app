@@ -9,8 +9,8 @@ const FOLDERS_COLORS = []
 
 const notesTemplate = document.querySelector("[data-note-template]")
 const notesWrapper = document.querySelector("[data-notes-wrapper]")
-let notes = []
-let folders = []
+let notes = JSON.parse(localStorage.getItem("notes")) || []
+let folders = JSON.parse(localStorage.getItem("folders")) || []
 let filter
 
 
@@ -320,12 +320,14 @@ createNoteBtn.addEventListener("click", () => {
 function allNotesFolder() {
     const allNotes = folders.find(f => f.id === "All Notes")
     allNotes.content = []
-    notes.forEach(note => {
-        allNotes.content.push({
-            isAFolder: false,
-            itemId: note.id
+    if (notes) {
+        notes.forEach(note => {
+            allNotes.content.push({
+                isAFolder: false,
+                itemId: note.id
+            })
         })
-    })
+    }
 
 }
 
@@ -382,20 +384,22 @@ export function displayFolders() {
             e.stopPropagation()
         })
 
-        if (folder.content) {
-            folder.content.forEach(item => {
-                if (item.isAFolder) {
-                    const folder = folders.find(f => f.id === item.itemId) // not finished putting folders in folders
+        if (notes) {
+            if (folder.content) {
+                folder.content.forEach(item => {
+                    if (item.isAFolder) {
+                        const folder = folders.find(f => f.id === item.itemId) // not finished putting folders in folders
 
-                } else if (!(item.isAFolder)) {
-                    const note = notes.find(n => n.id === item.itemId)
-                    const noteDiv = document.createElement("div")
-                    noteDiv.innerHTML = '<img src="./icons/note.svg" alt="note icon">' + (note.title ? note.title : '<span style="color: gray">(note without a title)</span>')
-                    folderContent.append(noteDiv)
+                    } else if (!(item.isAFolder)) {
+                        const note = notes.find(n => n.id === item.itemId)
+                        const noteDiv = document.createElement("div")
+                        noteDiv.innerHTML = '<img src="./icons/note.svg" alt="note icon">' + (note.title ? note.title : '<span style="color: gray">(note without a title)</span>')
+                        folderContent.append(noteDiv)
 
-                }
-                folderItemsCountElement.textContent = folderItemsCount
-            })
+                    }
+                    folderItemsCountElement.textContent = folderItemsCount
+                })
+            }
         }
 
 
