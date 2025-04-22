@@ -291,6 +291,10 @@ button {
   z-index: 2;
 }
 
+.note-color-picker img {
+  z-index: 1;
+}
+
 .note-colors-palette {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -491,6 +495,11 @@ button {
   pointer-events: none;
   transform: translateY(-10px);
   transition: opacity 150ms ease-in-out, transform 150ms ease-in-out;
+  height: 15rem;
+  width: 5rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0.5rem;
 }
 
 .folder-select-dropdown-menu.active {
@@ -499,6 +508,9 @@ button {
   pointer-events: auto;
 }
 
-.note-folder-li {
+.note-folder-list,
+li {
   list-style: none;
+  padding: 0;
+  margin: 0;
 }
