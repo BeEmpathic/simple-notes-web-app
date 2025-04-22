@@ -373,6 +373,9 @@ export function displayFolders() {
         const folderFoldBtn = template.querySelector("[data-folder-fold-btn]")
         folderName.textContent = folder.name // I think this is a mistake
 
+        folderName.textContent === "All Notes" && !filter ? folderDiv.classList.toggle("active") : ""
+
+
         folderFoldBtn.addEventListener("click", (e) => {
             folderContent.classList.toggle("active")
             folderFoldBtn.firstElementChild.classList.toggle("active")
