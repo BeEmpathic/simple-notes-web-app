@@ -402,17 +402,18 @@ export function displayFolders() {
         folderDiv.addEventListener("click", (e) => {
             clickTimeout = setTimeout(() => {
                 if (!isDbClick) {
+                    isDbClick = false
                     filter = folder.content
                     displayNotes();
-                    isDbClick = false
+                    console.log("is it working?")
                 }
                 folderDiv.classList.toggle("active")
-            }, 300); // Delay to allow dblclick to be detected
+            }, 150); // Delay to allow dblclick to be detected
         });
 
         folderName.addEventListener("dblclick", (e) => {
             isDbClick = true
-
+            clearTimeout(clickTimeout)
             e.target.setAttribute("contenteditable", "true");
             e.target.focus();
         });
@@ -459,7 +460,7 @@ function changeFolderName(name, id = self.crypto.randomUUID()) {
         folders.push(folder)
     }
     localStorage.setItem("folders", JSON.stringify(folders))
-    displayNotes()
+    displayFolders() // I wouldn't say that it's good that you are refreshign folderrs like this
 }
 
 
