@@ -514,3 +514,14 @@ li {
   padding: 0;
   margin: 0;
 }
+
+.simple-scrollbar {
+  scrollbar-width: thin;
+}
+
+.simple-scrollbar::-webkit-scrollbar {
+  width: 10px;
+}
+.simple-scrollbar::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+}
