@@ -498,3 +498,7 @@ button {
   transform: translateY(0);
   pointer-events: auto;
 }
+
+.note-folder-li {
+  list-style: none;
+}

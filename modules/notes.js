@@ -23,6 +23,7 @@ export function displayNotes() {
 
 
     let notesToDisplay = notes
+    let foldersToDisplay = folders.filter(f => f.id !== "All Notes")
 
 
     // try to change that to update what has to be updated instead of updating the whole website
@@ -34,6 +35,8 @@ export function displayNotes() {
 
         notesToDisplay = notesToDisplay.filter(n => filter.some(filterContent => n.id === filterContent.itemId))
     }
+
+    // sort the by date the newest one on top
 
     notesToDisplay = sortByBoolean(notesToDisplay, "pinned")
 
@@ -113,16 +116,17 @@ export function displayNotes() {
 
         })
 
-        if (folders) {
-            folders.forEach(folder => {
-                const folderBtn = document.createElement("button")
-                folderBtn.classList.add("note-btn")
-                folderBtn.innerHTML = `${folder.name}`
-                folderBtn.addEventListener("click", (e) => {
+        if (foldersToDisplay) {
+            foldersToDisplay.forEach(folder => {
+                const folderItem = document.createElement("li")
+                folderItem.classList.add("note-btn")
+                folderItem.classList.add("note-folder-li")
+                folderItem.innerHTML = `${folder.name}`
+                folderItem.addEventListener("click", (e) => {
                     addItemToFolder(folder.id, false, note.id)
                     e.stopPropagation()
                 })
-                addToFolderDropdownMenuContent.append(folderBtn)
+                addToFolderDropdownMenuContent.append(folderItem)
             })
 
 
