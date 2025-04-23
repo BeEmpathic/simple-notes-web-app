@@ -209,7 +209,8 @@ export function saveNote(title, content = "", id = self.crypto.randomUUID()) {
     }
 
     localStorage.setItem("notes", JSON.stringify(notes))
-    displayNotes(filter)
+    displayFolders()
+    displayNotes()
 }
 
 
@@ -289,6 +290,7 @@ function deleteNote(id) {
         notes = notes.filter((note) => note.id !== id)
         localStorage.setItem("notes", JSON.stringify(notes))
         displayNotes()
+        displayFolders()
     }
 }
 
@@ -424,7 +426,14 @@ export function displayFolders() {
                         const folder = folders.find(f => f.id === item.itemId) // not finished putting folders in folders
 
                     } else if (!(item.isAFolder)) {
+
+                        if (!notes.find(n => n.id === item.itemId)) {
+                            folder.content = folder.content.filter(i => i.itemId !== item.itemId)
+                            return
+                        }
                         const note = notes.find(n => n.id === item.itemId)
+
+
                         const noteDiv = document.createElement("div")
                         noteDiv.innerHTML = '<img src="./icons/note.svg" alt="note icon">' + (note.title ? note.title : '<span style="color: gray">(note without a title)</span>')
                         folderContent.append(noteDiv)
