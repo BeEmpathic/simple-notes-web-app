@@ -445,7 +445,6 @@ export function displayFolders() {
                     isDbClick = false
                     filter = folder.content
                     displayNotes();
-                    console.log("is it working?")
                 }
                 folderDiv.classList.toggle("active")
             }, 150); // Delay to allow dblclick to be detected
@@ -500,7 +499,8 @@ function changeFolderName(name, id = self.crypto.randomUUID()) {
         folders.push(folder)
     }
     localStorage.setItem("folders", JSON.stringify(folders))
-    displayFolders() // I wouldn't say that it's good that you are refreshign folderrs like this
+    displayFolders()
+    displayNotes() // I wouldn't say that it's good that you are refreshign folderrs like this
 }
 
 
