@@ -123,12 +123,21 @@ export function displayNotes() {
                 folderItem.classList.add("note-btn")
                 folderItem.classList.add("note-folder-li")
 
-                folderItem.innerHTML = `<label><input type="checkbox">${folder.name}</label>`
+                folderItem.innerHTML = `<input type="checkbox" ${folder.content.find(i => i.itemId === note.id) ? "checked" : ""} >${folder.name}`
                 const folderItemCheckbox = folderItem.querySelector("input")
 
-                folderItemCheckbox.addEventListener("change", (e) => {
-                    addItemToFolder(folder.id, false, note.id)
-                    console.log("How many times I was called?")
+                folderItem.addEventListener("click", (e) => {
+                    if (!folderItemCheckbox.checked) {
+                        addItemToFolder(folder.id, false, note.id)
+                        folderItemCheckbox.checked = true
+
+                    }
+                    else if (folderItemCheckbox.checked) {
+                        removeItemFromFolder(folder.id, false, note.id)
+                        folderItemCheckbox.checked = false
+
+                    }
+
                     e.stopPropagation()
                 })
                 addToFolderDropdownMenuContent.appendChild(folderItem)
@@ -307,9 +316,11 @@ function addItemToFolder(folderId, isAFolder, itemId) {
 function removeItemFromFolder(folderId, isAFolder, itemId) {
     if (!folders) return
     const folder = folders.find(f => f.id === folderId)
-    if (folder.content.find(i => i.id === itemId))
-        folder.content = folder.content.filter(i => i.id !== itemId)
+    console.log(folder.content)
+    if (folder.content.find(i => i.itemId === itemId))
+        folder.content = folder.content.filter(i => i.itemId !== itemId)
 
+    console.log(folder.content)
 
     localStorage.setItem("folders", JSON.stringify(folders))
 
