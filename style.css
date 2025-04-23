@@ -438,11 +438,13 @@ button {
   background-color: var(--background-color);
 }
 
-.folder > div {
+.folder-right-side {
   display: flex;
+  align-items: center;
 }
 
 .folder-content {
+  display: flex;
   visibility: collapse;
   flex-direction: column;
   gap: 0.4rem;
