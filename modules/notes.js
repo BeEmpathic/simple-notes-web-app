@@ -316,11 +316,11 @@ function addItemToFolder(folderId, isAFolder, itemId) {
 function removeItemFromFolder(folderId, isAFolder, itemId) {
     if (!folders) return
     const folder = folders.find(f => f.id === folderId)
-    console.log(folder.content)
+
     if (folder.content.find(i => i.itemId === itemId))
         folder.content = folder.content.filter(i => i.itemId !== itemId)
 
-    console.log(folder.content)
+
 
     localStorage.setItem("folders", JSON.stringify(folders))
 
