@@ -119,20 +119,25 @@ export function displayNotes() {
         if (foldersToDisplay) {
             foldersToDisplay.forEach(folder => {
                 const folderItem = document.createElement("li")
+
                 folderItem.classList.add("note-btn")
                 folderItem.classList.add("note-folder-li")
-                folderItem.innerHTML = `${folder.name}`
-                folderItem.addEventListener("click", (e) => {
+
+                folderItem.innerHTML = `<label><input type="checkbox">${folder.name}</label>`
+                const folderItemCheckbox = folderItem.querySelector("input")
+
+                folderItemCheckbox.addEventListener("change", (e) => {
                     addItemToFolder(folder.id, false, note.id)
+                    console.log("How many times I was called?")
                     e.stopPropagation()
                 })
-                addToFolderDropdownMenuContent.append(folderItem)
+                addToFolderDropdownMenuContent.appendChild(folderItem)
             })
 
 
         }
 
-        notesWrapper.append(template)
+        notesWrapper.appendChild(template)
         // textOverFlowHandler(noteContent)
 
     })
@@ -285,12 +290,25 @@ function addItemToFolder(folderId, isAFolder, itemId) {
 
     // change this so it find's whole folder folder
 
-    const folderIndex = folders.findIndex(f => f.id === folderId)
+    const folder = folders.find(f => f.id === folderId)
 
-    folders[folderIndex].content.push({
+
+    folder.content.push({
         itemId,
         isAFolder
     })
+
+
+    localStorage.setItem("folders", JSON.stringify(folders))
+
+    displayFolders()
+}
+
+function removeItemFromFolder(folderId, isAFolder, itemId) {
+    if (!folders) return
+    const folder = folders.find(f => f.id === folderId)
+    if (folder.content.find(i => i.id === itemId))
+        folder.content = folder.content.filter(i => i.id !== itemId)
 
 
     localStorage.setItem("folders", JSON.stringify(folders))
