@@ -495,7 +495,7 @@ button {
   pointer-events: none;
   transform: translateY(-10px);
   transition: opacity 150ms ease-in-out, transform 150ms ease-in-out;
-  height: 15rem;
+  max-height: 15rem;
   width: 5rem;
   overflow-y: auto;
   overflow-x: hidden;
