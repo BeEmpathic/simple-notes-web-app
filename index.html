@@ -160,7 +160,7 @@
     <template data-folder-template>
       <div data-folder class="folder">
         <header class="folder-header">
-          <span class="folder-name">
+          <span class="folder-name-wrapper">
             <button data-folder-fold-btn>
               <img
                 class="folder-arrow"
@@ -170,16 +170,18 @@
             </button>
 
             <img src="./icons/folder.svg" alt="folder-icon" />
-            <h3 data-folder-name></h3>
+            <h3 class="folder-name" data-folder-name></h3>
           </span>
           <div class="folder-right-side">
             <span data-folder-items-count>0</span>
-            <img
-              class="note-btn"
-              data-folder-trash
-              src="./icons/delete.svg"
-              alt="trash"
-            />
+            <button data-folder-delete-btn>
+              <img
+                class="note-btn"
+                data-folder-trash
+                src="./icons/delete.svg"
+                alt="trash"
+              />
+            </button>
           </div>
         </header>
         <div data-folder-content class="folder-content"></div>

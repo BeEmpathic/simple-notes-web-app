@@ -52,6 +52,8 @@ button {
   display: flex;
   flex-direction: column;
   padding: 1rem;
+  text-wrap: wrap;
+  word-wrap: break-word;
 }
 
 .hamburger-menu {
@@ -418,14 +420,20 @@ button {
   align-items: center;
   width: 100%;
   justify-content: space-between;
+  overflow-wrap: break-word;
 }
 
-.folder-name {
+.folder-name-wrapper {
   display: flex;
 }
 
-.folder-name h3 {
+.folder-name {
   margin: 0.3rem;
+  text-wrap: wrap;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+
+  max-width: 100%;
 }
 
 .folder {
@@ -441,6 +449,7 @@ button {
 .folder-right-side {
   display: flex;
   align-items: center;
+  gap: 0.3rem;
 }
 
 .folder-content {

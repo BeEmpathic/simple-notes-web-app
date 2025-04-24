@@ -408,6 +408,7 @@ export function displayFolders() {
         const folderItemsCount = folder.content.length
         const folderItemsCountElement = template.querySelector("[data-folder-items-count]")
         const folderFoldBtn = template.querySelector("[data-folder-fold-btn]")
+        const folderDeleteBtn = template.querySelector("[data-folder-delete-btn]")
         folderName.textContent = folder.name // I think this is a mistake
 
         folderName.textContent === "All Notes" && !filter ? folderDiv.classList.toggle("active") : ""
@@ -478,6 +479,12 @@ export function displayFolders() {
             }
         })
 
+        folderDeleteBtn.addEventListener("click", (e) => {
+            console.log("delete btn was clicked")
+            deleteFolder(folder.id)
+            e.stopPropagation()
+        })
+
 
         foldersContainer.append(template)
     })
@@ -533,7 +540,10 @@ function saveFolderContent(content, id) {
 
 
 function deleteFolder(id) {
-
+    folders = folders.filter(f => f.id !== id)
+    localStorage.setItem("folders", JSON.stringify(folders))
+    displayFolders()
+    displayNotes()
 }
 
 
