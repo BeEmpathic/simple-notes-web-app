@@ -38,7 +38,7 @@ button {
 }
 
 .container {
-  width: 100%;
+  width: 100dvw;
   display: grid;
   min-height: 100dvh;
   grid-template-columns: 20% 80%;
@@ -52,8 +52,7 @@ button {
   display: flex;
   flex-direction: column;
   padding: 1rem;
-  text-wrap: wrap;
-  word-wrap: break-word;
+  max-width: 100%;
 }
 
 .hamburger-menu {
@@ -205,7 +204,7 @@ button {
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 100%;
+  width: 100%;
   padding: 1rem;
   background-color: var(--background-color);
 }
@@ -418,27 +417,33 @@ button {
 .folder-header {
   display: flex;
   align-items: center;
-  width: 100%;
   justify-content: space-between;
-  overflow-wrap: break-word;
+  max-width: 100%;
+  flex-wrap: nowrap; /* keep everything in one line */
+  gap: 0.5rem;
 }
 
 .folder-name-wrapper {
   display: flex;
+  flex: 1 1 auto;
+  min-width: 0; /* allow folder-name to shrink */
+  align-items: center;
+  gap: 0.3rem;
 }
 
 .folder-name {
-  margin: 0.3rem;
-  text-wrap: wrap;
-  word-wrap: break-word;
   white-space: pre-wrap;
-
-  max-width: 100%;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 .folder {
   display: flex;
   flex-direction: column;
+  max-width: 100%;
+  border: 1px solid black;
 }
 
 .folder.active header {
@@ -450,6 +455,7 @@ button {
   display: flex;
   align-items: center;
   gap: 0.3rem;
+  max-width: 100%;
 }
 
 .folder-content {
