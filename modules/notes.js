@@ -436,6 +436,7 @@ export function displayFolders() {
 
 
                         const noteDiv = document.createElement("div")
+                        noteDiv.classList.add("folder-item")
                         noteDiv.innerHTML = '<img src="./icons/note.svg" alt="note icon">' + (note.title ? note.title : '<span style="color: gray">(note without a title)</span>')
                         folderContent.append(noteDiv)
 

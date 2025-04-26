@@ -488,13 +488,16 @@ button {
 .folder-content > div {
   display: flex;
   align-items: center;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
+
+/* Move code below closer to the note cause it's stuff in note */
 
 .folder-select-dropdown {
   position: relative;
 }
-
-/* Move code below closer to the note cause it's stuff in note */
 
 .folder-select-dropdown-menu {
   position: absolute;
