@@ -392,11 +392,12 @@ export function displayFolders() {
     }
 
     folders = JSON.parse(localStorage.getItem("folders"))
-
-
     allNotesFolder()
-
+    folders = folders.filter(f => f.id !== "All Notes")
     foldersContainer.innerHTML = ""
+
+
+
 
 
 
