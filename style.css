@@ -425,8 +425,7 @@ button {
 
 .folder-name-wrapper {
   display: flex;
-  flex: 1 1 auto;
-  min-width: 0; /* allow folder-name to shrink */
+
   align-items: center;
   gap: 0.3rem;
 }
@@ -435,7 +434,7 @@ button {
   white-space: pre-wrap;
   word-break: break-word;
   overflow-wrap: break-word;
-  flex: 1 1 auto;
+
   min-width: 0;
 }
 
@@ -443,11 +442,9 @@ button {
   display: flex;
   flex-direction: column;
   max-width: 100%;
-  border: 1px solid black;
 }
 
 .folder.active header {
-  padding-right: 1rem;
   background-color: var(--background-color);
 }
 
