@@ -453,6 +453,7 @@ button {
 
 .folder.active header {
   background-color: var(--background-color);
+  border-radius: 15px;
 }
 
 .folder-right-side {
