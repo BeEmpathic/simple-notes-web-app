@@ -410,6 +410,7 @@ export function displayFolders() {
         const folderFoldBtn = template.querySelector("[data-folder-fold-btn]")
         const folderDeleteBtn = template.querySelector("[data-folder-delete-btn]")
         const folderRightSide = template.querySelector("[data-folder-right-side]")
+        const folderNameWrapper = template.querySelector("[data-folder-name-wrapper]")
         folderName.textContent = folder.name // I think this is a mistake
 
 
@@ -488,11 +489,12 @@ export function displayFolders() {
             e.stopPropagation()
         })
 
-
+        // all notes clearning section I probably should separet this better
         if (folder.id === "All Notes") {
             folderDiv.classList.toggle("active")
             folderRightSide.removeChild(folderDeleteBtn)
-
+            const folderClearName = folderName.cloneNode(true)
+            folderNameWrapper.replaceChild(folderClearName, folderName)
         }
 
 
