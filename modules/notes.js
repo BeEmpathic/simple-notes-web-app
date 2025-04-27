@@ -492,6 +492,7 @@ export function displayFolders() {
         // all notes clearning section I probably should separet this better
         if (folder.id === "All Notes") {
             folderDiv.classList.toggle("active")
+            folderDiv.id = "all-notes"
             folderRightSide.removeChild(folderDeleteBtn)
             const folderClearName = folderName.cloneNode(true)
             folderNameWrapper.replaceChild(folderClearName, folderName)

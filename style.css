@@ -426,6 +426,10 @@ button {
   gap: 0.5rem;
 }
 
+#all-notes header {
+  padding-right: 0.5rem;
+}
+
 .folder-name-wrapper {
   display: flex;
 
