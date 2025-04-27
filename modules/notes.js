@@ -393,7 +393,6 @@ export function displayFolders() {
 
     folders = JSON.parse(localStorage.getItem("folders"))
     allNotesFolder()
-    folders = folders.filter(f => f.id !== "All Notes")
     foldersContainer.innerHTML = ""
 
 
@@ -410,9 +409,11 @@ export function displayFolders() {
         const folderItemsCountElement = template.querySelector("[data-folder-items-count]")
         const folderFoldBtn = template.querySelector("[data-folder-fold-btn]")
         const folderDeleteBtn = template.querySelector("[data-folder-delete-btn]")
+        const folderRightSide = template.querySelector("[data-folder-right-side]")
         folderName.textContent = folder.name // I think this is a mistake
 
-        folderName.textContent === "All Notes" && !filter ? folderDiv.classList.toggle("active") : ""
+
+
 
 
         folderFoldBtn.addEventListener("click", (e) => {
@@ -486,6 +487,13 @@ export function displayFolders() {
             deleteFolder(folder.id)
             e.stopPropagation()
         })
+
+
+        if (folder.id === "All Notes") {
+            folderDiv.classList.toggle("active")
+            folderRightSide.removeChild(folderDeleteBtn)
+
+        }
 
 
         foldersContainer.append(template)
