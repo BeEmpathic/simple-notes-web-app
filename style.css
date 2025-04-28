@@ -12,6 +12,8 @@ body,
   --utlities-color: #123458;
   --brighter-utlities-color: #34567a;
 
+  --error-color: red;
+
   /* hamburger menu variables */
   --bar-width: 60px;
   --bar-height: 8px;
@@ -28,6 +30,9 @@ button {
   border: none;
 }
 
+.error {
+  color: var(--error-color);
+}
 .note-btn:hover {
   filter: invert(60%);
   cursor: pointer;

@@ -473,7 +473,32 @@ export function displayFolders() {
 
         folderName.addEventListener("blur", (e) => {
             e.target.removeAttribute("contenteditable")
-            changeFolderName(e.target.textContent, folder.id)
+            const folderNameValidationResult = folderNameValidation(e.target.textContent, folder.id)
+
+            switch (folderNameValidationResult) {
+                case 'Folder name can\'t be "All Notes"': {
+                    const errorDiv = document.createElement("div")
+                    errorDiv.classList.add("error")
+                    errorDiv.textContent = folderNameValidationResult
+                    folderName.parentElement.append(errorDiv)
+                    return
+                }
+                case 'Folder name can\'t be empty string': {
+                    const errorDiv = document.createElement("div")
+                    errorDiv.classList.add("error")
+                    errorDiv.textContent = folderNameValidationResult
+                    folderName.parentElement.append(errorDiv)
+                    return
+                }
+
+                case true:
+
+                    break
+
+                default:
+                    console.log("Something broke")
+                    return
+            }
         })
 
         folderName.addEventListener("keydown", (e) => {
@@ -530,6 +555,23 @@ function changeFolderName(name, id = self.crypto.randomUUID()) {
     localStorage.setItem("folders", JSON.stringify(folders))
     displayFolders()
     displayNotes() // I wouldn't say that it's good that you are refreshign folderrs like this
+}
+
+
+function folderNameValidation(folderName, folderId) {
+    switch (folderName) {
+        case "All Notes":
+            return 'Folder name can\'t be "All Notes"'
+
+
+        case "":
+            return "'Folder name can\'t be empty string'"
+
+        default:
+            changeFolderName(folderName, folderId)
+            return true
+    }
+
 }
 
 
