@@ -37,8 +37,10 @@ export function displayNotes() {
     }
 
     // sort the by date the newest one on top
+    notesToDisplay = notesToDisplay
 
-    notesToDisplay = sortByBoolean(notesToDisplay, "pinned")
+    notesToDisplay = sortByDate(notesToDisplay, "createdAt")
+    notesToDisplay = sortByDate(notesToDisplay, "pinned")
 
 
 
@@ -203,7 +205,7 @@ export function saveNote(title, content = "", id = self.crypto.randomUUID()) {
             bgColor: "white",
             createdAt: now,
             modifiedAt: now,
-            pinned: false
+            pinned: false,
         }
         notes.push(note)
     }
@@ -261,7 +263,7 @@ function pinNote(id) {
     let notes = JSON.parse(localStorage.getItem("notes"))
     let noteIndex = notes.findIndex(n => n.id === id);
     if (noteIndex !== -1) {
-        notes[noteIndex].pinned = notes[noteIndex].pinned ? false : true;
+        notes[noteIndex].pinned = notes[noteIndex].pinned ? false : new Date();
         localStorage.setItem("notes", JSON.stringify(notes))
     }
     displayNotes()
@@ -620,8 +622,8 @@ createFolderbtn.addEventListener("click", () => changeFolderName("New Folder"))
 
 
 
-function sortByBoolean(arr, key) {
-    return arr.sort((a, b) => b[key] - a[key]);
+function sortByDate(arr, key) {
+    return arr.sort((a, b) => new Date(b[key]) - new Date(a[key]));
 }
 
 
