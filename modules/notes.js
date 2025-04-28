@@ -473,7 +473,7 @@ export function displayFolders() {
 
         // some folder validation is here cause of how lazy I'm please don't read the code 
         // I do it cause I want to make this project quick so I can go and learn next.js instead
-
+        let errorTimeOut
         folderName.addEventListener("blur", (e) => {
             e.target.removeAttribute("contenteditable")
             const folderNameValidationResult = folderNameValidation(e.target.textContent, folder.id)
@@ -484,9 +484,11 @@ export function displayFolders() {
                     errorDiv.classList.add("error")
                     errorDiv.textContent = folderNameValidationResult
                     folderName.textContent = folder.name
-
-                    folderName.parentElement.append(errorDiv)
-                    return
+                    folderName.parentElement.parentElement.after(errorDiv)
+                    errorTimeOut = setTimeout(() => {
+                        folderName.parentElement.parentElement.parentElement.removeChild(errorDiv) // this is disgusting 
+                    }, 5000)
+                    break
                 }
                 case 'Folder name can\'t be empty string': {
                     const errorDiv = document.createElement("div")
@@ -494,7 +496,12 @@ export function displayFolders() {
                     errorDiv.textContent = folderNameValidationResult
                     folderName.textContent = folder.name
                     folderName.parentElement.parentElement.after(errorDiv)
-                    return
+
+                    errorTimeOut = setTimeout(() => {
+                        folderName.parentElement.parentElement.parentElement.removeChild(errorDiv) // this is disgusting 
+                    }, 5000)
+
+                    break
                 }
 
                 case true:
@@ -503,7 +510,7 @@ export function displayFolders() {
 
                 default:
                     console.log("Something broke")
-                    return
+                    break
             }
         })
 
