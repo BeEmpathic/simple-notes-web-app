@@ -404,7 +404,7 @@ export function displayFolders() {
         const template = folderTemplate.content.cloneNode(true)
         const folderDiv = template.querySelector("[data-folder]")
         const folderContent = template.querySelector("[data-folder-content]")
-        const folderName = template.querySelector("[data-folder-name]")
+        const folderName = template.querySelector("[data-folder-name]")// this won't work if you make it dynamic, but you will probably change the whole code in that case anyway
         const folderItemsCount = folder.content.length
         const folderItemsCountElement = template.querySelector("[data-folder-items-count]")
         const folderFoldBtn = template.querySelector("[data-folder-fold-btn]")
@@ -471,6 +471,9 @@ export function displayFolders() {
             e.target.focus();
         });
 
+        // some folder validation is here cause of how lazy I'm please don't read the code 
+        // I do it cause I want to make this project quick so I can go and learn next.js instead
+
         folderName.addEventListener("blur", (e) => {
             e.target.removeAttribute("contenteditable")
             const folderNameValidationResult = folderNameValidation(e.target.textContent, folder.id)
@@ -480,6 +483,8 @@ export function displayFolders() {
                     const errorDiv = document.createElement("div")
                     errorDiv.classList.add("error")
                     errorDiv.textContent = folderNameValidationResult
+                    folderName.textContent = folder.name
+
                     folderName.parentElement.append(errorDiv)
                     return
                 }
@@ -487,7 +492,8 @@ export function displayFolders() {
                     const errorDiv = document.createElement("div")
                     errorDiv.classList.add("error")
                     errorDiv.textContent = folderNameValidationResult
-                    folderName.parentElement.append(errorDiv)
+                    folderName.textContent = folder.name
+                    folderName.parentElement.parentElement.after(errorDiv)
                     return
                 }
 
@@ -514,7 +520,7 @@ export function displayFolders() {
             e.stopPropagation()
         })
 
-        // all notes clearning section I probably should separet this better
+        // all notes clearning section I probably should separate this better
         if (folder.id === "All Notes") {
             folderDiv.classList.toggle("active")
             folderDiv.id = "all-notes"
@@ -565,7 +571,7 @@ function folderNameValidation(folderName, folderId) {
 
 
         case "":
-            return "'Folder name can\'t be empty string'"
+            return 'Folder name can\'t be empty string'
 
         default:
             changeFolderName(folderName, folderId)
