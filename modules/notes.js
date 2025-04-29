@@ -152,10 +152,11 @@ export function displayNotes() {
         // textOverFlowHandler(noteContent)
 
     })
-
-
-
 }
+
+const searchNotesInput = document.querySelector("[data-notes-search-bar-input]")
+
+search
 
 
 
