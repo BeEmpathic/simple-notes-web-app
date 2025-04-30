@@ -171,9 +171,6 @@ button {
   filter: brightness(1.4);
 }
 
-.notes-search-form {
-}
-
 .notes-search-bar {
   min-width: 40%;
   margin-bottom: 0.5rem;
