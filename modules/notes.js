@@ -39,6 +39,7 @@ export function displayNotes() {
         notesToDisplay = notesToDisplay.filter(n => filter.some(filterContent => n.id === filterContent.itemId))
     }
 
+    filter = undefined
     // sort the by date the newest one on top
     notesToDisplay = notesToDisplay
 
@@ -145,6 +146,7 @@ export function displayNotes() {
 
                     e.stopPropagation()
                 })
+
                 addToFolderDropdownMenuContent.appendChild(folderItem)
             })
 
