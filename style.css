@@ -47,7 +47,7 @@ button {
 }
 
 .container {
-  width: 100dvw;
+  max-width: 100dvw;
   display: grid;
   min-height: 100dvh;
   grid-template-columns: 20% 80%;
@@ -210,7 +210,7 @@ button {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
+  max-width: 100%;
   padding: 1rem;
   background-color: var(--background-color);
 }
@@ -221,7 +221,7 @@ button {
 }
 
 .notes-wrapper {
-  width: 100%;
+  max-width: 100%;
   margin-bottom: 1rem;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
