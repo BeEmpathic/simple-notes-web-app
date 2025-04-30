@@ -30,6 +30,10 @@ button {
   border: none;
 }
 
+.hidden {
+  display: none !important;
+}
+
 .error {
   color: var(--error-color);
 }

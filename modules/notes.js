@@ -23,7 +23,10 @@ export function displayNotes() {
 
 
     let notesToDisplay = notes
+    // it's needed for the notes button 
     let foldersToDisplay = folders.filter(f => f.id !== "All Notes")
+
+
 
 
     // try to change that to update what has to be updated instead of updating the whole website
@@ -155,8 +158,25 @@ export function displayNotes() {
 }
 
 const searchNotesInput = document.querySelector("[data-notes-search-bar-input]")
+let notesOnScreen
 
-search
+searchNotesInput.addEventListener("click", () => {
+    notesOnScreen = document.querySelectorAll("[data-note]")
+    console.log(notesOnScreen)
+})
+
+searchNotesInput.addEventListener("input", e => {
+    const value = e.target.value.toLowerCase()
+    if (notesOnScreen) {
+        notesOnScreen.forEach(noteOnScreen => {
+            const title = noteOnScreen.querySelector("[data-note-title]")
+            const content = noteOnScreen.querySelector("[data-note-content]")
+            const isVisible = title.textContent.toLowerCase().includes(value) || content.textContent.toLowerCase().includes(value)
+
+            noteOnScreen.classList.toggle("hidden", !isVisible)
+        })
+    }
+})
 
 
 
