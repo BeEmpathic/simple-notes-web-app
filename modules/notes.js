@@ -157,6 +157,11 @@ export function displayNotes() {
     })
 }
 
+function folderCheckBoxHandler() {
+
+}
+
+
 const searchNotesInput = document.querySelector("[data-notes-search-bar-input]")
 let notesOnScreen
 

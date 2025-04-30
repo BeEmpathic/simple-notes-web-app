@@ -172,11 +172,11 @@ button {
 }
 
 .notes-search-form {
-  min-width: 40%;
-  margin-bottom: 0.5rem;
 }
 
 .notes-search-bar {
+  min-width: 40%;
+  margin-bottom: 0.5rem;
   display: flex;
 }
 
