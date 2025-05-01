@@ -10,6 +10,6 @@ It is simple notes taking web app which allows you to organize your notes using 
 - Taking notes
 - Organizing notes
 
-## Made with HTML, CSS and vanilla Js 
+### Made with HTML, CSS and vanilla Js 
 
-## Thank you for your attention
+# Thank you for your attention!
