@@ -404,7 +404,9 @@ foldersContainer.addEventListener("click", (e) => {
 
     foldersOnSite.forEach((folder) => {
         if (e.target !== folder && folder.classList.contains("active")) {
-            folder.classList.toggle("active")
+
+            folder.classList.remove("active")
+
         }
     })
 
@@ -490,7 +492,11 @@ export function displayFolders() {
                     filter = folder.content
                     displayNotes();
                 }
-                folderDiv.classList.toggle("active")
+                if (!folderDiv.classList.contains("active")) {
+                    console.log("It was true")
+                    folderDiv.classList.toggle("active")
+
+                }
             }, 150); // Delay to allow dblclick to be detected
         });
 

@@ -1,2 +1,5 @@
 # simple-notes-web-app
-I'm doing this small simple notes web app to remind myself how to use simple stuff for web browser.
+
+It is simple notes taking web app which allows you to organize your notes using folders
+
+## Screenshots
