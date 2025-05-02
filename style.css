@@ -15,8 +15,8 @@ body,
   --error-color: red;
 
   /* hamburger menu variables */
-  --bar-width: 60px;
-  --bar-height: 8px;
+  --bar-width: 2.4rem;
+  --bar-height: 0.4rem;
   --hamburger-gap: 6px;
   --foreground: #333;
   --background: white;
